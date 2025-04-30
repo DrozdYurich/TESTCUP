@@ -1,19 +1,20 @@
 <template>
-  <div class="card flex justify-center">
+  {{ initialValues }}
+  <div class="flex justify-center">
+    <Toast />
     <Form
-      :initialValues
-      :resolver
+      v-slot="{ data }"
+      :initialValues="initialValues"
+      :resolver="resolver"
       @submit="onFormSubmit"
       class="flex flex-col gap-4 w-full sm:w-80"
     >
-      <FormField
-        v-slot="$field"
-        name="username"
-        initialValue=""
-        :resolver="zodUserNameResolver"
-        class="flex flex-col gap-1"
-      >
-        <InputText type="text" placeholder="Username" />
+      <FormField v-slot="$field" name="nickname" class="flex flex-col gap-1">
+        <InputText
+          type="text"
+          v-model="initialValues.nickname"
+          placeholder="NickName"
+        />
         <Message
           v-if="$field?.invalid"
           severity="error"
@@ -22,14 +23,8 @@
           >{{ $field.error?.message }}</Message
         >
       </FormField>
-      <FormField
-        v-slot="$field"
-        name="firstname"
-        initialValue=""
-        :resolver="yupFirstNameResolver"
-        class="flex flex-col gap-1"
-      >
-        <InputText type="text" placeholder="First Name" />
+      <FormField v-slot="$field" name="name" class="flex flex-col gap-1">
+        <InputText type="text" v-model="initialValues.name" placeholder="Имя" />
         <Message
           v-if="$field?.invalid"
           severity="error"
@@ -38,14 +33,12 @@
           >{{ $field.error?.message }}</Message
         >
       </FormField>
-      <FormField
-        v-slot="$field"
-        name="lastname"
-        initialValue=""
-        :resolver="valibotLastNameResolver"
-        class="flex flex-col gap-1"
-      >
-        <InputText type="text" placeholder="Last Name" />
+      <FormField v-slot="$field" name="surname" class="flex flex-col gap-1">
+        <InputText
+          type="text"
+          v-model="initialValues.surname"
+          placeholder="Фамилия"
+        />
         <Message
           v-if="$field?.invalid"
           severity="error"
@@ -54,16 +47,25 @@
           >{{ $field.error?.message }}</Message
         >
       </FormField>
-      <FormField
-        v-slot="$field"
-        name="password"
-        initialValue=""
-        :resolver="customPasswordResolver"
-        class="flex flex-col gap-1"
-      >
+      <FormField v-slot="$field" name="patronymic" class="flex flex-col gap-1">
+        <InputText
+          type="text"
+          v-model="initialValues.patronymic"
+          placeholder="Отчество"
+        />
+        <Message
+          v-if="$field?.invalid"
+          severity="error"
+          size="small"
+          variant="simple"
+          >{{ $field.error?.message }}</Message
+        >
+      </FormField>
+      <FormField v-slot="$field" name="password" class="flex flex-col gap-1">
         <Password
           type="text"
           placeholder="Password"
+          v-model="initialValues.password"
           :feedback="false"
           toggleMask
           fluid
@@ -76,72 +78,63 @@
           >{{ $field.error?.message }}</Message
         >
       </FormField>
-      <FormField v-slot="$field" name="details" class="flex flex-col gap-1">
-        <Textarea placeholder="Details" />
-        <Message
-          v-if="$field?.invalid"
-          severity="error"
-          size="small"
-          variant="simple"
-          >{{ $field.error?.message }}</Message
-        >
-      </FormField>
-      <Button type="submit" severity="secondary" label="Submit" />
+      <Button type="submit" severity="success" label="Зарегестрироваться" />
     </Form>
   </div>
 </template>
 
 <script setup>
 import { reactive } from "vue";
-import { valibotResolver } from "@primevue/forms/resolvers/valibot";
 import { yupResolver } from "@primevue/forms/resolvers/yup";
-import { zodResolver } from "@primevue/forms/resolvers/zod";
-import * as v from "valibot";
 import * as yup from "yup";
-import { z } from "zod";
 import { useToast } from "primevue/usetoast";
-
+import { FormField } from "@primevue/forms";
+import {
+  Button,
+  InputText,
+  Message,
+  Password,
+  Textarea,
+  Toast,
+} from "primevue";
+import { Form } from "@primevue/forms";
 const toast = useToast();
 
 const initialValues = reactive({
-  details: "",
+  name: "",
+  nickname: "",
+  surname: "",
+  patronymic: "",
+  password: "",
 });
+const schema = yup.object().shape({
+  name: yup.string().required("Введите Имя"),
+  nickname: yup.string().required("Введите NickName"),
+  surname: yup.string().required("Введите Фамилию"),
+  password: yup
+    .string()
+    .min(8, "Пароль должен содержать минимум 8 символов")
+    .matches(/[a-z]/, "Должна быть хотя бы одна строчная буква")
+    .matches(/[A-Z]/, "Должна быть хотя бы одна заглавная буква")
+    .matches(/\d/, "Должна быть хотя бы одна цифра")
+    .required("Пароль обязателен"),
+});
+const resolver = yupResolver(schema);
+const onFormSubmit = async (formData) => {
+  console.log("Form submitted", formData);
 
-const resolver = zodResolver(
-  z.object({
-    details: z
-      .string()
-      .min(1, { message: "Details is required via Form Resolver." }),
-  })
-);
-
-const zodUserNameResolver = zodResolver(
-  z.string().min(1, { message: "Username is required via Zod." })
-);
-const yupFirstNameResolver = yupResolver(
-  yup.string().required("First name is required via Yup.")
-);
-const valibotLastNameResolver = valibotResolver(
-  v.pipe(v.string(), v.minLength(1, "Last name is required via Valibot."))
-);
-
-const customPasswordResolver = ({ value }) => {
-  const errors = [];
-
-  if (!value) {
-    errors.push({ message: "Password is required via Custom." });
-  }
-
-  return {
-    errors,
-  };
-};
-
-const onFormSubmit = ({ valid }) => {
-  if (valid) {
+  if (formData.valid) {
     toast.add({
       severity: "success",
-      summary: "Form is submitted.",
+      summary: "Вы успешно зарегистрировались",
+      detail: `Добро пожаловать, ${formData.values.name} ${formData.values.surname}!`,
+      life: 3000,
+    });
+  } else {
+    toast.add({
+      severity: "error",
+      summary: "Ошибка валидации",
+      detail: "Пожалуйста, проверьте введенные данные",
       life: 3000,
     });
   }
