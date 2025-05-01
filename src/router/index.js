@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import Home from "@/views/Home.vue";
 import Auth from "@/components/Auth/Auth.vue";
+import Login from "@/components/Auth/Login.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +20,15 @@ const router = createRouter({
       path: "/auth",
       name: "auth",
       component: Auth,
+      meta: {
+        layout: "Auth",
+        auth: false,
+      },
+    },
+    {
+      path: "/login",
+      name: "name",
+      component: Login,
       meta: {
         layout: "Auth",
         auth: false,

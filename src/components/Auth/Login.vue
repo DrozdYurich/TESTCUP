@@ -1,5 +1,5 @@
 <template>
-  <div><AppForm mode="registr" /></div>
+  <div><AppForm mode="login" /></div>
 </template>
 <script setup>
 import AppForm from "./AppForm.vue";
