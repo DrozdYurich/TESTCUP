@@ -1,85 +1,162 @@
 <template>
-  {{ initialValues }}
-  <div class="flex justify-center">
+  <div class="flex items-center justify-center min-h-screen bg-gray-900">
     <Toast />
-    <Form
-      v-slot="{ data }"
-      :initialValues="initialValues"
-      :resolver="resolver"
-      @submit="onFormSubmit"
-      class="flex flex-col gap-4 w-full sm:w-80"
-    >
-      <FormField v-slot="$field" name="nickname" class="flex flex-col gap-1">
-        <InputText
-          type="text"
-          v-model="initialValues.nickname"
-          placeholder="NickName"
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+      <Form
+        :initialValues="initialValues"
+        :resolver="resolver"
+        @submit="onFormSubmit"
+        class="flex flex-col gap-4 w-full"
+      >
+        <FormField v-slot="$field" name="nickname" class="flex flex-col gap-1">
+          <FloatLabel variant="on"
+            ><InputText
+              class="w-full"
+              type="text"
+              v-model="initialValues.nickname"
+              id="nickname"
+            />
+            <label for="nickname">NickName</label>
+          </FloatLabel>
+
+          <Message
+            v-if="$field?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ $field.error?.message }}</Message
+          >
+        </FormField>
+        <FormField v-slot="$field" name="name" class="flex flex-col gap-1">
+          <FloatLabel variant="on">
+            <InputText
+              class="w-full"
+              type="text"
+              v-model="initialValues.name"
+              id="name"
+            />
+            <label for="name">Имя</label>
+          </FloatLabel>
+          <Message
+            v-if="$field?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ $field.error?.message }}</Message
+          >
+        </FormField>
+        <FormField v-slot="$field" name="surname" class="flex flex-col gap-1">
+          <FloatLabel variant="on">
+            <InputText
+              class="w-full"
+              type="text"
+              v-model="initialValues.surname"
+              id="surname"
+            />
+            <label for="surname">Фамилия</label>
+          </FloatLabel>
+          <Message
+            v-if="$field?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ $field.error?.message }}</Message
+          >
+        </FormField>
+        <FormField
+          v-slot="$field"
+          name="patronymic"
+          class="flex flex-col gap-1"
+        >
+          <FloatLabel variant="on">
+            <InputText
+              class="w-full"
+              type="text"
+              v-model="initialValues.patronymic"
+              id="patronymic"
+            />
+            <label for="patronymic">Отчество</label>
+          </FloatLabel>
+          <Message
+            v-if="$field?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ $field.error?.message }}</Message
+          >
+        </FormField>
+        <FormField v-slot="$field" name="password" class="flex flex-col gap-1">
+          <FloatLabel variant="on">
+            <Password
+              type="text"
+              id="password"
+              v-model="initialValues.password"
+              :feedback="false"
+              toggleMask
+              fluid
+            />
+            <label for="password">Пароль</label>
+          </FloatLabel>
+          <Message
+            v-if="$field?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ $field.error?.message }}</Message
+          >
+        </FormField>
+        <FormField v-slot="$field" name="dR" class="flex flex-col gap-1">
+          <FloatLabel variant="on">
+            <DatePicker
+              class="w-full"
+              type="text"
+              v-model="initialValues.dR"
+              input-id="dR"
+              show-icon
+              fluid
+              :show-on-focus="false"
+            />
+            <label for="dR">Дата рождения</label>
+          </FloatLabel>
+          <Message
+            v-if="$field?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ $field.error?.message }}</Message
+          >
+        </FormField>
+        <FormField v-slot="$field" name="email" class="flex flex-col gap-1">
+          <FloatLabel variant="on">
+            <InputText
+              class="w-full"
+              type="text"
+              v-model="initialValues.email"
+              id="email"
+            />
+            <label for="email"> Email</label>
+          </FloatLabel>
+          <Message
+            v-if="$field?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ $field.error?.message }}</Message
+          >
+        </FormField>
+        <Message severity="info" class="text-center">
+          Уже есть аккаунт?
+          <a href="/login" class="text-blue-600 underline hover:text-blue-800"
+            >Войти</a
+          >
+        </Message>
+        <Button
+          type="submit"
+          class="bg-black border-0 hover:bg-blue-950"
+          label="Зарегестрироваться"
         />
-        <Message
-          v-if="$field?.invalid"
-          severity="error"
-          size="small"
-          variant="simple"
-          >{{ $field.error?.message }}</Message
-        >
-      </FormField>
-      <FormField v-slot="$field" name="name" class="flex flex-col gap-1">
-        <InputText type="text" v-model="initialValues.name" placeholder="Имя" />
-        <Message
-          v-if="$field?.invalid"
-          severity="error"
-          size="small"
-          variant="simple"
-          >{{ $field.error?.message }}</Message
-        >
-      </FormField>
-      <FormField v-slot="$field" name="surname" class="flex flex-col gap-1">
-        <InputText
-          type="text"
-          v-model="initialValues.surname"
-          placeholder="Фамилия"
-        />
-        <Message
-          v-if="$field?.invalid"
-          severity="error"
-          size="small"
-          variant="simple"
-          >{{ $field.error?.message }}</Message
-        >
-      </FormField>
-      <FormField v-slot="$field" name="patronymic" class="flex flex-col gap-1">
-        <InputText
-          type="text"
-          v-model="initialValues.patronymic"
-          placeholder="Отчество"
-        />
-        <Message
-          v-if="$field?.invalid"
-          severity="error"
-          size="small"
-          variant="simple"
-          >{{ $field.error?.message }}</Message
-        >
-      </FormField>
-      <FormField v-slot="$field" name="password" class="flex flex-col gap-1">
-        <Password
-          type="text"
-          placeholder="Password"
-          v-model="initialValues.password"
-          :feedback="false"
-          toggleMask
-          fluid
-        />
-        <Message
-          v-if="$field?.invalid"
-          severity="error"
-          size="small"
-          variant="simple"
-          >{{ $field.error?.message }}</Message
-        >
-      </FormField>
-      <Button type="submit" severity="success" label="Зарегестрироваться" />
-    </Form>
+      </Form>
+    </div>
   </div>
 </template>
 
@@ -91,6 +168,8 @@ import { useToast } from "primevue/usetoast";
 import { FormField } from "@primevue/forms";
 import {
   Button,
+  DatePicker,
+  FloatLabel,
   InputText,
   Message,
   Password,
@@ -106,11 +185,21 @@ const initialValues = reactive({
   surname: "",
   patronymic: "",
   password: "",
+  dR: "",
+  email: "",
 });
 const schema = yup.object().shape({
   name: yup.string().required("Введите Имя"),
   nickname: yup.string().required("Введите NickName"),
   surname: yup.string().required("Введите Фамилию"),
+  dR: yup
+    .date()
+    .typeError("Укажите дату своего рождения")
+    .required("Укажите дату своего рождения"),
+  email: yup
+    .string()
+    .required("Укажите email")
+    .email("Некорректный формат email"),
   password: yup
     .string()
     .min(8, "Пароль должен содержать минимум 8 символов")
@@ -121,9 +210,12 @@ const schema = yup.object().shape({
 });
 const resolver = yupResolver(schema);
 const onFormSubmit = async (formData) => {
-  console.log("Form submitted", formData);
-
   if (formData.valid) {
+    const formattedData = {
+      ...formData.values,
+      dR: new Date(formData.values.dR).toISOString().split("T")[0], // 'YYYY-MM-DD'
+    };
+    console.log("Form submitted", formattedData);
     toast.add({
       severity: "success",
       summary: "Вы успешно зарегистрировались",
