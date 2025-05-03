@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 import AuthLayout from "./Layout/AuthLayout.vue";
 import MainLayout from "./Layout/MainLayout.vue";
+import Toast from "primevue/toast";
 
 const route = useRoute();
 const layout = computed(() => {
@@ -11,10 +12,11 @@ const layout = computed(() => {
 </script>
 
 <template>
+  <Toast />
   <component :is="layout">
     <RouterView v-slot="{ Component }">
       <Transition name="fade" mode="out-in">
-        <component :is="Component" />
+        <component :is="Component" :key="$route.path" />
       </Transition>
     </RouterView>
   </component>

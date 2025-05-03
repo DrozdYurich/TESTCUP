@@ -1,6 +1,5 @@
 <template>
   <div class="flex items-center justify-center min-h-screen bg-gray-900">
-    <Toast />
     <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
       <Divider align="center" type="solid">
         <span class="text-xl font-bold">
@@ -182,7 +181,7 @@ import { yupResolver } from "@primevue/forms/resolvers/yup";
 import * as yup from "yup";
 import { useToast } from "primevue/usetoast";
 import { FormField } from "@primevue/forms";
-
+import { useToastStore } from "@/stores/useToastStore";
 import { nextTick } from "vue";
 import {
   Button,
@@ -208,7 +207,7 @@ const props = defineProps({
 const router = useRouter();
 const authStore = useAuthStore();
 const { getToken, isAuth } = storeToRefs(useAuthStore());
-const toast = useToast();
+const toastStore = useToastStore();
 
 const initialValues = reactive({
   name: "",
@@ -280,52 +279,40 @@ const onFormSubmit = async (formData) => {
         router.push("/");
       } else {
         console.error("Registration failed");
-        toast.add({
-          severity: "error",
-          summary:
-            props.mode === "registr"
-              ? "Регистрация не выполнена"
-              : "Вход не выполнен",
-          detail: "Пожалуйста, попробуйте снова",
-          life: 3000,
-        });
-        return;
-      }
-      console.log(response);
-      toast.add({
-        severity: "success",
-        summary:
-          props.mode === "registr"
-            ? "Вы успешно зарегистрировались"
-            : "Вход выполнен",
-        detail:
-          props.mode === "registr"
-            ? `Добро пожаловать, ${formData.values.name} ${formData.values.surname}!`
-            : "Добро пожаловать!",
-        life: 3000,
-      });
-    } else {
-      toast.add({
-        severity: "error",
-        summary:
+        toastStore.showErrorToast(
           props.mode === "registr"
             ? "Регистрация не выполнена"
             : "Вход не выполнен",
-        detail: "Пожалуйста, проверьте введенные данные",
-        life: 3000,
-      });
-    }
-  } catch (error) {
-    console.log(error);
-    toast.add({
-      severity: "error",
-      summary:
+          "Пожалуйста, проверьте введенные данные"
+        );
+
+        return;
+      }
+      console.log(response);
+      toastStore.showSuccessToast(
+        props.mode === "registr"
+          ? "Вы успешно зарегистрировались"
+          : "Вход выполнен",
+        props.mode === "registr"
+          ? `Добро пожаловать, ${formData.values.name} ${formData.values.surname}!`
+          : "Добро пожаловать!"
+      );
+    } else {
+      toastStore.showErrorToast(
         props.mode === "registr"
           ? "Регистрация не выполнена"
           : "Вход не выполнен",
-      detail: "Пожалуйста, попробуйте снова",
-      life: 3000,
-    });
+        "Пожалуйста, проверьте введенные данные"
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    toastStore.showErrorToast(
+      props.mode === "registr"
+        ? "Регистрация не выполнена"
+        : "Вход не выполнен",
+      "Пожалуйста, попробуйте снова"
+    );
   }
 };
 </script>
