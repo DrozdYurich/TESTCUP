@@ -182,6 +182,8 @@ import { yupResolver } from "@primevue/forms/resolvers/yup";
 import * as yup from "yup";
 import { useToast } from "primevue/usetoast";
 import { FormField } from "@primevue/forms";
+
+import { nextTick } from "vue";
 import {
   Button,
   DatePicker,
@@ -193,7 +195,9 @@ import {
   Toast,
 } from "primevue";
 import { Form } from "@primevue/forms";
-
+import { useAuthStore } from "@/stores/useAuthStore";
+import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
 const props = defineProps({
   mode: {
     type: String,
@@ -201,7 +205,9 @@ const props = defineProps({
     validator: (value) => ["login", "registr"].includes(value),
   },
 });
-
+const router = useRouter();
+const authStore = useAuthStore();
+const { getToken, isAuth } = storeToRefs(useAuthStore());
 const toast = useToast();
 
 const initialValues = reactive({
@@ -214,7 +220,6 @@ const initialValues = reactive({
   email: "",
 });
 
-// Динамическая схема валидации
 const schema = computed(() => {
   const baseSchema = {
     email: yup
@@ -250,41 +255,75 @@ const schema = computed(() => {
 const resolver = computed(() => yupResolver(schema.value));
 
 const onFormSubmit = async (formData) => {
-  if (formData.valid) {
-    const formattedData = {
-      email: formData.values.email,
-      password: formData.values.password,
-      ...(props.mode === "registr" && {
-        name: formData.values.name,
-        surname: formData.values.surname,
-        patronymic: formData.values.patronymic,
-        nickname: formData.values.nickname,
-        dR: new Date(formData.values.dR).toISOString().split("T")[0],
-      }),
-    };
+  try {
+    if (formData.valid) {
+      const formattedData = {
+        email: formData.values.email,
+        password: formData.values.password,
+        ...(props.mode === "registr" && {
+          name: formData.values.name,
+          surname: formData.values.surname,
+          patronymic: formData.values.patronymic,
+          nickname: formData.values.nickname,
+          dR: new Date(formData.values.dR).toISOString().split("T")[0],
+        }),
+      };
 
-    console.log("Form submitted", formattedData);
-
-    toast.add({
-      severity: "success",
-      summary:
-        props.mode === "registr"
-          ? "Вы успешно зарегистрировались"
-          : "Вход выполнен",
-      detail:
-        props.mode === "registr"
-          ? `Добро пожаловать, ${formData.values.name} ${formData.values.surname}!`
-          : "Добро пожаловать!",
-      life: 3000,
-    });
-  } else {
+      console.log("Form submitted", formattedData);
+      const response = await authStore.login(
+        "http://10.8.0.23:8000/api/auth/register/",
+        formattedData
+      );
+      await nextTick();
+      console.log(isAuth.value, "fff");
+      if (isAuth.value) {
+        router.push("/");
+      } else {
+        console.error("Registration failed");
+        toast.add({
+          severity: "error",
+          summary:
+            props.mode === "registr"
+              ? "Регистрация не выполнена"
+              : "Вход не выполнен",
+          detail: "Пожалуйста, попробуйте снова",
+          life: 3000,
+        });
+        return;
+      }
+      console.log(response);
+      toast.add({
+        severity: "success",
+        summary:
+          props.mode === "registr"
+            ? "Вы успешно зарегистрировались"
+            : "Вход выполнен",
+        detail:
+          props.mode === "registr"
+            ? `Добро пожаловать, ${formData.values.name} ${formData.values.surname}!`
+            : "Добро пожаловать!",
+        life: 3000,
+      });
+    } else {
+      toast.add({
+        severity: "error",
+        summary:
+          props.mode === "registr"
+            ? "Регистрация не выполнена"
+            : "Вход не выполнен",
+        detail: "Пожалуйста, проверьте введенные данные",
+        life: 3000,
+      });
+    }
+  } catch (error) {
+    console.log(error);
     toast.add({
       severity: "error",
       summary:
         props.mode === "registr"
           ? "Регистрация не выполнена"
           : "Вход не выполнен",
-      detail: "Пожалуйста, проверьте введенные данные",
+      detail: "Пожалуйста, попробуйте снова",
       life: 3000,
     });
   }
