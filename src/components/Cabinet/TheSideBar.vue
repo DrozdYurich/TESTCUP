@@ -29,7 +29,7 @@
         <span class="text-primary font-bold">{{ item.label }}</span>
       </template>
       <template #item="{ item, props }">
-        <a v-ripple class="flex items-center" v-bind="props.action">
+        <a class="flex items-center" v-bind="props.action">
           <span :class="item.icon" />
           <span>{{ item.label }}</span>
           <Badge v-if="item.badge" class="ml-auto" :value="item.badge" />
