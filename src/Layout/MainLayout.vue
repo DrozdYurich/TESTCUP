@@ -1,4 +1,5 @@
 <template>
+  <TheHader />
   <RouterView v-slot="{ Component }">
     <transition name="fade" mode="out-in">
       <component :is="Component"></component>
@@ -6,7 +7,9 @@
   </RouterView>
 </template>
 
-<script setup></script>
+<script setup>
+import TheHader from "@/components/Header/TheHader.vue";
+</script>
 <style scoped>
 .fade-enter-active {
   animation: in 0.4s ease;

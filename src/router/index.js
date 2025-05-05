@@ -3,6 +3,10 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Auth from "@/components/Auth/Auth.vue";
 import Login from "@/components/Auth/Login.vue";
+import PunctOne from "@/components/One/PunctOne.vue";
+import PunctTwo from "@/components/Two/PunctTwo.vue";
+import Three from "@/components/Three/Three.vue";
+import TheCabinet from "@/components/Cabinet/TheCabinet.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,6 +15,42 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: Home,
+      meta: {
+        layout: "Main",
+        auth: false,
+      },
+    },
+    {
+      path: "/one",
+      name: "one",
+      component: PunctOne,
+      meta: {
+        layout: "Main",
+        auth: false,
+      },
+    },
+    {
+      path: "/two",
+      name: "two",
+      component: PunctTwo,
+      meta: {
+        layout: "Main",
+        auth: false,
+      },
+    },
+    {
+      path: "/three",
+      name: "three",
+      component: Three,
+      meta: {
+        layout: "Main",
+        auth: false,
+      },
+    },
+    {
+      path: "/cabinet",
+      name: "cabinet",
+      component: TheCabinet,
       meta: {
         layout: "Main",
         auth: false,
@@ -38,15 +78,4 @@ const router = createRouter({
   linkActiveClass: "active",
   linkExactActiveClass: "active",
 });
-// router.beforeEach((to, from, next) => {
-//   const authStore = useAuthStore();
-//   const authRequired = to.meta.auth;
-//   if (authRequired && authStore.isAuth) {
-//     next();
-//   } else if (authRequired && !authStore.isAuth) {
-//     next("/auth");
-//   } else {
-//     next();
-//   }
-// });
 export default router;
