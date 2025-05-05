@@ -3,6 +3,7 @@
     <Menubar :model="items" ref="menubarRef">
       <template #start>
         <span class="menu-label">Menu</span>
+        <i></i>
       </template>
 
       <template #item="{ item, props, hasSubmenu }">

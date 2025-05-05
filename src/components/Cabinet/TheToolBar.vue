@@ -29,7 +29,7 @@
       <template #center>
         <IconField>
           <InputIcon>
-            <i class="pi pi-search" />
+            <i class="pi pi-user" />
           </InputIcon>
           <InputText placeholder="Search" />
         </IconField>
