@@ -16,7 +16,7 @@
           severity="secondary"
           text
           :class="{ active: activeBtn === 'data' }"
-          @click="activeBtn = 'data'"
+          @click="goToPD"
         />
         <Button
           label="Мои соревнования"
@@ -51,6 +51,11 @@ import {
   SplitButton,
   Toolbar,
 } from "primevue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const goToPD = () => {
+  router.push("/cabinet/pd");
+};
 import { ref } from "vue";
 const activeBtn = ref(null);
 const items = ref([
@@ -68,7 +73,7 @@ const items = ref([
 .toolbar-mobile {
   display: none;
 }
-@media (max-width: 820px) {
+@media (max-width: 1100px) {
   .toolbar-mobile {
     display: flex;
   }
