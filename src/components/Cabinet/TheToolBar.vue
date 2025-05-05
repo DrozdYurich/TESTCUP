@@ -68,7 +68,7 @@ const items = ref([
 .toolbar-mobile {
   display: none;
 }
-@media (max-width: 767px) {
+@media (max-width: 820px) {
   .toolbar-mobile {
     display: flex;
   }

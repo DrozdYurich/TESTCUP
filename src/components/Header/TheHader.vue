@@ -3,7 +3,6 @@
     <Menubar :model="items" ref="menubarRef">
       <template #start>
         <span class="menu-label">Menu</span>
-        <i></i>
       </template>
 
       <template #item="{ item, props, hasSubmenu }">
@@ -75,6 +74,7 @@ function handleMenuClick(navigate) {
 <style>
 .p-menubar-root-list {
   width: 80%;
+  justify-content: space-between;
   margin: auto;
 }
 .menu-label {
