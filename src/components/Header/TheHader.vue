@@ -1,6 +1,10 @@
 <template>
   <div class="card">
     <Menubar :model="items" ref="menubarRef">
+      <template #start>
+        <span class="menu-label">Menu</span>
+      </template>
+
       <template #item="{ item, props, hasSubmenu }">
         <router-link
           v-if="item.route"
@@ -67,3 +71,27 @@ function handleMenuClick(navigate) {
   menubarRef.value?.hide();
 }
 </script>
+<style>
+.p-menubar-root-list {
+  width: 80%;
+  margin: auto;
+}
+.menu-label {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+@media (min-width: 960px) {
+  .menu-label {
+    display: none;
+  }
+}
+
+/* Для выравнивания по центру с бургером */
+.p-menubar-start {
+  display: flex;
+  align-items: center;
+}
+</style>

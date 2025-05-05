@@ -1,5 +1,11 @@
 <template>
-  <div>Cabinet</div>
+  <div>
+    <h2>Личный кабинет</h2>
+    <RouterView></RouterView>
+    <TheToolBar />
+  </div>
 </template>
-<script setup></script>
-<style scoped></style>
+<script setup>
+import TheToolBar from "./TheToolBar.vue";
+</script>
+<style></style>
