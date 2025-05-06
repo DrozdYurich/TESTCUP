@@ -1,5 +1,5 @@
 <template>
-  <div class="cabinet">
+  <div class="cabinet gap-6">
     <TheSideBar class="sidebar" />
     <div class="info">
       <RouterView v-slot="{ Component }">
@@ -20,21 +20,17 @@ import TheToolBar from "./TheToolBar.vue";
 .cabinet {
   display: grid;
   grid-template-columns: auto 1fr;
-  height: 100vh;
+
+  height: 90vh;
 }
 .sidebar {
-  /* Высота по содержимому, не ограничиваем */
   align-self: flex-start;
   position: sticky;
   top: 80px;
-  /* Можно добавить padding/margin по желанию */
 }
 .info {
-  height: 100vh;
   overflow-y: auto;
   margin-top: 1rem;
-  /* Если нужен отступ сверху, например под тулбар */
-  /* padding-top: 60px; */
 }
 
 .fade-enter-active {

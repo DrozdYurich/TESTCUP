@@ -1,73 +1,44 @@
 <template>
   <div class="card">
     <Toolbar class="fixed bottom-0 left-0 w-full z-50 bg-white toolbar-mobile">
-      <template #start>
-        <Button
-          class="mr-2"
-          severity="secondary"
-          label="Добавить"
-          text
-          :class="{ active: activeBtn === 'add' }"
-          @click="activeBtn = 'add'"
-        />
-        <Button
-          label="Мои данные"
-          class="mr-2"
-          severity="secondary"
-          text
-          :class="{ active: activeBtn === 'data' }"
-          @click="goToPD"
-        />
-        <Button
-          label="Мои соревнования"
-          severity="secondary"
-          text
-          :class="{ active: activeBtn === 'comp' }"
-          @click="activeBtn = 'comp'"
-        />
-      </template>
       <template #center>
-        <IconField>
-          <InputIcon>
-            <i class="pi pi-user" />
-          </InputIcon>
-          <InputText placeholder="Search" />
-        </IconField>
+        <Button
+          v-for="item in flatMenuItems"
+          :key="item.key"
+          class="mr-2"
+          severity="secondary"
+          :label="item.label"
+          text
+          :class="{ active: activeBtn === item.key }"
+          @click="handleMenuClick(item)"
+        />
       </template>
-
-      <template #end>
-        <SplitButton label="Save" :model="items"></SplitButton
-      ></template>
     </Toolbar>
   </div>
 </template>
 
 <script setup>
-import {
-  Button,
-  IconField,
-  InputIcon,
-  InputText,
-  SplitButton,
-  Toolbar,
-} from "primevue";
+import { Button, Toolbar } from "primevue";
 import { useRouter } from "vue-router";
+import { getMenuItems } from "./data/sidebar";
+import useGoCaninet from "./methods/useGoTo";
+import { computed, ref } from "vue";
 const router = useRouter();
-const goToPD = () => {
-  router.push("/cabinet/pd");
-};
-import { ref } from "vue";
+const { goToPD, gotoProfil, gotoPunct, removetoken } = useGoCaninet();
+const menuItems = getMenuItems({ goToPD, gotoProfil, gotoPunct, removetoken });
+const flatMenuItems = computed(() => {
+  return menuItems
+    .flatMap((group) => group.items || [])
+    .filter((item) => item.label && item.command);
+});
 const activeBtn = ref(null);
-const items = ref([
-  {
-    label: "Update",
-    icon: "pi pi-refresh",
-  },
-  {
-    label: "Delete",
-    icon: "pi pi-times",
-  },
-]);
+
+function handleMenuClick(item) {
+  activeBtn.value = item.key;
+  if (item.command) {
+    item.command();
+  }
+}
 </script>
 <style>
 .toolbar-mobile {

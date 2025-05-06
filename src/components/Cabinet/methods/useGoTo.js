@@ -2,7 +2,9 @@ import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/useAuthStore";
 export default function useGoCaninet() {
   const router = useRouter();
+  const authStore = useAuthStore();
   const removetoken = () => {
+    authStore.removeToken();
     router.push("/auth");
   };
   const goToPD = () => {
