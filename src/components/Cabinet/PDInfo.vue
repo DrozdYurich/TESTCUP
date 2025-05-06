@@ -1,5 +1,5 @@
 <template>
-  <div>Info</div>
+  <div class="info">Info</div>
 </template>
 <script setup></script>
-<style scoped></style>
+<style></style>

@@ -1,7 +1,5 @@
 <template>
-  <div class="info">
-    <h3>Кабинет</h3>
-  </div>
+  <div>Profil one</div>
 </template>
 <script setup></script>
 <style></style>

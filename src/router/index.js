@@ -8,6 +8,8 @@ import PunctTwo from "@/components/Two/PunctTwo.vue";
 import Three from "@/components/Three/Three.vue";
 import TheCabinet from "@/components/Cabinet/TheCabinet.vue";
 import PDInfo from "@/components/Cabinet/PDInfo.vue";
+import CabinetLayout from "@/components/Cabinet/CabinetLayout.vue";
+import TheProfil from "@/components/Cabinet/TheProfil.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,9 +52,11 @@ const router = createRouter({
     },
     {
       path: "/cabinet",
+      component: CabinetLayout,
       children: [
         { path: "", name: "cabinet", component: TheCabinet },
         { path: "/cabinet/pd", name: "pd", component: PDInfo },
+        { path: "/cabinet/profilone", name: "profilone", component: TheProfil },
       ],
       meta: {
         layout: "Main",
