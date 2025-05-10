@@ -1,22 +1,20 @@
 <template>
-  <div class="card">
-    <Toolbar
-      class="fixed bottom-0 left-0 w-full z-50 bg-white toolbar-mobile p-0"
-    >
-      <template #center>
-        <Button
-          v-for="item in flatMenuItems"
-          :key="item.key"
-          class="py-2.5 px-1 btn"
-          severity="secondary"
-          :label="item.label"
-          text
-          :class="{ active: activeBtn === item.key }"
-          @click="handleMenuClick(item)"
-        />
-      </template>
-    </Toolbar>
-  </div>
+  <Toolbar
+    class="fixed bottom-0 left-0 w-full z-50 bg-white toolbar-mobile p-0"
+  >
+    <template #center>
+      <Button
+        v-for="item in flatMenuItems"
+        :key="item.key"
+        class="py-2.5 px-1 btn"
+        severity="secondary"
+        :label="item.label"
+        text
+        :class="{ active: activeBtn === item.key }"
+        @click="handleMenuClick(item)"
+      />
+    </template>
+  </Toolbar>
 </template>
 
 <script setup>
@@ -64,11 +62,7 @@ function handleMenuClick(item) {
 .toolbar-mobile {
   display: none;
 }
-@media (max-width: 1100px) {
-  .toolbar-mobile {
-    display: flex;
-  }
-}
+
 .active {
   background: #e0e7ff !important; /* Пример активного цвета */
   color: #1d4ed8 !important;

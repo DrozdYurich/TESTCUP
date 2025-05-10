@@ -1,8 +1,5 @@
 <template>
-  <div class="text-amber-400">
-    Home
-    <Button @click="removetoken">Выйти</Button>
-  </div>
+  <div class="text-amber-400">Home</div>
 </template>
 <script setup>
 import { Button } from "primevue";

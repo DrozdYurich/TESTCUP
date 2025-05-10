@@ -1,38 +1,84 @@
 <template>
-  <div class="cabinet gap-6">
-    <TheSideBar class="sidebar" />
+  <div class="cabinet">
+    <TheSideBar class="sidebar" v-if="!isMobile" />
+
     <div class="info">
       <RouterView v-slot="{ Component }">
         <transition name="fade" mode="out-in">
-          <component :is="Component"></component>
+          <component :is="Component" />
         </transition>
       </RouterView>
     </div>
-    <TheToolBar />
+
+    <TheToolBar v-if="isMobile" class="toolbar" />
   </div>
 </template>
 
 <script setup>
+import { onMounted, onUnmounted, ref } from "vue";
 import TheSideBar from "./TheSideBar.vue";
 import TheToolBar from "./TheToolBar.vue";
+const isMobile = ref(window.innerWidth <= 1100);
+
+function onResize() {
+  isMobile.value = window.innerWidth <= 1100;
+  console.log(isMobile.value);
+}
+
+onMounted(() => {
+  window.addEventListener("resize", onResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", onResize);
+});
 </script>
 <style>
 .cabinet {
   display: grid;
   grid-template-columns: auto 1fr;
-
+  grid-template-areas: "sidebar info";
   height: 90vh;
 }
 .sidebar {
+  grid-area: sidebar;
   align-self: flex-start;
   position: sticky;
   top: 80px;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
 }
 .info {
+  grid-area: info;
   overflow-y: auto;
-  margin-top: 1rem;
+  padding: 1rem;
+  height: 100vh;
 }
+@media (max-width: 1100px) {
+  .cabinet {
+    display: flex;
+    flex-direction: column;
+  }
 
+  .sidebar {
+    display: none;
+  }
+
+  .info {
+    height: calc(100vh - 56px);
+    padding: 1rem;
+  }
+
+  .toolbar {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    z-index: 1000;
+  }
+}
 .fade-enter-active {
   animation: in 0.4s ease;
 }

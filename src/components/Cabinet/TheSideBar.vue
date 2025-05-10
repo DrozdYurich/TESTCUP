@@ -56,13 +56,4 @@ const menuItems = getMenuItems({
   removetoken,
 });
 </script>
-<style>
-.sidebar {
-  display: none;
-}
-@media (min-width: 1100px) {
-  .sidebar {
-    display: flex;
-  }
-}
-</style>
+<style></style>
