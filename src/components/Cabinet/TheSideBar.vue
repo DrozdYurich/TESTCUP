@@ -39,8 +39,22 @@ import { Avatar, Badge, Menu } from "primevue";
 import { ref } from "vue";
 import { getMenuItems } from "./data/sidebar";
 import useGoCaninet from "./methods/useGoTo";
-const { goToPD, gotoProfil, gotoPunct, removetoken } = useGoCaninet();
-const menuItems = getMenuItems({ goToPD, gotoProfil, gotoPunct, removetoken });
+const {
+  goToPD,
+  gotoProfil,
+  gotoPunct,
+  removetoken,
+  gotoProfilTwo,
+  gotoProfilThree,
+} = useGoCaninet();
+const menuItems = getMenuItems({
+  goToPD,
+  gotoProfilThree,
+  gotoProfil,
+  gotoPunct,
+  gotoProfilTwo,
+  removetoken,
+});
 </script>
 <style>
 .sidebar {

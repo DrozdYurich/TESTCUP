@@ -1,11 +1,13 @@
 <template>
   <div class="card">
-    <Toolbar class="fixed bottom-0 left-0 w-full z-50 bg-white toolbar-mobile">
+    <Toolbar
+      class="fixed bottom-0 left-0 w-full z-50 bg-white toolbar-mobile p-0"
+    >
       <template #center>
         <Button
           v-for="item in flatMenuItems"
           :key="item.key"
-          class="mr-2"
+          class="py-2.5 px-1 btn"
           severity="secondary"
           :label="item.label"
           text
@@ -24,8 +26,22 @@ import { getMenuItems } from "./data/sidebar";
 import useGoCaninet from "./methods/useGoTo";
 import { computed, ref } from "vue";
 const router = useRouter();
-const { goToPD, gotoProfil, gotoPunct, removetoken } = useGoCaninet();
-const menuItems = getMenuItems({ goToPD, gotoProfil, gotoPunct, removetoken });
+const {
+  goToPD,
+  gotoProfil,
+  gotoPunct,
+  removetoken,
+  gotoProfilTwo,
+  gotoProfilThree,
+} = useGoCaninet();
+const menuItems = getMenuItems({
+  gotoProfilThree,
+  goToPD,
+  gotoProfil,
+  gotoPunct,
+  removetoken,
+  gotoProfilTwo,
+});
 const flatMenuItems = computed(() => {
   return menuItems
     .flatMap((group) => group.items || [])
@@ -41,6 +57,10 @@ function handleMenuClick(item) {
 }
 </script>
 <style>
+.btn {
+  font-size: 11px;
+  margin-right: 0;
+}
 .toolbar-mobile {
   display: none;
 }

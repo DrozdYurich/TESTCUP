@@ -16,7 +16,15 @@ export default function useGoCaninet() {
   const gotoProfil = () => {
     router.push("/cabinet/profilone");
   };
+  const gotoProfilTwo = () => {
+    router.push("/cabinet/profiltwo");
+  };
+  const gotoProfilThree = () => {
+    router.push("/cabinet/profilthree");
+  };
   return {
+    gotoProfilThree,
+    gotoProfilTwo,
     removetoken,
     goToPD,
     gotoProfil,

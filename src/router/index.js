@@ -3,13 +3,15 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Auth from "@/components/Auth/Auth.vue";
 import Login from "@/components/Auth/Login.vue";
-import PunctOne from "@/components/One/PunctOne.vue";
-import PunctTwo from "@/components/Two/PunctTwo.vue";
-import Three from "@/components/Three/Three.vue";
+import PunctOne from "@/views/PunctOne.vue";
+import PunctTwo from "@/views/PunctTwo.vue";
+import Three from "@/views/Three.vue";
 import TheCabinet from "@/components/Cabinet/TheCabinet.vue";
 import PDInfo from "@/components/Cabinet/PDInfo.vue";
 import CabinetLayout from "@/components/Cabinet/CabinetLayout.vue";
 import TheProfil from "@/components/Cabinet/TheProfil.vue";
+import TheProfilTwo from "@/components/Cabinet/TheProfilTwo.vue";
+import TheProfilThree from "@/components/Cabinet/TheProfilThree.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +59,16 @@ const router = createRouter({
         { path: "", name: "cabinet", component: TheCabinet },
         { path: "/cabinet/pd", name: "pd", component: PDInfo },
         { path: "/cabinet/profilone", name: "profilone", component: TheProfil },
+        {
+          path: "/cabinet/profiltwo",
+          name: "profiltwo",
+          component: TheProfilTwo,
+        },
+        {
+          path: "/cabinet/profilthree",
+          name: "profilthree",
+          component: TheProfilThree,
+        },
       ],
       meta: {
         layout: "Main",
