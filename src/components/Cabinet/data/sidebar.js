@@ -15,7 +15,7 @@ export function getMenuItems({
       items: [
         {
           label: "Мои данные",
-          icon: "pi pi-plus",
+          icon: "pi pi-user",
           shortcut: "⌘+N",
           command: goToPD,
           key: "pd",

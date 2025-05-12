@@ -1,6 +1,6 @@
 <template>
   <Toolbar
-    class="fixed bottom-0 left-0 w-full z-50 bg-white toolbar-mobile p-0"
+    class="fixed bottom-0 left-0 w-11/12 z-50 bg-white toolbar-mobile p-0"
   >
     <template #center>
       <Button
@@ -58,9 +58,6 @@ function handleMenuClick(item) {
 .btn {
   font-size: 11px;
   margin-right: 0;
-}
-.toolbar-mobile {
-  display: none;
 }
 
 .active {
