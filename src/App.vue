@@ -12,7 +12,7 @@ const layout = computed(() => {
 </script>
 
 <template>
-  <Toast />
+  <Toast position="top-right" />
   <component :is="layout">
     <RouterView v-slot="{ Component }">
       <Transition name="fade" mode="out-in">
@@ -22,7 +22,7 @@ const layout = computed(() => {
   </component>
 </template>
 
-<style scoped>
+<style>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -36,10 +36,7 @@ const layout = computed(() => {
 
 @media (max-width: 940px) {
   .p-toast {
-    width: 90vw !important; /* Занимает 90% ширины экрана */
-    left: 5vw !important; /* Отступ слева для центрирования */
-    right: auto !important; /* Отключаем правый отступ */
-    max-width: none !important; /* Убираем максимальную ширину */
+    width: 200px !important; /* Занимает 90% ширины экрана */
   }
 }
 </style>
