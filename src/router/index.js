@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import Home from "@/views/Home.vue";
-import Auth from "@/components/Auth/Auth.vue";
+import Auth from "@/views/Auth.vue";
 import Login from "@/components/Auth/Login.vue";
 import PunctOne from "@/views/PunctOne.vue";
 import PunctTwo from "@/views/PunctTwo.vue";

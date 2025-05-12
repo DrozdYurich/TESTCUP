@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-gray-900">
+  <div class="flex items-center justify-center min-h-screen">
     <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
       <div v-if="loading">
         <ProgressBar
