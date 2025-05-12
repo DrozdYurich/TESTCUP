@@ -104,7 +104,7 @@ export const useAuthStore = defineStore("auth", () => {
   }
   const getUser = computed(() => user.value);
   const getToken = computed(() => accsesstoken.value);
-  const isAuth = computed(() => !!accsesstoken.value);
+  const isAuth = computed(() => !!accsesstoken.value && !!refreshtoken.value);
   async function login(url, formstate) {
     // try {
     //   const response = await axios.post(url, formstate);

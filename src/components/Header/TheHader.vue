@@ -33,10 +33,14 @@
 
 <script setup>
 import { Menubar } from "primevue";
-import { ref } from "vue";
-
+import { computed, ref } from "vue";
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "@/stores/useAuthStore";
 const menubarRef = ref();
-
+const { isAuth } = storeToRefs(useAuthStore());
+const auth = computed(() => {
+  return isAuth.value;
+});
 const items = ref([
   {
     label: "Главная",
@@ -61,7 +65,7 @@ const items = ref([
   {
     label: "Личный кабинет",
     icon: "pi pi-home",
-    route: "/cabinet",
+    route: auth.value ? "/cabinet" : "/auth",
   },
 ]);
 
