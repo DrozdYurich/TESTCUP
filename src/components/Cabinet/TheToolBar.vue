@@ -33,6 +33,7 @@ const {
   removetoken,
   gotoProfilTwo,
   gotoProfilThree,
+  removeUser,
 } = useGoCaninet();
 const menuItems = getMenuItems({
   gotoProfilThree,
@@ -41,6 +42,7 @@ const menuItems = getMenuItems({
   gotoPunct,
   removetoken,
   gotoProfilTwo,
+  removeUser,
 });
 const flatMenuItems = computed(() => {
   return menuItems

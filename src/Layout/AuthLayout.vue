@@ -1,5 +1,4 @@
 <template>
-  auth
   <RouterView></RouterView>
 </template>
 

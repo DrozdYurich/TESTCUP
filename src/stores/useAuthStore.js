@@ -2,13 +2,18 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
 export const useAuthStore = defineStore("auth", () => {
-  const token = ref(localStorage.getItem("jwtToken"));
+  const accsesstoken = ref(localStorage.getItem("jwtTokenAccsess"));
+  const refreshtoken = ref(localStorage.getItem("jwtTokenRefresh"));
   const role = ref(localStorage.getItem("role"));
   const user = ref(localStorage.getItem("user"));
 
-  function setToken(newToken) {
-    token.value = newToken;
-    localStorage.setItem("jwtToken", newToken);
+  function setAccsessToken(newToken) {
+    accsesstoken.value = newToken;
+    localStorage.setItem("jwtTokenAccsess", newToken);
+  }
+  function setRefreshToken(newToken) {
+    refreshtoken.value = newToken;
+    localStorage.setItem("jwtTokenRefresh", newToken);
   }
 
   function setUser(newUser) {
@@ -20,12 +25,21 @@ export const useAuthStore = defineStore("auth", () => {
     localStorage.setItem("role", newRole);
   }
   function removeToken() {
-    token.value = null;
+    accsesstoken.value = null;
+    refreshtoken.value = null;
+    console.log(accsesstoken.value, "tokenAcc");
     localStorage.removeItem("jwtToken");
+    localStorage.removeItem("jwtTokenAccsess");
+    localStorage.removeItem("jwtTokenRefresh");
+  }
+  function removeUser() {
+    user.value = null;
+    localStorage.removeItem("user");
+    localStorage.removeItem("request");
   }
   const getUser = computed(() => user.value);
-  const getToken = computed(() => token.value);
-  const isAuth = computed(() => !!token.value);
+  const getToken = computed(() => accsesstoken.value);
+  const isAuth = computed(() => !!accsesstoken.value);
   async function login(url, formstate) {
     // try {
     //   const response = await axios.post(url, formstate);
@@ -41,7 +55,7 @@ export const useAuthStore = defineStore("auth", () => {
     //       throw new Error("Не получен токен авторизации");
     //     }
     //   }
-    //   setToken(response.data.token);
+    //   setAccsessToken(response.data.token);
     //   setUser(response.data.user);
     //   if (response.data.role) {
     //     setRole(response.data.role.id);
@@ -71,21 +85,26 @@ export const useAuthStore = defineStore("auth", () => {
 
     return new Promise((resolve) => {
       setTimeout(() => {
-        setToken("1111");
-        setUser({ name: "Test User" }); // Добавьте это для полноты теста
-        resolve(true); // Возвращаем успешный результат
+        setAccsessToken("accsess");
+        setRefreshToken("refresh");
+        setUser({ name: "Test User" });
+
+        resolve(true);
       }, 3000);
     });
   }
   return {
-    token,
-    setToken,
+    accsesstoken,
+    removeUser,
+    refreshtoken,
+    setAccsessToken,
     removeToken,
     getToken,
     isAuth,
     login,
     setRole,
     setUser,
+    setRefreshToken,
     getUser,
   };
 });
