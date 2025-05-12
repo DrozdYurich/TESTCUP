@@ -33,4 +33,13 @@ const layout = computed(() => {
   opacity: 0;
   transform: translateX(10px);
 }
+
+@media (max-width: 940px) {
+  .p-toast {
+    width: 90vw !important; /* Занимает 90% ширины экрана */
+    left: 5vw !important; /* Отступ слева для центрирования */
+    right: auto !important; /* Отключаем правый отступ */
+    max-width: none !important; /* Убираем максимальную ширину */
+  }
+}
 </style>

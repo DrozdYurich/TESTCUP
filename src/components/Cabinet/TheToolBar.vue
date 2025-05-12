@@ -1,7 +1,7 @@
 <template>
   <Toolbar
     class="fixed left-0 w-11/12 z-50 bg-white toolbar-mobile p-0"
-    style="bottom: 20px"
+    style="bottom: 30px"
   >
     <template #center>
       <Button
@@ -69,10 +69,12 @@ function handleMenuClick(item) {
   color: #1d4ed8 !important;
 }
 .p-toolbar {
+  bottom: 40px;
   border-bottom: none !important;
 }
 .p-toolbar-center {
   display: flex;
+
   justify-content: space-around;
   align-items: flex-start;
 }
