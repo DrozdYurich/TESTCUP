@@ -43,6 +43,65 @@ export const useAuthStore = defineStore("auth", () => {
     localStorage.removeItem("user");
     localStorage.removeItem("request");
   }
+  let refreshInterval = null;
+
+  async function refreshTokens() {
+    // try {
+    //   if (!refreshtoken.value) {
+    //     throw new Error("No refresh token available");
+    //   }
+
+    //   const response = await axios.post("/api/auth/refresh/", {
+    //     refresh: refreshtoken.value,
+    //   });
+
+    //   if (!response.data.access || !response.data.refresh) {
+    //     throw new Error("Invalid token refresh response");
+    //   }
+
+    //   setAccsessToken(response.data.access);
+    //   setRefreshToken(response.data.refresh);
+
+    //   return true;
+    // } catch (error) {
+    //   console.error("Token refresh failed:", error);
+    //   // При ошибке обновления выполняем выход
+    //   logout();
+    //   return false;
+    // }
+    return new Promise((resolve) => {
+      if (accsesstoken.value && refreshtoken.value) {
+        setAccsessToken("accsess" + Date.now());
+        setRefreshToken("refresh" + Date.now());
+        console.log("token", accsesstoken.value, refreshtoken.value);
+        resolve(true);
+      }
+    });
+  }
+  function startTokenRefresh() {
+    if (refreshInterval) {
+      clearInterval(refreshInterval);
+    }
+    refreshTokens().then(() => {
+      refreshInterval = setInterval(refreshTokens, 10000);
+    });
+  }
+
+  function stopTokenRefresh() {
+    if (refreshInterval) {
+      clearInterval(refreshInterval);
+      refreshInterval = null;
+    }
+  }
+  if (accsesstoken.value && refreshtoken.value) {
+    startTokenRefresh();
+  }
+  function logout() {
+    removeToken();
+    removeUser();
+    removeRole();
+    stopTokenRefresh();
+  }
   const getUser = computed(() => user.value);
   const getToken = computed(() => accsesstoken.value);
   const isAuth = computed(() => !!accsesstoken.value);
@@ -95,11 +154,13 @@ export const useAuthStore = defineStore("auth", () => {
         setRefreshToken("refresh");
         setUser({ name: "Test User" });
         setRole(1);
+        startTokenRefresh();
         resolve(true);
       }, 3000);
     });
   }
   return {
+    logout,
     removeRole,
     accsesstoken,
     removeUser,
