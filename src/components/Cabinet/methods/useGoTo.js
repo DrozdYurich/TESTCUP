@@ -6,6 +6,7 @@ export default function useGoCaninet() {
   const removetoken = () => {
     authStore.removeToken();
     authStore.removeUser();
+    authStore.removeRole();
     router.push("/auth");
   };
   const goToPD = () => {

@@ -21,8 +21,14 @@ export const useAuthStore = defineStore("auth", () => {
     localStorage.setItem("user", JSON.stringify(newUser));
   }
   function setRole(newRole) {
-    role.value = newRole.id;
+    role.value = newRole;
     localStorage.setItem("role", newRole);
+    console.log("role", role.value);
+  }
+  function removeRole() {
+    role.value = null;
+    localStorage.removeItem("role");
+    console.log("role", role.value);
   }
   function removeToken() {
     accsesstoken.value = null;
@@ -88,12 +94,13 @@ export const useAuthStore = defineStore("auth", () => {
         setAccsessToken("accsess");
         setRefreshToken("refresh");
         setUser({ name: "Test User" });
-
+        setRole(1);
         resolve(true);
       }, 3000);
     });
   }
   return {
+    removeRole,
     accsesstoken,
     removeUser,
     refreshtoken,
