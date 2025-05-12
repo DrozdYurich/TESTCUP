@@ -64,4 +64,8 @@ function handleMenuClick(item) {
   background: #e0e7ff !important; /* Пример активного цвета */
   color: #1d4ed8 !important;
 }
+.p-toolbar-center {
+  display: flex;
+  justify-content: space-around;
+}
 </style>
