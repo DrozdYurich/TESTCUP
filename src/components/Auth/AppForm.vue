@@ -179,7 +179,6 @@
 import { reactive, computed } from "vue";
 import { yupResolver } from "@primevue/forms/resolvers/yup";
 import * as yup from "yup";
-import { useToast } from "primevue/usetoast";
 import { FormField } from "@primevue/forms";
 import { useToastStore } from "@/stores/useToastStore";
 import { nextTick } from "vue";
@@ -191,7 +190,6 @@ import {
   InputText,
   Message,
   Password,
-  Toast,
 } from "primevue";
 import { Form } from "@primevue/forms";
 import { useAuthStore } from "@/stores/useAuthStore";
