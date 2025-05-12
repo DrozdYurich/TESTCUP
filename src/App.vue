@@ -36,7 +36,7 @@ const layout = computed(() => {
 
 @media (max-width: 940px) {
   .p-toast {
-    width: 200px !important; /* Занимает 90% ширины экрана */
+    width: 280px !important; /* Занимает 90% ширины экрана */
   }
 }
 </style>
