@@ -7,7 +7,7 @@
       <Button
         v-for="item in flatMenuItems"
         :key="item.key"
-        class="py-2.5 px-1 btn flex flex-col items-center justify-center"
+        class="py-2.5 px-2 btn flex flex-col items-center justify-center"
         severity="secondary"
         :label="item.label"
         :icon="item.icon"

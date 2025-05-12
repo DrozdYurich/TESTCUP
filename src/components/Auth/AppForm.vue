@@ -1,6 +1,13 @@
 <template>
   <div class="flex items-center justify-center min-h-screen bg-gray-900">
     <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+      <div v-if="loading">
+        <ProgressBar
+          class="custom-progressbar"
+          mode="indeterminate"
+          style="height: 5px"
+        />
+      </div>
       <Divider align="center" type="solid">
         <span class="text-xl font-bold">
           {{ mode === "registr" ? "Регистрация" : "Вход" }}
@@ -166,6 +173,7 @@
           >
         </Message>
         <Button
+          :disabled="loading"
           type="submit"
           class="bg-black border-0 hover:bg-blue-950"
           :label="mode === 'registr' ? 'Зарегистрироваться' : 'Войти'"
@@ -176,7 +184,7 @@
 </template>
 
 <script setup>
-import { reactive, computed } from "vue";
+import { reactive, computed, ref } from "vue";
 import { yupResolver } from "@primevue/forms/resolvers/yup";
 import * as yup from "yup";
 import { FormField } from "@primevue/forms";
@@ -190,6 +198,7 @@ import {
   InputText,
   Message,
   Password,
+  ProgressBar,
 } from "primevue";
 import { Form } from "@primevue/forms";
 import { useAuthStore } from "@/stores/useAuthStore";
@@ -206,7 +215,7 @@ const router = useRouter();
 const authStore = useAuthStore();
 const { getToken, isAuth } = storeToRefs(useAuthStore());
 const toastStore = useToastStore();
-
+const loading = ref(false);
 const initialValues = reactive({
   name: "",
   nickname: "",
@@ -253,6 +262,7 @@ const resolver = computed(() => yupResolver(schema.value));
 
 const onFormSubmit = async (formData) => {
   try {
+    loading.value = true;
     if (formData.valid) {
       const formattedData = {
         email: formData.values.email,
@@ -272,7 +282,6 @@ const onFormSubmit = async (formData) => {
         formattedData
       );
       await nextTick();
-      console.log(isAuth.value, "fff");
       if (isAuth.value) {
         router.push("/");
       } else {
@@ -303,7 +312,9 @@ const onFormSubmit = async (formData) => {
         "Пожалуйста, проверьте введенные данные"
       );
     }
+    loading.value = false;
   } catch (error) {
+    loading.value = false;
     console.log(error);
     toastStore.showErrorToast(
       props.mode === "registr"
@@ -314,3 +325,8 @@ const onFormSubmit = async (formData) => {
   }
 };
 </script>
+<style>
+.custom-progressbar .p-progressbar-value {
+  background-color: black !important; /* нужный цвет */
+}
+</style>
