@@ -5,29 +5,28 @@ export default function useGoCaninet() {
   const authStore = useAuthStore();
   const removetoken = () => {
     authStore.logout();
-    router.push("/auth");
+    router.push({ name: "auth" });
   };
   const goToPD = () => {
-    router.push("/cabinet/pd");
+    router.push({ name: "pd" });
   };
   const gotoPunct = () => {
-    router.push("/cabinet");
+    router.push({ name: "cabinet" });
   };
   const gotoProfil = () => {
-    router.push("/cabinet/profilone");
+    router.push({ name: "profilone" });
   };
   const gotoProfilTwo = () => {
-    router.push("/cabinet/profiltwo");
+    router.push({ name: "profiltwo" });
   };
   const gotoProfilThree = () => {
-    router.push("/cabinet/profilthree");
+    router.push({ name: "profilthree" });
   };
   return {
     gotoProfilThree,
     gotoProfilTwo,
     removetoken,
     goToPD,
-
     gotoProfil,
     gotoPunct,
   };

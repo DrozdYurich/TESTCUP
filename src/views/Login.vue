@@ -2,6 +2,6 @@
   <div><AppForm mode="login" /></div>
 </template>
 <script setup>
-import AppForm from "./AppForm.vue";
+import AppForm from "@/components/Auth/AppForm.vue";
 </script>
 <style scoped></style>

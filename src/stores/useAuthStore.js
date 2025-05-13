@@ -1,11 +1,12 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-
+import { useUserStore } from "./useUserStore";
+import { useRoleStore } from "./useRoleStore";
 export const useAuthStore = defineStore("auth", () => {
   const accsesstoken = ref(localStorage.getItem("jwtTokenAccsess"));
   const refreshtoken = ref(localStorage.getItem("jwtTokenRefresh"));
-  const role = ref(localStorage.getItem("role"));
-  const user = ref(localStorage.getItem("user"));
+  const userStore = useUserStore();
+  const roleStore = useRoleStore();
 
   function setAccsessToken(newToken) {
     accsesstoken.value = newToken;
@@ -15,21 +16,6 @@ export const useAuthStore = defineStore("auth", () => {
     refreshtoken.value = newToken;
     localStorage.setItem("jwtTokenRefresh", newToken);
   }
-
-  function setUser(newUser) {
-    user.value = newUser;
-    localStorage.setItem("user", JSON.stringify(newUser));
-  }
-  function setRole(newRole) {
-    role.value = newRole;
-    localStorage.setItem("role", newRole);
-    console.log("role", role.value);
-  }
-  function removeRole() {
-    role.value = null;
-    localStorage.removeItem("role");
-    console.log("role", role.value);
-  }
   function removeToken() {
     accsesstoken.value = null;
     refreshtoken.value = null;
@@ -37,11 +23,6 @@ export const useAuthStore = defineStore("auth", () => {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("jwtTokenAccsess");
     localStorage.removeItem("jwtTokenRefresh");
-  }
-  function removeUser() {
-    user.value = null;
-    localStorage.removeItem("user");
-    localStorage.removeItem("request");
   }
   let refreshInterval = null;
 
@@ -73,7 +54,6 @@ export const useAuthStore = defineStore("auth", () => {
       stopTokenRefresh();
       return false;
     }
-
     return new Promise((resolve) => {
       setAccsessToken("accsess" + Date.now());
       setRefreshToken("refresh" + Date.now());
@@ -86,7 +66,7 @@ export const useAuthStore = defineStore("auth", () => {
       clearInterval(refreshInterval);
     }
     refreshTokens().then(() => {
-      refreshInterval = setInterval(refreshTokens, 10000);
+      refreshInterval = setInterval(refreshTokens, 100000);
     });
   }
 
@@ -103,11 +83,10 @@ export const useAuthStore = defineStore("auth", () => {
   }
   function logout() {
     removeToken();
-    removeUser();
-    removeRole();
+    userStore.removeUser();
+    roleStore.removeRole();
     stopTokenRefresh();
   }
-  const getUser = computed(() => user.value);
   const getToken = computed(() => accsesstoken.value);
   const isAuth = computed(() => !!accsesstoken.value && !!refreshtoken.value);
   async function login(url, formstate) {
@@ -157,8 +136,6 @@ export const useAuthStore = defineStore("auth", () => {
       setTimeout(() => {
         setAccsessToken("accsess");
         setRefreshToken("refresh");
-        setUser({ name: "Test User" });
-        setRole(1);
         startTokenRefresh();
         resolve(true);
       }, 3000);
@@ -166,18 +143,13 @@ export const useAuthStore = defineStore("auth", () => {
   }
   return {
     logout,
-    removeRole,
     accsesstoken,
-    removeUser,
     refreshtoken,
     setAccsessToken,
     removeToken,
     getToken,
     isAuth,
     login,
-    setRole,
-    setUser,
     setRefreshToken,
-    getUser,
   };
 });

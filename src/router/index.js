@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import Home from "@/views/Home.vue";
 import Auth from "@/views/Auth.vue";
-import Login from "@/components/Auth/Login.vue";
+import Login from "@/views/Login.vue";
 import PunctOne from "@/views/PunctOne.vue";
 import PunctTwo from "@/views/PunctTwo.vue";
 import Three from "@/views/Three.vue";
@@ -12,6 +12,7 @@ import CabinetLayout from "@/components/Cabinet/CabinetLayout.vue";
 import TheProfil from "@/components/Cabinet/TheProfil.vue";
 import TheProfilTwo from "@/components/Cabinet/TheProfilTwo.vue";
 import TheProfilThree from "@/components/Cabinet/TheProfilThree.vue";
+import TheE404 from "@/components/TheE404.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,12 +87,17 @@ const router = createRouter({
     },
     {
       path: "/login",
-      name: "name",
+      name: "login",
       component: Login,
       meta: {
         layout: "Auth",
         auth: false,
       },
+    },
+    {
+      path: "/:any(.*)",
+      name: "e404",
+      component: TheE404,
     },
   ],
   linkActiveClass: "active",

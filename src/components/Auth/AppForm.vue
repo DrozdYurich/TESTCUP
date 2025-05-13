@@ -122,6 +122,26 @@
               >{{ $field.error?.message }}</Message
             >
           </FormField>
+          <FormField v-slot="$field" name="role" class="flex flex-col gap-1">
+            <FloatLabel variant="on">
+              <Select
+                class="w-full"
+                :options="roles"
+                optionLabel="name"
+                type="text"
+                v-model="initialValues.role"
+                id="role"
+              />
+              <label for="role">Role</label>
+            </FloatLabel>
+            <Message
+              v-if="$field?.invalid"
+              severity="error"
+              size="small"
+              variant="simple"
+              >{{ $field.error?.message }}</Message
+            >
+          </FormField>
         </template>
         <FormField v-slot="$field" name="email" class="flex flex-col gap-1">
           <FloatLabel variant="on">
@@ -141,6 +161,7 @@
             >{{ $field.error?.message }}</Message
           >
         </FormField>
+
         <FormField v-slot="$field" name="password" class="flex flex-col gap-1">
           <FloatLabel variant="on">
             <Password
@@ -199,11 +220,14 @@ import {
   Message,
   Password,
   ProgressBar,
+  Select,
 } from "primevue";
 import { Form } from "@primevue/forms";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
+import { useRoleStore } from "@/stores/useRoleStore";
+import { useUserStore } from "@/stores/useUserStore";
 const props = defineProps({
   mode: {
     type: String,
@@ -215,6 +239,8 @@ const router = useRouter();
 const authStore = useAuthStore();
 const { getToken, isAuth } = storeToRefs(useAuthStore());
 const toastStore = useToastStore();
+const roleStore = useRoleStore();
+const userStore = useUserStore();
 const loading = ref(false);
 const initialValues = reactive({
   name: "",
@@ -223,6 +249,7 @@ const initialValues = reactive({
   patronymic: "",
   password: "",
   dR: "",
+  role: "",
   email: "",
 });
 
@@ -248,6 +275,7 @@ const schema = computed(() => {
         .date()
         .typeError("Укажите дату рождения")
         .required("Укажите дату рождения"),
+      dR: yup.string().required("Укажите роль"),
       password: baseSchema.password
         .matches(/[a-z]/, "Должна быть хотя бы одна строчная буква")
         .matches(/[A-Z]/, "Должна быть хотя бы одна заглавная буква")
@@ -259,7 +287,11 @@ const schema = computed(() => {
 });
 
 const resolver = computed(() => yupResolver(schema.value));
-
+const roles = ref([
+  { name: "role1", code: "1" + Date.now() },
+  { name: "role2", code: "2" + Date.now() },
+  { name: "role3", code: "3" + Date.now() },
+]);
 const onFormSubmit = async (formData) => {
   try {
     loading.value = true;
@@ -272,6 +304,7 @@ const onFormSubmit = async (formData) => {
           surname: formData.values.surname,
           patronymic: formData.values.patronymic,
           nickname: formData.values.nickname,
+          role: formData.values.role.name,
           dR: new Date(formData.values.dR).toISOString().split("T")[0],
         }),
       };
@@ -281,6 +314,8 @@ const onFormSubmit = async (formData) => {
         "http://10.8.0.23:8000/api/auth/register/",
         formattedData
       );
+      roleStore.setRole(formattedData.role.name);
+      userStore.setUser({ name: "evgeni", id: 4, data: Date.now() });
       await nextTick();
       if (isAuth.value) {
         router.push("/");

@@ -9,7 +9,7 @@
         <router-link
           v-if="item.route"
           v-slot="{ href, navigate }"
-          :to="item.route"
+          :to="{ name: item.route }"
           custom
         >
           <a
@@ -45,27 +45,27 @@ const items = ref([
   {
     label: "Главная",
     icon: "pi pi-home",
-    route: "/",
+    route: "home",
   },
   {
     label: "Первый",
     icon: "pi pi-palette",
-    route: "/one",
+    route: "one",
   },
   {
     label: "Второй",
     icon: "pi pi-link",
-    route: "/two",
+    route: "two",
   },
   {
     label: "Третий",
     icon: "pi pi-home",
-    route: "/three",
+    route: "three",
   },
   {
     label: "Личный кабинет",
     icon: "pi pi-home",
-    route: auth.value ? "/cabinet" : "/auth",
+    route: auth.value ? "cabinet" : "login",
   },
 ]);
 
