@@ -313,7 +313,12 @@ const onFormSubmit = async (formData) => {
         formattedData
       );
       roleStore.setRole(formattedData.role);
-      userStore.setUser({ name: "evgeni", id: 4, data: Date.now() });
+      userStore.setUser({
+        name: "evgeni",
+        firstname: "drozdov",
+        id: 4,
+        data: Date.now(),
+      });
       await nextTick();
       if (isAuth.value) {
         router.push("/");

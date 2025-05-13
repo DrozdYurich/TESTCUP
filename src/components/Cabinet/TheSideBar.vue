@@ -24,8 +24,8 @@
         >
           <Avatar :image="avatarImg" class="mr-2" shape="circle" />
           <span class="inline-flex flex-col items-start">
-            <span class="font-bold">User user</span>
-            <span class="text-sm">role</span>
+            <span class="font-bold">{{ user.name }} {{ user.firstname }}</span>
+            <span class="text-sm">{{ role }}</span>
           </span>
         </button>
       </template>
@@ -36,9 +36,14 @@
 <script setup>
 import avatarImg from "/src/assets/img/avatar.jpeg";
 import { Avatar, Badge, Menu } from "primevue";
-import { ref } from "vue";
+import { storeToRefs } from "pinia";
+import { useUserStore } from "@/stores/useUserStore";
 import { getMenuItems } from "./data/sidebar";
 import useGoCaninet from "./methods/useGoTo";
+import { computed } from "vue";
+import { useRoleStore } from "@/stores/useRoleStore";
+const { getUser } = storeToRefs(useUserStore());
+const { getRole } = storeToRefs(useRoleStore());
 const {
   goToPD,
   gotoProfil,
@@ -47,6 +52,12 @@ const {
   gotoProfilTwo,
   gotoProfilThree,
 } = useGoCaninet();
+const user = computed(() => {
+  return getUser.value;
+});
+const role = computed(() => {
+  return getRole.value;
+});
 const menuItems = getMenuItems({
   goToPD,
   gotoProfilThree,
