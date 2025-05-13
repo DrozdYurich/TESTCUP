@@ -4,15 +4,12 @@ import { useToast } from "primevue/usetoast";
 
 export const useToastStore = defineStore("toast", () => {
   const toast = useToast();
-
   const showToast = (options) => {
-    console.log("Showing toast", options); // Логируем вызов
     toast.add({
       life: 3000,
       ...options,
     });
   };
-
   const showSuccessToast = (message, detail = "") => {
     showToast({
       severity: "success",
@@ -20,7 +17,6 @@ export const useToastStore = defineStore("toast", () => {
       detail,
     });
   };
-
   const showErrorToast = (message, detail = "") => {
     showToast({
       severity: "error",
@@ -28,7 +24,6 @@ export const useToastStore = defineStore("toast", () => {
       detail,
     });
   };
-
   return {
     showToast,
     showSuccessToast,

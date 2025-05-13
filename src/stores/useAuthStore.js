@@ -7,7 +7,6 @@ export const useAuthStore = defineStore("auth", () => {
   const refreshtoken = ref(localStorage.getItem("jwtTokenRefresh"));
   const userStore = useUserStore();
   const roleStore = useRoleStore();
-
   function setAccsessToken(newToken) {
     accsesstoken.value = newToken;
     localStorage.setItem("jwtTokenAccsess", newToken);
@@ -19,8 +18,6 @@ export const useAuthStore = defineStore("auth", () => {
   function removeToken() {
     accsesstoken.value = null;
     refreshtoken.value = null;
-    console.log(accsesstoken.value, "tokenAcc");
-    localStorage.removeItem("jwtToken");
     localStorage.removeItem("jwtTokenAccsess");
     localStorage.removeItem("jwtTokenRefresh");
   }
@@ -57,7 +54,6 @@ export const useAuthStore = defineStore("auth", () => {
     return new Promise((resolve) => {
       setAccsessToken("accsess" + Date.now());
       setRefreshToken("refresh" + Date.now());
-      console.log("token", accsesstoken.value, refreshtoken.value);
       resolve(true);
     });
   }

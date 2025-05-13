@@ -308,13 +308,10 @@ const onFormSubmit = async (formData) => {
           dR: new Date(formData.values.dR).toISOString().split("T")[0],
         }),
       };
-
-      console.log("Form submitted", formattedData);
       const response = await authStore.login(
         "http://10.8.0.23:8000/api/auth/register/",
         formattedData
       );
-      console.log(formattedData.role);
       roleStore.setRole(formattedData.role);
       userStore.setUser({ name: "evgeni", id: 4, data: Date.now() });
       await nextTick();

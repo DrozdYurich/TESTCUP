@@ -10,7 +10,6 @@ export const useUserStore = defineStore("user", () => {
   function removeUser() {
     user.value = null;
     localStorage.removeItem("user");
-    localStorage.removeItem("request");
   }
   const getUser = computed(() => user.value);
   return {
