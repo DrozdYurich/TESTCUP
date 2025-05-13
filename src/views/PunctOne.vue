@@ -1,38 +1,61 @@
 <template>
-  <div>
-    <Button class="bg-black border-0" @click="showDialogList"
-      >Открыть список</Button
-    >
+  <div class="card">
+    <h1>Home</h1>
+    <div class="container w-full">
+      <CardInfo
+        v-for="n in 3"
+        :key="n"
+        :title="'Н' + n"
+        :subtitle="'По' + n"
+        class="cardinf"
+      >
+        <template #content>
+          <p>Lorem ipsum dolor sit amet consectetu</p>
+        </template>
+        <template #footer>
+          <Button
+            @click="showDialogList"
+            style="background-color: palevioletred; border: none"
+            >Открыть модальное окно</Button
+          >
+        </template>
+      </CardInfo>
+    </div>
   </div>
 </template>
+
 <script setup>
+import Button from "primevue/button";
 import useModalMethods from "@/components/Modal/MethodsModal/methods";
-import { Button } from "primevue";
+import CardInfo from "@/components/CardInfo.vue";
 const { showDialogList } = useModalMethods();
-// const getIzavka = async () => {
-//   try {
-//     loading.value = true;
-//     const response = await axios.get(
-//       "http://10.8.0.23:8000/user/vacancy-responses/",
-//       {
-//         headers: {
-//           Authorization: `Token ${token.value}`,
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
-//     console.log(response);
-//     isData.value = false;
-//     izavka.value = response.data.responses;
-//     loading.value = false;
-//     console.log("zavka", izavka.value);
-//     return response.data;
-//   } catch (error) {
-//     isData.value = true;
-//     loading.value = false;
-//     console.error("Error fetching regions:", error);
-//     throw error;
-//   }
-// };
 </script>
-<style scoped></style>
+
+<style scoped>
+.card {
+  width: 90vw;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.container {
+  margin: 0 auto;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.cardinf {
+  flex: 1 1 25%;
+  min-width: 250px;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+@media (max-width: 600px) {
+  .card {
+    width: 90vw;
+  }
+}
+</style>
