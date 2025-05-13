@@ -1,10 +1,12 @@
 <template>
-  <TheHader />
-  <RouterView v-slot="{ Component }">
-    <transition name="fade" mode="out-in">
-      <component :is="Component"></component>
-    </transition>
-  </RouterView>
+  <div>
+    <TheHader />
+    <RouterView v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component"></component>
+      </transition>
+    </RouterView>
+  </div>
 </template>
 
 <script setup>

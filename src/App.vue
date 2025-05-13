@@ -15,13 +15,13 @@ const layout = computed(() => {
 <template>
   <Toast position="top-right" />
   <DynamicDialog />
-  <component :is="layout">
-    <RouterView v-slot="{ Component }">
-      <Transition name="fade" mode="out-in">
+  <Transition name="fade" mode="out-in">
+    <component :is="layout">
+      <RouterView v-slot="{ Component }">
         <component :is="Component" :key="$route.path" />
-      </Transition>
-    </RouterView>
-  </component>
+      </RouterView>
+    </component>
+  </Transition>
 </template>
 
 <style>
