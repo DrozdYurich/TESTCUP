@@ -66,7 +66,7 @@ const { showDialogProduct } = useModalMethods();
 }
 @media (max-width: 600px) {
   .card {
-    width: 70vw;
+    width: 90vw;
   }
 }
 </style>
