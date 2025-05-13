@@ -186,7 +186,7 @@
         <Message severity="info" class="text-center">
           {{ mode === "registr" ? "Уже есть аккаунт?" : "Ещё нет аккаунта?" }}
           <RouterLink
-            :to="mode === 'registr' ? '/login' : '/auth'"
+            :to="mode === 'registr' ? { name: 'login' } : { name: 'auth' }"
             class="text-blue-600 underline hover:text-blue-800"
             >{{
               mode === "registr" ? "Войти" : "Зарегистрироваться"
