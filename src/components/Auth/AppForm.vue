@@ -314,7 +314,8 @@ const onFormSubmit = async (formData) => {
         "http://10.8.0.23:8000/api/auth/register/",
         formattedData
       );
-      roleStore.setRole(formattedData.role.name);
+      console.log(formattedData.role);
+      roleStore.setRole(formattedData.role);
       userStore.setUser({ name: "evgeni", id: 4, data: Date.now() });
       await nextTick();
       if (isAuth.value) {
