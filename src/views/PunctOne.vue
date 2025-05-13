@@ -1,7 +1,14 @@
 <template>
-  <div>One</div>
+  <div>
+    <Button class="bg-black border-0" @click="showDialogList"
+      >Открыть список</Button
+    >
+  </div>
 </template>
 <script setup>
+import useModalMethods from "@/components/Modal/MethodsModal/methods";
+import { Button } from "primevue";
+const { showDialogList } = useModalMethods();
 // const getIzavka = async () => {
 //   try {
 //     loading.value = true;

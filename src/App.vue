@@ -43,17 +43,9 @@ const layout = computed(() => {
 }
 /* Увеличиваем непрозрачность фона toast */
 .p-toast .p-toast-message {
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.9
-  ); /* вместо 0.7 или другого значения */
-  /* или можно использовать сплошной цвет без прозрачности */
-  /* background-color: #000000; */
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
-/* Если нужно, можно убрать прозрачность у текста */
 .p-toast .p-toast-message .p-toast-summary,
 .p-toast .p-toast-message .p-toast-detail {
   opacity: 1;

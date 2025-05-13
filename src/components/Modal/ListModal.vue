@@ -1,11 +1,9 @@
 <template>
   <div>
-    <div>Modal 1</div>
+    <div>Modal List</div>
     <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, optio
-      atque doloremque deserunt suscipit debitis praesentium dolores consequatur
-      earum animi, nihil enim laudantium ullam numquam cupiditate eveniet
-      reprehenderit accusamus quas!
+      atque deserunt
     </p>
   </div>
 </template>

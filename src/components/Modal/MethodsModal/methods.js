@@ -1,5 +1,6 @@
 import { useDialog } from "primevue";
 import ProductListModal from "../ProductListModal.vue";
+import ListModal from "../ListModal.vue";
 
 export default function useModalMethods() {
   const dialog = useDialog();
@@ -20,7 +21,7 @@ export default function useModalMethods() {
     });
   }
   function showDialogList() {
-    dialog.open(ProductListModal, {
+    dialog.open(ListModal, {
       props: {
         header: "Список списков",
         style: {
