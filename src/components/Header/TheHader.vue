@@ -63,8 +63,8 @@ const items = ref([
     route: "three",
   },
   {
-    label: "Личный кабинет",
-    icon: "pi pi-home",
+    label: auth.value ? "Личный кабинет" : "Войти",
+    icon: auth.value ? "pi pi-home" : "pi pi-sign-in",
     route: auth.value ? "cabinet" : "login",
   },
 ]);
