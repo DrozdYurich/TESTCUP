@@ -69,13 +69,16 @@ export const useAuthStore = defineStore("auth", () => {
     //   logout();
     //   return false;
     // }
+    if (!accsesstoken.value || !refreshtoken.value) {
+      stopTokenRefresh();
+      return false;
+    }
+
     return new Promise((resolve) => {
-      if (accsesstoken.value && refreshtoken.value) {
-        setAccsessToken("accsess" + Date.now());
-        setRefreshToken("refresh" + Date.now());
-        console.log("token", accsesstoken.value, refreshtoken.value);
-        resolve(true);
-      }
+      setAccsessToken("accsess" + Date.now());
+      setRefreshToken("refresh" + Date.now());
+      console.log("token", accsesstoken.value, refreshtoken.value);
+      resolve(true);
     });
   }
   function startTokenRefresh() {
@@ -95,6 +98,8 @@ export const useAuthStore = defineStore("auth", () => {
   }
   if (accsesstoken.value && refreshtoken.value) {
     startTokenRefresh();
+  } else {
+    stopTokenRefresh();
   }
   function logout() {
     removeToken();
