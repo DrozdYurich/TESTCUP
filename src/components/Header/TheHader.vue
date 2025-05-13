@@ -1,5 +1,5 @@
 <template>
-  <div class="card sticky top-0">
+  <div class="card sticky top-0 z-50">
     <Menubar :model="items" ref="menubarRef">
       <template #start>
         <span class="menu-label">Menu</span>

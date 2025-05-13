@@ -24,7 +24,9 @@
         >
           <Avatar :image="avatarImg" class="mr-2" shape="circle" />
           <span class="inline-flex flex-col items-start">
-            <span class="font-bold">{{ user.name }} {{ user.firstname }}</span>
+            <span class="font-bold"
+              >{{ user?.name }} {{ user?.firstname }}</span
+            >
             <span class="text-sm">{{ role }}</span>
           </span>
         </button>

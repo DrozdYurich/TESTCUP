@@ -6,7 +6,7 @@ export const useToastStore = defineStore("toast", () => {
   const toast = useToast();
   const showToast = (options) => {
     toast.add({
-      life: 3000,
+      life: 2000,
       ...options,
     });
   };
