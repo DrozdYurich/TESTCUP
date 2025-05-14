@@ -1,7 +1,7 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 export const useRoleStore = defineStore("role", () => {
-  const role = ref(JSON.parse(localStorage.getItem("role")));
+  const role = ref(localStorage.getItem("role"));
   function setRole(newRole) {
     role.value = newRole;
     localStorage.setItem("role", newRole);
