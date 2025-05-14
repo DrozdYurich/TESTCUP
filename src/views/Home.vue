@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <h1>Home</h1>
-    {{ status }}
+    {{ searchSubtitle }}
     <AppFilter
       v-model:searchTitle="searchTitle"
       v-model:status="status"
