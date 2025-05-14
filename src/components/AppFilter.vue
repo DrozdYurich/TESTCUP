@@ -7,29 +7,29 @@
         :value="searchTitle"
         @input="$emit('update:searchTitle', $event.target.value)"
         placeholder="Title"
-        size="small"
       />
     </IconField>
-    <RadioButtonGroup class="flex gap-2">
-      <div class="flex items-center gap-2">
-        <RadioButton
-          inputId="activ"
-          :value="'activ'"
-          :checked="(status = 'activ')"
-          @change="$emit('update:status')"
-        />
-        <label for="activ">Активный</label>
-      </div>
-      <div class="flex items-center gap-2">
-        <RadioButton
-          inputId="noactiv"
-          :value="'noactiv'"
-          :checked="(status = 'noactiv')"
-          @change="$emit('update:status')"
-        />
-        <label for="noactiv">Неактивный</label>
-      </div>
-    </RadioButtonGroup>
+
+    <div class="flex items-center gap-2">
+      <RadioButton
+        inputId="activ"
+        value="activ"
+        :modelValue="status"
+        @update:modelValue="$emit('update:status', $event)"
+      />
+      <label for="activ">Активный</label>
+    </div>
+    <div class="flex items-center gap-2">
+      <RadioButton
+        inputId="noactiv"
+        name="status"
+        value="noactiv"
+        :modelValue="status"
+        @update:modelValue="$emit('update:status', $event)"
+      />
+      <label for="noactiv">Неактивный</label>
+    </div>
+
     <IconField>
       <InputIcon class="pi pi-search" />
       <InputText
@@ -37,19 +37,13 @@
         :value="searchSubTitle"
         @input="$emit('update:searchSubTitle', $event.target.value)"
         placeholder="subtitle"
-        size="small"
       />
     </IconField>
+    <Button severity="danger" @click="$emit('reset')" label="Сбросить"></Button>
   </div>
 </template>
 <script setup>
-import {
-  IconField,
-  InputIcon,
-  InputText,
-  RadioButton,
-  RadioButtonGroup,
-} from "primevue";
+import { Button, IconField, InputIcon, InputText, RadioButton } from "primevue";
 const props = defineProps({
   searchTitle: String,
   status: String,
@@ -59,6 +53,7 @@ const emits = defineEmits([
   "update:searchTitle",
   "update:status",
   "update:searchSubTitle",
+  "reset",
 ]);
 </script>
 <style scoped></style>
