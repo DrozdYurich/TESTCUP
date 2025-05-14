@@ -15,6 +15,7 @@
         <RadioButton
           inputId="activ"
           :value="'activ'"
+          :checked="(status = 'activ')"
           @change="$emit('update:status')"
         />
         <label for="activ">Активный</label>
@@ -23,6 +24,7 @@
         <RadioButton
           inputId="noactiv"
           :value="'noactiv'"
+          :checked="(status = 'noactiv')"
           @change="$emit('update:status')"
         />
         <label for="noactiv">Неактивный</label>
