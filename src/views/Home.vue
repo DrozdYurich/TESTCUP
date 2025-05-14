@@ -7,7 +7,7 @@
           enterClass:
             'animate-enter fade-in-10 spin-in-35 slide-in-from-t-16 animate-duration-1000',
         }"
-        v-for="n in 8"
+        v-for="n in 28"
         :key="n"
         :title="'Название' + n"
         :subtitle="'Подназвание' + n"

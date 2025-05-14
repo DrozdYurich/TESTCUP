@@ -28,4 +28,9 @@ const props = defineProps({
   background-color: rgb(59, 63, 63);
   color: white;
 }
+@media (max-width: 600px) {
+  .card {
+    height: 62vh;
+  }
+}
 </style>
