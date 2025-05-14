@@ -4,18 +4,27 @@
       <InputIcon class="pi pi-search" />
       <InputText
         class="w-full"
-        v-model="searchTitle"
+        :value="searchTitle"
+        @input="$emit('update:searchTitle', $event.target.value)"
         placeholder="Title"
         size="small"
       />
     </IconField>
     <RadioButtonGroup class="flex gap-2">
       <div class="flex items-center gap-2">
-        <RadioButton inputId="activ" value="activ" />
+        <RadioButton
+          inputId="activ"
+          :value="'activ'"
+          @change="$emit('update:status')"
+        />
         <label for="activ">Активный</label>
       </div>
       <div class="flex items-center gap-2">
-        <RadioButton inputId="noactiv" value="noactiv" />
+        <RadioButton
+          inputId="noactiv"
+          :value="'noactiv'"
+          @change="$emit('update:status')"
+        />
         <label for="noactiv">Неактивный</label>
       </div>
     </RadioButtonGroup>
@@ -23,7 +32,8 @@
       <InputIcon class="pi pi-search" />
       <InputText
         class="w-full"
-        v-model="value1"
+        :value="searchSubTitle"
+        @input="$emit('update:searchSubTitle', $event.target.value)"
         placeholder="subtitle"
         size="small"
       />
@@ -41,6 +51,12 @@ import {
 const props = defineProps({
   searchTitle: String,
   status: String,
+  searchSubTitle: String,
 });
+const emits = defineEmits([
+  "update:searchTitle",
+  "update:status",
+  "update:searchSubTitle",
+]);
 </script>
 <style scoped></style>
