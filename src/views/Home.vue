@@ -3,6 +3,10 @@
     <h1>Home</h1>
     <div class="container w-full">
       <CardInfo
+        v-animateonscroll="{
+          enterClass:
+            'animate-enter fade-in-10 spin-in-35 slide-in-from-t-16 animate-duration-1000',
+        }"
         v-for="n in 8"
         :key="n"
         :title="'Название' + n"
@@ -52,7 +56,7 @@ const { showDialogProduct } = useModalMethods();
 .container {
   margin: 0 auto;
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   justify-content: center;
   flex-wrap: wrap;
   max-width: 100%;

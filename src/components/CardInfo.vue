@@ -22,6 +22,7 @@ const props = defineProps({
   subtitle: String,
 });
 </script>
+
 <style scoped>
 .card {
   background-color: rgb(59, 63, 63);

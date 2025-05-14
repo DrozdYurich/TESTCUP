@@ -1,33 +1,7 @@
 <template>
   <div class="card flex flex-col items-center overflow-hidden">
-    <div class="flex flex-col items-center gap-2">
-      <span class="text-xl font-medium">Scroll Down</span>
-      <span
-        class="animate-bounce h-8 w-8 bg-primary text-primary-contrast rounded-full inline-flex items-center justify-center"
-      >
-        <i class="pi pi-arrow-down" />
-      </span>
-    </div>
     <div class="h-[30rem]"></div>
     <div class="flex flex-wrap justify-center gap-8">
-      <div
-        v-animateonscroll="{
-          enterClass:
-            'animate-enter fade-in-10 slide-in-from-l-8 animate-duration-1000',
-          leaveClass: 'animate-leave fade-out-0',
-        }"
-        class="flex flex-col border border-surface shadow-lg justify-center items-center max-w-80 rounded-2xl p-8 gap-4"
-      >
-        <div
-          class="rounded-full bg-primary text-primary-contrast w-12 h-12 flex items-center justify-center"
-        >
-          <i class="pi pi-user !text-2xl"></i>
-        </div>
-        <span class="text-2xl font-bold">Individual</span>
-        <span class="text-muted-color text-center"
-          >Lorem ipsum dolor sit amet consectetur adipisicing elit.</span
-        >
-      </div>
       <div
         v-animateonscroll="{
           enterClass: 'animate-enter fade-in-10 animate-duration-1000',
