@@ -42,7 +42,7 @@ import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/useUserStore";
 import { getMenuItems } from "./data/sidebar";
 import useGoCaninet from "./methods/useGoTo";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useRoleStore } from "@/stores/useRoleStore";
 const { getUser } = storeToRefs(useUserStore());
 const { getRole } = storeToRefs(useRoleStore());

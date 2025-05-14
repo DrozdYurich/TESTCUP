@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full mb-2 flex gap-2">
+  <div class="w-full mb-2 flex flex-col md:flex-row justify-around gap-2">
     <IconField>
       <InputIcon class="pi pi-search" />
       <InputText

@@ -31,6 +31,7 @@
             <p>{{ n.desription }}</p>
             <Tag
               class="h-1/6"
+              :icon="n.status === 'activ' ? 'pi pi-check' : 'pi pi-times'"
               :severity="n.status === 'activ' ? 'success' : 'danger'"
               :value="n.status"
             ></Tag>
