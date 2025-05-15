@@ -1,12 +1,14 @@
 <template>
   <div>
     <h3 class="text-2xl font-semibold mb-4">Пагинация</h3>
-    <div
-      class="cards grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-white rounded-lg shadow-md max-h-[60vh] overflow-y-auto"
-    >
-      <Transition name="fade" v-for="(pag, i) in paginatesItems">
+    <transition name="fade" mode="out-in">
+      <div
+        :key="currentPage"
+        class="cards grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-white rounded-lg shadow-md max-h-[60vh] overflow-y-auto"
+      >
         <CardInfo
-          :key="i"
+          v-for="(pag, i) in paginatesItems"
+          :key="pag.id"
           :title="pag.title"
           :subtitle="pag.subtitle"
           class="cardinf transition-shadow hover:shadow-lg rounded-lg border border-gray-200"
@@ -17,8 +19,8 @@
           colorSub="black"
         >
         </CardInfo>
-      </Transition>
-    </div>
+      </div>
+    </transition>
     <div class="flex gap-2 mt-6 justify-center items-center">
       <Button
         icon="pi pi-arrow-left"
@@ -60,12 +62,34 @@ const { goToPage, nextPage, paginatesItems, prevPage, totalPage, currentPage } =
   usePagination(comp);
 </script>
 <style scoped>
-.fade-enter-active,
+.fade-enter-active {
+  animation: in 0.4s ease;
+}
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  animation: out 0.4s ease;
 }
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+@keyframes in {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100px);
+  }
 }
 </style>
