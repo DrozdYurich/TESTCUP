@@ -1,2 +1,5 @@
 @import "tailwindcss";
 @import "tailwindcss-primeui";
+:root {
+  --color: #ecebe9;
+}

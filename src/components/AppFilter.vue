@@ -1,6 +1,6 @@
 <template>
   <div
-    class="filter w-full mb-2 flex flex-col md:flex-row justify-around gap-2"
+    class="filter p-5 bg-[var(--color)] shadow-2xl rounded-2xl w-full mb-2 flex flex-col md:flex-row justify-around gap-2"
   >
     <IconField>
       <InputIcon class="pi pi-search" />
@@ -11,25 +11,28 @@
         placeholder="Title"
       />
     </IconField>
-
-    <div class="flex items-center gap-2">
-      <RadioButton
-        inputId="activ"
-        value="activ"
-        :modelValue="status"
-        @update:modelValue="$emit('update:status', $event)"
-      />
-      <label for="activ">Активный</label>
-    </div>
-    <div class="flex items-center gap-2">
-      <RadioButton
-        inputId="noactiv"
-        name="status"
-        value="noactiv"
-        :modelValue="status"
-        @update:modelValue="$emit('update:status', $event)"
-      />
-      <label for="noactiv">Неактивный</label>
+    <div
+      class="flex gap-1 bg-white p-2 rounded-2xl items-center justify-center"
+    >
+      <div class="flex items-center gap-2">
+        <RadioButton
+          inputId="activ"
+          value="activ"
+          :modelValue="status"
+          @update:modelValue="$emit('update:status', $event)"
+        />
+        <label for="activ">Активный</label>
+      </div>
+      <div class="flex items-center gap-2">
+        <RadioButton
+          inputId="noactiv"
+          name="status"
+          value="noactiv"
+          :modelValue="status"
+          @update:modelValue="$emit('update:status', $event)"
+        />
+        <label for="noactiv">Неактивный</label>
+      </div>
     </div>
 
     <IconField>
@@ -64,7 +67,7 @@ const emits = defineEmits([
 ]);
 </script>
 <style scoped>
-.filter {
+/* .filter {
   width: 100%;
   margin-bottom: 0.5rem;
   display: flex;
@@ -76,5 +79,5 @@ const emits = defineEmits([
   .filter {
     flex-direction: row;
   }
-}
+} */
 </style>

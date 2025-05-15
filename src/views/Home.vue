@@ -18,6 +18,10 @@
         :title="n.title"
         :subtitle="n.subtitle"
         class="cardinf"
+        backgroundColor="blue"
+        color="white"
+        borderWidth="5px"
+        borderLeft="palevioletred"
       >
         <template #header>
           <img
