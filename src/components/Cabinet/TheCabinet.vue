@@ -2,17 +2,17 @@
   <div>
     <h3 class="text-2xl font-semibold mb-4">Пагинация</h3>
     <div
-      class="cards flex flex-col gap-4 p-4 bg-white rounded-lg shadow-md max-h-[60vh] overflow-y-auto"
+      class="cards grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-white rounded-lg shadow-md max-h-[60vh] overflow-y-auto"
     >
       <CardInfo
-        v-for="pag in paginatesItems"
-        :key="pag.id"
+        v-for="(pag, i) in paginatesItems"
+        :key="i"
         :title="pag.title"
         :subtitle="pag.subtitle"
         class="cardinf transition-shadow hover:shadow-lg rounded-lg border border-gray-200"
         backgroundColor="rgb(93, 142, 216)"
         border-left-width="10px"
-        border-left="gold1"
+        border-left="gold"
         color="white"
         colorSub="black"
       >
