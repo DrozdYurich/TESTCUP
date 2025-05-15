@@ -1,8 +1,5 @@
 <template>
-  <Toolbar
-    class="fixed left-0 w-11/12 z-50 bg-white toolbar-mobile p-0"
-    style="bottom: 30px"
-  >
+  <Toolbar class="fixed left-0 w-11/12 z-50 bg-white toolbar-mobile p-0">
     <template #center>
       <Button
         v-for="item in flatMenuItems"

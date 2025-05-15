@@ -78,7 +78,7 @@ onUnmounted(() => {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 56px;
+
     z-index: 1000;
   }
 }
