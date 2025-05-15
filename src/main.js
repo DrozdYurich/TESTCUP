@@ -19,9 +19,8 @@ app.directive("animateonscroll", AnimateOnScroll);
 app.use(router);
 app.use(ToastService);
 AOS.init({
-  // Здесь можно указать опции, например:
-  duration: 800, // длительность анимации в мс
-  once: true, // анимация срабатывает только один раз
+  duration: 800,
+  once: false,
 });
 app.use(PrimeVue, {
   theme: {

@@ -3,10 +3,8 @@
     <h1>Home</h1>
     <div class="container w-full">
       <CardInfo
-        v-animateonscroll="{
-          enterClass:
-            'animate-enter fade-in-10 zoom-in-80 animate-duration-1000',
-        }"
+        data-aos="fade-up"
+        data-aos-anchor-placement="center-bottom"
         v-for="n in 3"
         :key="n"
         :title="'Н' + n"
