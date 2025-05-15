@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full mb-2 flex flex-col md:flex-row justify-around gap-2">
+  <div
+    class="filter w-full mb-2 flex flex-col md:flex-row justify-around gap-2"
+  >
     <IconField>
       <InputIcon class="pi pi-search" />
       <InputText
@@ -39,7 +41,12 @@
         placeholder="subtitle"
       />
     </IconField>
-    <Button severity="danger" @click="$emit('reset')" label="Сбросить"></Button>
+    <Button
+      class="px-5"
+      severity="danger"
+      @click="$emit('reset')"
+      label="Сбросить"
+    ></Button>
   </div>
 </template>
 <script setup>
@@ -56,4 +63,18 @@ const emits = defineEmits([
   "reset",
 ]);
 </script>
-<style scoped></style>
+<style scoped>
+.filter {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 0.5rem;
+}
+@media (min-width: 768px) {
+  .filter {
+    flex-direction: row;
+  }
+}
+</style>

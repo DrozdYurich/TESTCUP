@@ -30,7 +30,7 @@ const props = defineProps({
 }
 @media (max-width: 600px) {
   .card {
-    height: 62vh;
+    width: 80vw;
   }
 }
 </style>

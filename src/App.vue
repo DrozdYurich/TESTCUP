@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import AuthLayout from "./Layout/AuthLayout.vue";
 import MainLayout from "./Layout/MainLayout.vue";
@@ -9,6 +9,9 @@ import { DynamicDialog } from "primevue";
 const route = useRoute();
 const layout = computed(() => {
   return route.meta.layout === "Auth" ? AuthLayout : MainLayout;
+});
+onMounted(() => {
+  window.scrollTo(0, 0);
 });
 </script>
 

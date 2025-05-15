@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <h1>Home</h1>
-    {{ searchSubtitle }}
+
     <AppFilter
       v-model:searchTitle="searchTitle"
       v-model:status="status"
@@ -55,7 +55,7 @@ import useModalMethods from "@/components/Modal/MethodsModal/methods";
 import CardInfo from "@/components/CardInfo.vue";
 import AppFilter from "@/components/AppFilter.vue";
 import items from "../../public/data";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { Tag } from "primevue";
 const { showDialogProduct } = useModalMethods();
 const searchTitle = ref("");
@@ -98,7 +98,7 @@ const resetFilter = () => {
 
 .cardinf {
   flex: 1 1 25%;
-  min-width: 250px;
+  min-width: 300px;
   max-width: 400px;
   box-sizing: border-box;
 }

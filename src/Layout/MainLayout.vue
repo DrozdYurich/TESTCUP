@@ -6,10 +6,12 @@
         <component :is="Component"></component>
       </transition>
     </RouterView>
+    <TheFooter />
   </div>
 </template>
 
 <script setup>
+import TheFooter from "@/components/Footer/TheFooter.vue";
 import TheHader from "@/components/Header/TheHader.vue";
 </script>
 <style scoped>
