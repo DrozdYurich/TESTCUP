@@ -4,19 +4,20 @@
     <div
       class="cards grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-white rounded-lg shadow-md max-h-[60vh] overflow-y-auto"
     >
-      <CardInfo
-        v-for="(pag, i) in paginatesItems"
-        :key="i"
-        :title="pag.title"
-        :subtitle="pag.subtitle"
-        class="cardinf transition-shadow hover:shadow-lg rounded-lg border border-gray-200"
-        backgroundColor="rgb(93, 142, 216)"
-        border-left-width="10px"
-        border-left="gold"
-        color="white"
-        colorSub="black"
-      >
-      </CardInfo>
+      <Transition name="fade" v-for="(pag, i) in paginatesItems">
+        <CardInfo
+          :key="i"
+          :title="pag.title"
+          :subtitle="pag.subtitle"
+          class="cardinf transition-shadow hover:shadow-lg rounded-lg border border-gray-200"
+          backgroundColor="rgb(93, 142, 216)"
+          border-left-width="10px"
+          border-left="gold"
+          color="white"
+          colorSub="black"
+        >
+        </CardInfo>
+      </Transition>
     </div>
     <div class="flex gap-2 mt-6 justify-center items-center">
       <Button
@@ -58,4 +59,13 @@ import usePagination from "../Utility/usePagination";
 const { goToPage, nextPage, paginatesItems, prevPage, totalPage, currentPage } =
   usePagination(comp);
 </script>
-<style scoped></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
