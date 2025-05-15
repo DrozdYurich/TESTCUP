@@ -10,11 +10,11 @@
         :title="pag.title"
         :subtitle="pag.subtitle"
         class="cardinf transition-shadow hover:shadow-lg rounded-lg border border-gray-200"
-        backgroundColor="gainsboro"
+        backgroundColor="rgb(93, 142, 216)"
         border-left-width="10px"
-        border-left="red"
-        color="black"
-        colorSub="gray"
+        border-left="gold1"
+        color="white"
+        colorSub="black"
       >
       </CardInfo>
     </div>

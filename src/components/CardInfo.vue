@@ -43,7 +43,7 @@ const cardStyle = computed(() => ({
   borderBottom: `${props.borderWidth} solid ${props.borderColor}`,
 }));
 const styleSub = computed(() => ({
-  color: props.colorSub || "gray",
+  color: props.colorSub,
 }));
 </script>
 
