@@ -15,15 +15,16 @@
         border-left="red"
         color="black"
         colorSub="gray"
-      />
+      >
+      </CardInfo>
     </div>
     <div class="flex gap-2 mt-6 justify-center items-center">
       <Button
         icon="pi pi-arrow-left"
         :disabled="currentPage === 1"
         @click="prevPage"
-        class="w-10 h-10 rounded-md border border-gray-300 hover:bg-gray-100 transition"
-        aria-label="Previous page"
+        severity="success"
+        class="w-10 h-10 rounded-md hover:not-disabled:bg-primary-300 transition hover:border-0"
       />
       <Button
         v-for="page in totalPage"
@@ -32,20 +33,18 @@
         :class="[
           'w-10 h-10 rounded-md border border-gray-300 transition',
           page === currentPage
-            ? 'bg-blue-600 text-white shadow-md'
-            : 'bg-white text-gray-700 hover:bg-gray-100',
+            ? 'bg-red-600 text-white shadow-md'
+            : 'bg-white text-gray-800 hover:bg-gray-100 ',
         ]"
-        aria-current="page"
-        :aria-label="`Page ${page}`"
       >
         {{ page }}
       </Button>
       <Button
         :disabled="currentPage === totalPage"
         icon="pi pi-arrow-right"
+        severity="success"
         @click="nextPage"
-        class="w-10 h-10 rounded-md border border-gray-300 hover:bg-gray-100 transition"
-        aria-label="Next page"
+        class="w-10 h-10 rounded-md hover:not-disabled:bg-primary-300 transition hover:border-0"
       />
     </div>
   </div>

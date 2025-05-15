@@ -1,16 +1,16 @@
 <template>
-  <Card class="card" :style="cardStyle">
+  <Card class="card p-0" :style="cardStyle">
     <template #header>
       <slot name="header" />
     </template>
-    <template #title>{{ title }}</template>
-    <template #subtitle
-      ><div :style="styleSub">{{ subtitle }}</div></template
+    <template v-if="title" #title>{{ title }}</template>
+    <template v-if="subtitle" #subtitle
+      ><div class="p-0" :style="styleSub">{{ subtitle }}</div></template
     >
     <template #content>
-      <slot name="content" />
+      <slot v-if="$slots.content" name="content" />
     </template>
-    <template #footer>
+    <template v-if="$slots.footer" #footer>
       <slot name="footer" />
     </template>
   </Card>
@@ -47,10 +47,16 @@ const styleSub = computed(() => ({
 }));
 </script>
 
-<style scoped>
+<style>
 @media (max-width: 600px) {
   .card {
     width: 80vw;
   }
+}
+.p-card-body {
+  padding: 10px;
+}
+.p-card {
+  width: auto;
 }
 </style>
