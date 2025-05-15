@@ -54,10 +54,14 @@ onUnmounted(() => {
   padding: 1rem;
   height: 100vh;
 }
+
 @media (max-width: 1100px) {
   .cabinet {
     display: flex;
     flex-direction: column;
+  }
+  .footer {
+    display: none;
   }
 
   .sidebar {
