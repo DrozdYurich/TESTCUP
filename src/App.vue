@@ -10,9 +10,9 @@ const route = useRoute();
 const layout = computed(() => {
   return route.meta.layout === "Auth" ? AuthLayout : MainLayout;
 });
-onMounted(() => {
-  window.scrollTo(0, 0);
-});
+// onMounted(() => {
+//   window.scrollTo(0, 0);
+// });
 </script>
 
 <template>

@@ -8,12 +8,13 @@
       v-model:searchSubTitle="searchSubtitle"
       @reset="resetFilter"
     />
-    <div class="container w-full">
-      <CardInfo
-        v-animateonscroll="{
+    <!-- v-animateonscroll="{
           enterClass:
             'animate-enter fade-in-10 zoom-in-80 slide-in-from-t-20 animate-duration-1000',
-        }"
+        }" -->
+    <div class="container w-full">
+      <CardInfo
+        data-aos="fade-up"
         v-for="n in filteredItems"
         :key="n.id"
         :title="n.title"
