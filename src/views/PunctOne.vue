@@ -10,6 +10,13 @@
         :title="'Н' + n"
         :subtitle="'По' + n"
         class="cardinf"
+        backgroundColor="gray"
+        border-left-width="10px"
+        border-width="2px"
+        border-color="blue"
+        border-left="black"
+        color="black"
+        colorSub="blue"
       >
         <template #content>
           <p>Lorem ipsum dolor sit amet consectetu</p>

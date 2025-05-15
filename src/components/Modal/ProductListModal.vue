@@ -17,4 +17,4 @@ function closeDialog() {
   dialogRef.value.close();
 }
 </script>
-<style scoped></style>
+<style></style>

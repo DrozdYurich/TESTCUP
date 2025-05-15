@@ -38,7 +38,7 @@ onUnmounted(() => {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-areas: "sidebar info";
-  height: 90vh;
+  height: 100%;
 }
 .sidebar {
   grid-area: sidebar;
@@ -52,7 +52,6 @@ onUnmounted(() => {
   grid-area: info;
   overflow-y: auto;
   padding: 1rem;
-  height: 100vh;
 }
 
 @media (max-width: 1100px) {

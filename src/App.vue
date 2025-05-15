@@ -10,9 +10,6 @@ const route = useRoute();
 const layout = computed(() => {
   return route.meta.layout === "Auth" ? AuthLayout : MainLayout;
 });
-// onMounted(() => {
-//   window.scrollTo(0, 0);
-// });
 </script>
 
 <template>
@@ -36,7 +33,7 @@ const layout = computed(() => {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  transform: translateX(10px);
+  transform: translateX(40px);
 }
 
 @media (max-width: 940px) {

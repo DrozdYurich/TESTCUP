@@ -4,7 +4,9 @@
       <slot name="header" />
     </template>
     <template #title>{{ title }}</template>
-    <template #subtitle>{{ subtitle }}</template>
+    <template #subtitle
+      ><div :style="styleSub">{{ subtitle }}</div></template
+    >
     <template #content>
       <slot name="content" />
     </template>
@@ -22,18 +24,26 @@ const props = defineProps({
   title: String,
   subtitle: String,
   backgroundColor: String,
-  color: String,
-  borderLeft: String,
+  color: { type: String, default: "white" },
+  colorSub: { type: String, default: "gray" },
+  borderColor: { type: String, default: "transparent" },
+  borderLeft: { type: String, default: "0px" },
+  borderLeftWidth: { type: String, default: "0px" },
   borderWidth: {
     type: String,
-    default: "3px",
+    default: "0px",
   },
 });
 const cardStyle = computed(() => ({
   color: props.color || "white",
   backgroundColor: props.backgroundColor || "rgb(59, 63, 63)",
-  borderLeft: `${props.borderWidth} solid ${props.borderLeft || "red"}`,
-  border: `${props.borderWidth} solid ${props.borderColor || "#blue"}`,
+  borderLeft: `${props.borderLeftWidth} solid ${props.borderLeft}`,
+  borderTop: `${props.borderWidth} solid ${props.borderColor}`,
+  borderRight: `${props.borderWidth} solid ${props.borderColor}`,
+  borderBottom: `${props.borderWidth} solid ${props.borderColor}`,
+}));
+const styleSub = computed(() => ({
+  color: props.colorSub || "gray",
 }));
 </script>
 

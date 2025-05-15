@@ -1,6 +1,6 @@
 <template>
   <div
-    class="filter p-5 bg-[var(--color)] shadow-2xl rounded-2xl w-full mb-2 flex flex-col md:flex-row justify-around gap-2"
+    class="filter p-5 bg-[var(--color)] shadow rounded-2xl w-full mb-2 flex flex-col md:flex-row justify-around gap-2"
   >
     <IconField>
       <InputIcon class="pi pi-search" />

@@ -18,10 +18,11 @@
         :title="n.title"
         :subtitle="n.subtitle"
         class="cardinf"
-        backgroundColor="blue"
-        color="white"
-        borderWidth="5px"
-        borderLeft="palevioletred"
+        backgroundColor="gainsboro"
+        border-left-width="10px"
+        border-left="red"
+        color="black"
+        colorSub="gray"
       >
         <template #header>
           <img
@@ -49,6 +50,16 @@
         </template>
       </CardInfo>
     </div>
+    <Button
+      v-if="scrollY > 100"
+      class="fixed bottom-3 right-3 z-50"
+      icon="pi pi-arrow-up"
+      severity="secondary"
+      rounded
+      size="large"
+      @click="goToHead"
+    >
+    </Button>
   </div>
 </template>
 
@@ -58,12 +69,14 @@ import useModalMethods from "@/components/Modal/MethodsModal/methods";
 import CardInfo from "@/components/CardInfo.vue";
 import AppFilter from "@/components/AppFilter.vue";
 import items from "../../public/data";
-import { computed, onMounted, ref } from "vue";
+import { computed, ref } from "vue";
+import useScrollY from "@/components/Utility/useScrollY";
 import { Tag } from "primevue";
 const { showDialogProduct } = useModalMethods();
 const searchTitle = ref("");
 const searchSubtitle = ref("");
 const status = ref("");
+const { scrollY } = useScrollY();
 const filteredItems = computed(() => {
   return items.filter((it) => {
     const matchesTitle = it.title
@@ -80,6 +93,10 @@ const resetFilter = () => {
   searchSubtitle.value = "";
   searchTitle.value = "";
   status.value = "";
+};
+
+const goToHead = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 </script>
 

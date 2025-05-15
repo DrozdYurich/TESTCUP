@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center sidebar h-auto mt-5">
-    <Menu :model="menuItems" class="w-full h-4/5">
+    <Menu :model="menuItems" class="w-full h-3/5">
       <template #start>
         <span class="inline-flex items-center gap-1 px-2 py-2">
           <span class="text-xl font-semibold"
