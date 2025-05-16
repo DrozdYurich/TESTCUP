@@ -1,5 +1,15 @@
 @import "tailwindcss";
 @import "tailwindcss-primeui";
-:root {
-  --color: #ecebe9;
+
+:root[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #eee;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+:root[data-theme="light"] {
+  --background-color: #fff;
+  --text-color: #222;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }

@@ -28,16 +28,30 @@
         </a>
       </template>
     </Menubar>
+    <ToggleSwitch
+      id="theme-switch"
+      v-model="isDark"
+      :aria-label="`Переключатель темы, сейчас ${
+        isDark ? 'тёмная' : 'светлая'
+      }`"
+    >
+      <template #handle="{ checked }">
+        <i :class="checked ? 'pi pi-moon' : 'pi pi-sun'" class="text-lg"></i>
+      </template>
+    </ToggleSwitch>
+    <span>{{ isDark ? "Тёмная тема" : "Светлая тема" }}</span>
   </div>
 </template>
 
 <script setup>
-import { Menubar } from "primevue";
-import { computed, ref } from "vue";
+import { Menubar, ToggleSwitch } from "primevue";
+import { computed, onMounted, ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/useAuthStore";
+import useTheme from "../Utility/useTheme";
 const menubarRef = ref();
 const { isAuth } = storeToRefs(useAuthStore());
+const { isDark } = useTheme();
 const auth = computed(() => {
   return isAuth.value;
 });
@@ -76,6 +90,18 @@ function handleMenuClick(navigate) {
 }
 </script>
 <style>
+.pi-moon {
+  position: relative;
+  color: #fbbf24;
+}
+.pi-sun {
+  position: relative;
+  color: #facc00;
+}
+.p-toggleswitch-slider {
+  background-color: rgb(250, 250, 250);
+  transition: background-color 0.3s ease;
+}
 .p-menubar-root-list {
   width: 80%;
   justify-content: space-between;
