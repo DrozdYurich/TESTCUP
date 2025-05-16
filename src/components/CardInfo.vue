@@ -3,11 +3,13 @@
     <template #header>
       <slot name="header" />
     </template>
-    <template v-if="title" class="text-[var(--card-text)]" #title>{{
-      title
-    }}</template>
-    <template class="text-[var(--card-subtext)]" v-if="subtitle" #subtitle
-      ><div class="p-0">{{ subtitle }}</div></template
+    <template v-if="title" #title
+      ><h3 :style="{ color: 'var(--card-text)' }">{{ title }}</h3></template
+    >
+    <template class="" v-if="subtitle" #subtitle
+      ><div class="p-0" :style="{ color: 'var(--card-subtext)' }">
+        {{ subtitle }}
+      </div></template
     >
     <template #content>
       <slot v-if="$slots.content" name="content" />

@@ -12,11 +12,14 @@
           :title="pag.title"
           :subtitle="pag.subtitle"
           class="cardinf transition-shadow hover:shadow-lg rounded-lg border border-gray-200"
-          backgroundColor="rgb(93, 142, 216)"
           border-left-width="10px"
-          border-left="gold"
-          color="white"
-          colorSub="black"
+          style="
+            --card-bg: var(--card-background-color);
+            --card-border: var(--card-border-color);
+            --card-text: var(--card-text-color);
+            --card-subtext: var(--card-subtext-color);
+            --card-border-left: var(--card-border-lefr);
+          "
         >
         </CardInfo>
       </div>
