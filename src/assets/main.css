@@ -2,7 +2,7 @@
 @import "tailwindcss-primeui";
 
 :root[data-theme="dark"] {
-  --background-color: #121212;
+  --background-color: #363535;
   --text-color: #eee;
   background-color: var(--background-color);
   color: var(--text-color);
@@ -12,4 +12,49 @@
   --text-color: #222;
   background-color: var(--background-color);
   color: var(--text-color);
+}
+.pi-moon {
+  position: relative;
+  color: #fbbf24;
+}
+
+.pi-sun {
+  position: relative;
+  color: #facc00;
+}
+.p-toggleswitch-slider {
+  background-color: var(--background-color);
+  transition: background-color 0.3s ease;
+}
+.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider {
+  background-color: var(--background-color);
+}
+.p-menubar {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  width: 80%;
+  justify-content: space-between;
+  margin: auto;
+}
+
+.p-menubar-root-list {
+  width: 80%;
+  justify-content: space-between;
+  margin: auto;
+}
+.menu-label {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+@media (min-width: 960px) {
+  .menu-label {
+    display: none;
+  }
+}
+.p-menubar-start {
+  display: flex;
+  align-items: center;
 }

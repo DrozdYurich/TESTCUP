@@ -89,43 +89,4 @@ function handleMenuClick(navigate) {
   menubarRef.value?.hide();
 }
 </script>
-<style>
-.pi-moon {
-  position: relative;
-  color: #fbbf24;
-}
-.pi-sun {
-  position: relative;
-  color: #facc00;
-}
-.p-toggleswitch-slider {
-  background-color: rgb(250, 250, 250);
-  transition: background-color 0.3s ease;
-}
-.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider {
-  background-color: rgb(10, 10, 10); /* например, синий */
-}
-.p-menubar-root-list {
-  width: 80%;
-  justify-content: space-between;
-  margin: auto;
-}
-.menu-label {
-  display: inline-block;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-left: 8px;
-  vertical-align: middle;
-}
-@media (min-width: 960px) {
-  .menu-label {
-    display: none;
-  }
-}
-
-/* Для выравнивания по центру с бургером */
-.p-menubar-start {
-  display: flex;
-  align-items: center;
-}
-</style>
+<style></style>
