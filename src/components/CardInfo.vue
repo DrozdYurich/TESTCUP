@@ -1,11 +1,13 @@
 <template>
-  <Card class="card p-0" :style="cardStyle">
+  <Card class="card p-0 bg-[var(--card-bg)]" :style="cardStyle">
     <template #header>
       <slot name="header" />
     </template>
-    <template v-if="title" #title>{{ title }}</template>
-    <template v-if="subtitle" #subtitle
-      ><div class="p-0" :style="styleSub">{{ subtitle }}</div></template
+    <template v-if="title" class="text-[var(--card-text)]" #title>{{
+      title
+    }}</template>
+    <template class="text-[var(--card-subtext)]" v-if="subtitle" #subtitle
+      ><div class="p-0">{{ subtitle }}</div></template
     >
     <template #content>
       <slot v-if="$slots.content" name="content" />
@@ -19,15 +21,10 @@
 <script setup>
 import { Card } from "primevue";
 import { computed } from "vue";
-
 const props = defineProps({
   title: String,
   subtitle: String,
-  backgroundColor: String,
-  color: { type: String, default: "white" },
-  colorSub: { type: String, default: "gray" },
-  borderColor: { type: String, default: "transparent" },
-  borderLeft: { type: String, default: "0px" },
+
   borderLeftWidth: { type: String, default: "0px" },
   borderWidth: {
     type: String,
@@ -35,15 +32,10 @@ const props = defineProps({
   },
 });
 const cardStyle = computed(() => ({
-  color: props.color || "white",
-  backgroundColor: props.backgroundColor || "rgb(59, 63, 63)",
-  borderLeft: `${props.borderLeftWidth} solid ${props.borderLeft}`,
-  borderTop: `${props.borderWidth} solid ${props.borderColor}`,
-  borderRight: `${props.borderWidth} solid ${props.borderColor}`,
-  borderBottom: `${props.borderWidth} solid ${props.borderColor}`,
-}));
-const styleSub = computed(() => ({
-  color: props.colorSub,
+  borderLeft: `${props.borderLeftWidth} solid var(--card-border-left)`,
+  borderTop: `${props.borderWidth} solid var(--card-border)`,
+  borderRight: `${props.borderWidth} solid var(--card-border)`,
+  borderBottom: `${props.borderWidth} solid var(--card-border)`,
 }));
 </script>
 

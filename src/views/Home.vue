@@ -17,12 +17,16 @@
         :key="n.id"
         :title="n.title"
         :subtitle="n.subtitle"
+        :border-left-width="'10px'"
+        :border-width="'1px'"
         class="cardinf"
-        backgroundColor="gainsboro"
-        border-left-width="10px"
-        border-left="red"
-        color="black"
-        colorSub="gray"
+        style="
+          --card-bg: var(--card-background-color);
+          --card-border: var(--card-border-color);
+          --card-text: var(--card-text-color);
+          --card-subtext: var(--card-subtext-color);
+          --card-border-left: var(--card-border-lefr);
+        "
       >
         <template #header>
           <img

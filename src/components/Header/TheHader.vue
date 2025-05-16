@@ -27,19 +27,23 @@
           <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down" />
         </a>
       </template>
-    </Menubar>
-    <ToggleSwitch
-      id="theme-switch"
-      v-model="isDark"
-      :aria-label="`Переключатель темы, сейчас ${
-        isDark ? 'тёмная' : 'светлая'
-      }`"
-    >
-      <template #handle="{ checked }">
-        <i :class="checked ? 'pi pi-moon' : 'pi pi-sun'" class="text-lg"></i>
+      <template #end>
+        <ToggleSwitch
+          id="theme-switch"
+          v-model="isDark"
+          :aria-label="`Переключатель темы, сейчас ${
+            isDark ? 'тёмная' : 'светлая'
+          }`"
+        >
+          <template #handle="{ checked }">
+            <i
+              :class="checked ? 'pi pi-moon' : 'pi pi-sun'"
+              class="text-lg"
+            ></i>
+          </template>
+        </ToggleSwitch>
       </template>
-    </ToggleSwitch>
-    <span>{{ isDark ? "Тёмная тема" : "Светлая тема" }}</span>
+    </Menubar>
   </div>
 </template>
 
@@ -89,4 +93,22 @@ function handleMenuClick(navigate) {
   menubarRef.value?.hide();
 }
 </script>
-<style></style>
+<style>
+.pi-moon {
+  position: relative;
+  color: #fbbf24;
+}
+
+.pi-sun {
+  position: relative;
+  color: #facc00;
+}
+.p-toggleswitch-slider {
+  background-color: var(--background-color);
+  border-color: var(--border-color);
+  transition: background-color 0.3s ease;
+}
+.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider {
+  background-color: var(--background-color);
+}
+</style>
