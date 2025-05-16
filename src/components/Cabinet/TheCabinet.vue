@@ -22,46 +22,34 @@
       </div>
     </transition>
     <div class="flex gap-2 mt-6 justify-center items-center">
-      <Button
-        icon="pi pi-arrow-left"
-        :disabled="currentPage === 1"
-        @click="prevPage"
-        severity="success"
-        class="w-10 h-10 rounded-md hover:not-disabled:bg-primary-300 transition hover:border-0"
-      />
-      <Button
-        v-for="page in totalPage"
-        :key="page"
-        @click="goToPage(page)"
-        :class="[
-          'w-10 h-10 rounded-md border border-gray-300 transition',
-          page === currentPage
-            ? 'bg-red-600 text-white shadow-md'
-            : 'bg-white text-gray-800 hover:bg-gray-100 ',
-        ]"
+      <Paginator
+        :rows="itemsPerPage"
+        :total-records="comp.length"
+        :first="(currentPage - 1) * itemsPerPage"
+        :page-link-size="4"
+        @page="onPageChange"
       >
-        {{ page }}
-      </Button>
-      <Button
-        :disabled="currentPage === totalPage"
-        icon="pi pi-arrow-right"
-        severity="success"
-        @click="nextPage"
-        class="w-10 h-10 rounded-md hover:not-disabled:bg-primary-300 transition hover:border-0"
-      />
+      </Paginator>
     </div>
   </div>
 </template>
 
 <script setup>
-import { Button } from "primevue";
+import { Button, Paginator } from "primevue";
 import comp from "../../../public/compititions";
 import CardInfo from "../CardInfo.vue";
 import usePagination from "../Utility/usePagination";
-const { goToPage, nextPage, paginatesItems, prevPage, totalPage, currentPage } =
+const { goToPage, itemsPerPage, paginatesItems, currentPage } =
   usePagination(comp);
+function onPageChange(event) {
+  goToPage(event.page + 1);
+}
 </script>
 <style scoped>
+::v-deep .p-paginator-page-selected {
+  background-color: #e53e3e !important; /* красный фон */
+  color: rgb(255, 255, 255) !important; /* белый текст */
+}
 .fade-enter-active {
   animation: in 0.4s ease;
 }

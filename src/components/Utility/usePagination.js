@@ -29,6 +29,7 @@ export default function usePagination(items) {
   return {
     currentPage,
     totalPage,
+    itemsPerPage,
     paginatesItems,
     prevPage,
     nextPage,
