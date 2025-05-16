@@ -20,7 +20,7 @@
       </template>
       <template #end>
         <button
-          class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200"
+          class="w-full border-0 bg-transparent flex items-start p-2 pl-4"
         >
           <Avatar :image="avatarImg" class="mr-2" shape="circle" />
           <span class="inline-flex flex-col items-start">
