@@ -102,6 +102,9 @@ function handleMenuClick(navigate) {
   background-color: rgb(250, 250, 250);
   transition: background-color 0.3s ease;
 }
+.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider {
+  background-color: rgb(10, 10, 10); /* например, синий */
+}
 .p-menubar-root-list {
   width: 80%;
   justify-content: space-between;
