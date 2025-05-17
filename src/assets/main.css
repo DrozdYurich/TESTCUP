@@ -40,6 +40,9 @@
   background: var(--checked-bg);
   border-color: var(--checked-color);
 }
+.p-inputtext:focus {
+  border: 1px solid var(--checked-color);
+}
 .p-menubar,
 .p-menubar a,
 .p-menubar a span,
