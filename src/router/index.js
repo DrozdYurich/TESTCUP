@@ -13,6 +13,7 @@ import TheProfil from "@/components/Cabinet/TheProfil.vue";
 import TheProfilTwo from "@/components/Cabinet/TheProfilTwo.vue";
 import TheProfilThree from "@/components/Cabinet/TheProfilThree.vue";
 import TheE404 from "@/components/TheE404.vue";
+import AppForgotPassword from "@/components/Forgor/AppForgotPassword.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,6 +81,15 @@ const router = createRouter({
       path: "/auth",
       name: "auth",
       component: Auth,
+      meta: {
+        layout: "Auth",
+        auth: false,
+      },
+    },
+    {
+      path: "/forgot",
+      name: "forgot",
+      component: AppForgotPassword,
       meta: {
         layout: "Auth",
         auth: false,

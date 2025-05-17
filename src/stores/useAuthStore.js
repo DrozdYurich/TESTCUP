@@ -83,7 +83,8 @@ export const useAuthStore = defineStore("auth", () => {
     roleStore.removeRole();
     stopTokenRefresh();
   }
-  const getToken = computed(() => accsesstoken.value);
+  const getTokenAccsess = computed(() => accsesstoken.value);
+  const getTokenRefresh = computed(() => refreshTokens.value);
   const isAuth = computed(() => !!accsesstoken.value && !!refreshtoken.value);
   async function login(url, formstate) {
     // try {
@@ -143,7 +144,8 @@ export const useAuthStore = defineStore("auth", () => {
     refreshtoken,
     setAccsessToken,
     removeToken,
-    getToken,
+    getTokenAccsess,
+    getTokenRefresh,
     isAuth,
     login,
     setRefreshToken,
