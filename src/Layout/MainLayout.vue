@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="min-h-screen flex flex-col">
     <TheHader />
     <RouterView v-slot="{ Component }">
       <transition name="fade" mode="out-in">
         <component :is="Component"></component>
       </transition>
     </RouterView>
-    <TheFooter />
+    <TheFooter class="mt-auto" />
   </div>
 </template>
 

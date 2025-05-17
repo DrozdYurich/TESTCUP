@@ -18,6 +18,7 @@
   --filter-bg-color: #d6d6d6;
   --filter-color: #080808;
   --box-shadow: 0 4px 6px -1px rgba(160, 159, 159, 0.1);
+  --button-bg: palevioletred;
 }
 
 :root[data-theme="light"] {
@@ -37,10 +38,15 @@
   --card-subtext-color: #5a86b7;
   --card-border-left: #0096c7;
   --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --button-bg: #e72e2e;
 }
 .p-radiobutton-checked .p-radiobutton-box {
   background: var(--checked-bg);
+
   border-color: var(--checked-color);
+}
+.p-button-icon {
+  font-size: 1.5rem;
 }
 .p-inputtext:focus {
   border: 1px solid var(--checked-color);
@@ -54,10 +60,14 @@
   border-color: var(--border-color);
   color: var(--text-color) !important;
 }
+.p-menubar.p-component.p-menubar-mobile {
+  width: 100vw;
+}
 .pi.pi-moon {
   position: relative;
   color: #fbbf24;
 }
+
 .pi.pi-sun {
   position: relative;
   color: #facc00;
@@ -81,7 +91,7 @@
 .p-menubar-root-list {
   width: 80%;
   justify-content: space-between;
-  margin: auto;
+  margin-left: 0;
   border: none;
   background-color: var(--background-color);
 }

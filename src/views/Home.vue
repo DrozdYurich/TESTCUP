@@ -48,7 +48,7 @@
         <template #footer>
           <Button
             @click="showDialogProduct"
-            style="background-color: palevioletred; border: none"
+            style="background-color: var(--button-bg); border: none"
             >Открыть модальное окно</Button
           >
         </template>
