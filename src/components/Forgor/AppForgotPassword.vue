@@ -1,44 +1,90 @@
 <template>
-  <div class="text-black">
-    <div v-if="loading">
-      <ProgressBar
-        class="custom-progressbar"
-        mode="indeterminate"
-        style="height: 5px"
-      />
-    </div>
-    <h2>Введите пароль</h2>
-    <Form
-      :initialValues="initialValues"
-      :resolver="resolver"
-      @submit="onFormSubmit"
-      class="flex flex-col gap-4 w-full"
+  <div class="w-full h-full flex flex-col justify-center items-center mt-40">
+    <h1 class="text-3xl mb-3">Восстановление пароля</h1>
+    <div
+      class="text-black w-1/4 h-72 p-5 rounded-xl flex flex-col"
+      style="box-shadow: var(--box-shadow)"
     >
-      <FormField v-slot="$field" name="email" class="flex flex-col gap-1">
-        <FloatLabel variant="on">
-          <InputText
-            class="w-full"
-            type="text"
-            v-model="initialValues.name"
-            id="email"
-          />
-          <label for="email">Email</label>
-        </FloatLabel>
-        <Message
-          v-if="$field?.invalid"
-          severity="error"
-          size="small"
-          variant="simple"
-          >{{ $field.error?.message }}</Message
+      <div v-if="loading">
+        <ProgressBar
+          class="custom-progressbar"
+          mode="indeterminate"
+          style="height: 5px"
+        />
+      </div>
+
+      <Form
+        :initialValues="initialValues"
+        :resolver="resolver"
+        @submit="onFormSubmit"
+        class="flex flex-col gap-4 w-full m-auto"
+      >
+        <FormField v-slot="$field" name="passwdold" class="flex flex-col gap-1">
+          <FloatLabel variant="on">
+            <InputText
+              class="w-full"
+              type="text"
+              v-model="initialValues.passwdold"
+              id="passwdold"
+            />
+            <label for="passwdold">Введите старый пароль</label>
+          </FloatLabel>
+          <Message
+            v-if="$field?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ $field.error?.message }}</Message
+          >
+        </FormField>
+        <FormField v-slot="$field" name="passwdnew" class="flex flex-col gap-1">
+          <FloatLabel variant="on">
+            <InputText
+              class="w-full"
+              type="text"
+              v-model="initialValues.passwdnew"
+              id="passwdnew"
+            />
+            <label for="passwdnew">Введите новый пароль</label>
+          </FloatLabel>
+          <Message
+            v-if="$field?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ $field.error?.message }}</Message
+          >
+        </FormField>
+        <FormField
+          v-slot="$field"
+          name="passwdnew1"
+          class="flex flex-col gap-1"
         >
-      </FormField>
-      <Button
-        :disabled="loading"
-        type="submit"
-        class="bg-blue-700 border-0 hover:bg-blue-950"
-        label="Восстановить"
-      />
-    </Form>
+          <FloatLabel variant="on">
+            <InputText
+              class="w-full"
+              type="text"
+              v-model="initialValues.passwdnew1"
+              id="passwdnew1"
+            />
+            <label for="passwdnew1">Повторите новый пароль</label>
+          </FloatLabel>
+          <Message
+            v-if="$field?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ $field.error?.message }}</Message
+          >
+        </FormField>
+        <Button
+          :disabled="loading"
+          type="submit"
+          class="bg-blue-700 border-0 hover:bg-blue-950"
+          label="Восстановить"
+        />
+      </Form>
+    </div>
   </div>
 </template>
 <script setup>
@@ -50,7 +96,6 @@ import * as yup from "yup";
 import { yupResolver } from "@primevue/forms/resolvers/yup";
 import axios from "axios";
 
-const dialogRef = inject("dialogRef");
 function closeDialog() {
   dialogRef.value.close();
 }
@@ -65,6 +110,18 @@ const schema = computed(() => {
       .string()
       .required("Укажите email")
       .email("Некорректный формат email"),
+    passwdold: yup
+      .string()
+      .min(8, "Пароль должен содержать минимум 8 символов")
+      .required("Пароль обязателен"),
+    passwdnew: yup
+      .string()
+      .min(8, "Пароль должен содержать минимум 8 символов")
+      .required("Пароль обязателен"),
+    passwdnew1: yup
+      .string()
+      .min(8, "Пароль должен содержать минимум 8 символов")
+      .required("Пароль обязателен"),
   };
 
   return yup.object().shape(baseSchema);
@@ -76,6 +133,9 @@ const onFormSubmit = async (formData) => {
     if (formData.valid) {
       const formattedData = {
         email: formData.values.email,
+        passwdold: formData.values.passwdold,
+        passwdnew: formData.values.passwdnew,
+        passwdnew1: formData.values.passwdnew1,
       };
       //   const response = await axios.post(url, formattedData);
       await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -83,17 +143,14 @@ const onFormSubmit = async (formData) => {
       //   return;
       console.log(formattedData);
     }
-    toastStore.showSuccessToast(
-      "Вы успешно подали заявку",
-      "Вам придет сообщение на вашу почту, ожидайте"
-    );
+    toastStore.showSuccessToast("Вы восстановили пароль");
 
     loading.value = false;
     closeDialog();
   } catch (error) {
     loading.value = false;
     console.log(error);
-    toastStore.showErrorToast("Произошла системная ошибка ");
+    toastStore.showErrorToast("Произошла ошибка, попробуйте еще раз");
   }
 };
 </script>
