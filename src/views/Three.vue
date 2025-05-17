@@ -5,12 +5,12 @@
         <AccordionPanel
           v-for="acc in tabs"
           :value="acc.value"
-          :style="{ background: 'blue' }"
+          :style="{ background: 'var(--background-color)' }"
         >
-          <AccordionHeader :style="{ background: 'blue' }">{{
+          <AccordionHeader :style="{ background: 'var(--background-color)' }">{{
             acc.title
           }}</AccordionHeader>
-          <AccordionContent :style="{ background: 'blue' }">
+          <AccordionContent :style="{ background: 'var(--background-color)' }">
             <p class="m-0">
               {{ acc.content }}
             </p>
@@ -44,6 +44,6 @@ const tabs = ref([
   margin: auto;
 }
 .p-accordioncontent-content {
-  background-color: blue;
+  background-color: var(--background-color);
 }
 </style>
