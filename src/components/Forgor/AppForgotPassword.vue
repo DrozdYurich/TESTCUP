@@ -90,9 +90,10 @@
           >
         </FormField>
         <Button
-          :disabled="loading"
+          :disabled="loading || !formValid"
           type="submit"
-          class="bg-blue-700 border-0 hover:bg-blue-950"
+          class="bg-blue-700 border-0 hover:not-disabled: bg-blue-950"
+          :class="{ 'opacity-50 cursor-not-allowed': loading || !formValid }"
           label="Восстановить"
         />
       </Form>
@@ -114,8 +115,10 @@ import { useToastStore } from "@/stores/useToastStore";
 import * as yup from "yup";
 import { yupResolver } from "@primevue/forms/resolvers/yup";
 import axios from "axios";
-
+import { watch } from "vue";
+import { useRouter } from "vue-router";
 const toastStore = useToastStore();
+const router = useRouter();
 const initialValues = reactive({
   passwdold: "",
   passwdnew: "",
@@ -131,11 +134,18 @@ const schema = computed(() => {
     passwdnew: yup
       .string()
       .min(8, "Пароль должен содержать минимум 8 символов")
-      .required("Пароль обязателен"),
+      .required("Пароль обязателен")
+      .matches(/[a-z]/, "Должна быть хотя бы одна строчная буква")
+      .matches(/[A-Z]/, "Должна быть хотя бы одна заглавная буква")
+      .matches(/\d/, "Должна быть хотя бы одна цифра")
+      .notOneOf(
+        [yup.ref("passwdold")],
+        "Новый пароль должен отличаться от старого"
+      ),
     passwdnew1: yup
       .string()
-      .min(8, "Пароль должен содержать минимум 8 символов")
-      .required("Пароль обязателен"),
+      .oneOf([yup.ref("passwdnew")], "Пароли должны совпадать")
+      .required("Подтверждение пароля обязательно"),
   };
 
   return yup.object().shape(baseSchema);
@@ -157,7 +167,7 @@ const onFormSubmit = async (formData) => {
       console.log(formattedData);
     }
     toastStore.showSuccessToast("Вы восстановили пароль");
-
+    router.push({ name: "login" });
     loading.value = false;
   } catch (error) {
     loading.value = false;
@@ -165,5 +175,19 @@ const onFormSubmit = async (formData) => {
     toastStore.showErrorToast("Произошла ошибка, попробуйте еще раз");
   }
 };
+const formValid = ref(false);
+
+watch(
+  () => initialValues,
+  (newValues) => {
+    formValid.value =
+      newValues.passwdold.length >= 8 &&
+      newValues.passwdnew.length >= 8 &&
+      newValues.passwdnew1.length >= 8 &&
+      newValues.passwdnew === newValues.passwdnew1 &&
+      newValues.passwdnew !== newValues.passwdold;
+  },
+  { deep: true }
+);
 </script>
 <style></style>
