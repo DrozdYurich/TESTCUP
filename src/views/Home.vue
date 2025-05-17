@@ -105,9 +105,6 @@ const goToHead = () => {
 </script>
 
 <style scoped>
-/* .p-button-secondary {
-  color: white;
-} */
 .card {
   width: 90vw;
   max-width: 1400px;
