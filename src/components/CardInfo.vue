@@ -34,7 +34,6 @@ const props = defineProps({
   },
 });
 const cardStyle = computed(() => ({
-  borderLeft: `${props.borderLeftWidth} solid var(--card-border-left)`,
   borderTop: `${props.borderWidth} solid var(--card-border)`,
   borderRight: `${props.borderWidth} solid var(--card-border)`,
   borderBottom: `${props.borderWidth} solid var(--card-border)`,

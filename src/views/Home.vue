@@ -17,7 +17,6 @@
         :key="n.id"
         :title="n.title"
         :subtitle="n.subtitle"
-        :border-left-width="'10px'"
         :border-width="'1px'"
         class="cardinf"
         style="
@@ -25,7 +24,6 @@
           --card-border: var(--card-border-color);
           --card-text: var(--card-text-color);
           --card-subtext: var(--card-subtext-color);
-          --card-border-left: var(--card-border-lefr);
         "
       >
         <template #header>

@@ -11,14 +11,15 @@
           :key="pag.id"
           :title="pag.title"
           :subtitle="pag.subtitle"
+          :border-width="'1px'"
+          :border-left-width="'10px'"
           class="cardinf transition-shadow hover:shadow-lg rounded-lg border border-gray-200"
-          border-left-width="10px"
           style="
+            border-left: 10px solid var(--card-border-left) !important;
             --card-bg: var(--card-background-color);
             --card-border: var(--card-border-color);
             --card-text: var(--card-text-color);
             --card-subtext: var(--card-subtext-color);
-            --card-border-left: var(--card-border-lefr);
           "
         >
         </CardInfo>
@@ -50,8 +51,8 @@ function onPageChange(event) {
 </script>
 <style scoped>
 ::v-deep .p-paginator-page-selected {
-  background-color: #e53e3e !important; /* красный фон */
-  color: rgb(255, 255, 255) !important; /* белый текст */
+  background-color: var(--checked-color) !important;
+  color: rgb(255, 255, 255) !important;
 }
 .fade-enter-active {
   animation: in 0.4s ease;

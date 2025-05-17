@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center sidebar h-auto mt-5">
-    <Menu :model="menuItems" class="w-full h-3/5">
+    <Menu :model="menuItems" class="w-full h-4/5">
       <template #start>
         <span class="inline-flex items-center gap-1 px-2 py-2">
           <span class="text-xl font-semibold"
@@ -20,7 +20,7 @@
       </template>
       <template #end>
         <button
-          class="w-full border-0 bg-transparent flex items-start p-2 pl-4"
+          class="w-full border-0 bg-transparent flex items-start p-0 pl-4"
         >
           <Avatar :image="avatarImg" class="mr-2" shape="circle" />
           <span class="inline-flex flex-col items-start">
