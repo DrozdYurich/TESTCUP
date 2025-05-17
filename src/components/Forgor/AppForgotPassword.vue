@@ -2,8 +2,8 @@
   <div class="w-full h-full flex flex-col justify-center items-center mt-40">
     <h1 class="text-3xl mb-3">Восстановление пароля</h1>
     <div
-      class="text-black w-1/4 h-72 p-5 rounded-xl flex flex-col"
-      style="box-shadow: var(--box-shadow)"
+      class="text-black w-3/4 md:w-2/5 h-72 p-5 rounded-xl flex flex-col mx-auto"
+      style="box-shadow: var(--box-shadow); max-width: 95vw"
     >
       <div v-if="loading">
         <ProgressBar
@@ -21,12 +21,16 @@
       >
         <FormField v-slot="$field" name="passwdold" class="flex flex-col gap-1">
           <FloatLabel variant="on">
-            <InputText
+            <Password
               class="w-full"
               type="text"
               v-model="initialValues.passwdold"
               id="passwdold"
+              :feedback="false"
+              toggleMask
+              fluid
             />
+
             <label for="passwdold">Введите старый пароль</label>
           </FloatLabel>
           <Message
@@ -39,12 +43,16 @@
         </FormField>
         <FormField v-slot="$field" name="passwdnew" class="flex flex-col gap-1">
           <FloatLabel variant="on">
-            <InputText
+            <Password
               class="w-full"
               type="text"
               v-model="initialValues.passwdnew"
               id="passwdnew"
+              :feedback="false"
+              toggleMask
+              fluid
             />
+
             <label for="passwdnew">Введите новый пароль</label>
           </FloatLabel>
           <Message
@@ -61,12 +69,16 @@
           class="flex flex-col gap-1"
         >
           <FloatLabel variant="on">
-            <InputText
+            <Password
               class="w-full"
               type="text"
               v-model="initialValues.passwdnew1"
               id="passwdnew1"
+              :feedback="false"
+              toggleMask
+              fluid
             />
+
             <label for="passwdnew1">Повторите новый пароль</label>
           </FloatLabel>
           <Message
@@ -89,27 +101,29 @@
 </template>
 <script setup>
 import { Form, FormField } from "@primevue/forms";
-import { Button, FloatLabel, InputText, Message, ProgressBar } from "primevue";
+import {
+  Button,
+  FloatLabel,
+  InputText,
+  Message,
+  Password,
+  ProgressBar,
+} from "primevue";
 import { computed, inject, reactive, ref } from "vue";
 import { useToastStore } from "@/stores/useToastStore";
 import * as yup from "yup";
 import { yupResolver } from "@primevue/forms/resolvers/yup";
 import axios from "axios";
 
-function closeDialog() {
-  dialogRef.value.close();
-}
 const toastStore = useToastStore();
 const initialValues = reactive({
-  email: "",
+  passwdold: "",
+  passwdnew: "",
+  passwdnew1: "",
 });
 const loading = ref(false);
 const schema = computed(() => {
   const baseSchema = {
-    email: yup
-      .string()
-      .required("Укажите email")
-      .email("Некорректный формат email"),
     passwdold: yup
       .string()
       .min(8, "Пароль должен содержать минимум 8 символов")
@@ -132,7 +146,6 @@ const onFormSubmit = async (formData) => {
     loading.value = true;
     if (formData.valid) {
       const formattedData = {
-        email: formData.values.email,
         passwdold: formData.values.passwdold,
         passwdnew: formData.values.passwdnew,
         passwdnew1: formData.values.passwdnew1,
@@ -146,7 +159,6 @@ const onFormSubmit = async (formData) => {
     toastStore.showSuccessToast("Вы восстановили пароль");
 
     loading.value = false;
-    closeDialog();
   } catch (error) {
     loading.value = false;
     console.log(error);
