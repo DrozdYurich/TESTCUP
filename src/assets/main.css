@@ -22,7 +22,7 @@
 }
 
 :root[data-theme="light"] {
-  --checked-color: #0096c7;
+  --checked-color: #010c0f;
   --checked-bg: #0096c7;
   --filter-bg-color: #4d4d4d;
   --filter-color: #080808;
@@ -40,6 +40,9 @@
   --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --button-bg: #e72e2e;
 }
+label {
+  color: var(--text-color);
+}
 .p-radiobutton-checked .p-radiobutton-box {
   background: var(--checked-bg);
 
@@ -49,7 +52,7 @@
   font-size: 1.5rem;
 }
 .p-inputtext:focus {
-  border: 1px solid var(--checked-color);
+  border: 1px solid var(--border-color);
 }
 .p-menubar,
 .p-menubar a,

@@ -4,4 +4,4 @@
 <script setup>
 import AppForm from "@/components/Auth/AppForm.vue";
 </script>
-<style scoped></style>
+<style></style>

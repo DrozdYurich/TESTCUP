@@ -182,7 +182,16 @@
             >{{ $field.error?.message }}</Message
           >
         </FormField>
-
+        <Message v-if="mode != 'registr'" severity="info" class="text-center">
+          Забыли пароль?
+          <Button
+            variant="text"
+            class="text-blue-600 p-0 border-0 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:shadow-none"
+            style="text-decoration: underline; text-underline-offset: 4px"
+            @click="showForgotToPasswd"
+            >Восстановить пароль</Button
+          >
+        </Message>
         <Message severity="info" class="text-center">
           {{ mode === "registr" ? "Уже есть аккаунт?" : "Ещё нет аккаунта?" }}
           <RouterLink
@@ -228,6 +237,7 @@ import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useRoleStore } from "@/stores/useRoleStore";
 import { useUserStore } from "@/stores/useUserStore";
+import useModalMethods from "../Modal/MethodsModal/methods";
 const props = defineProps({
   mode: {
     type: String,
@@ -235,6 +245,7 @@ const props = defineProps({
     validator: (value) => ["login", "registr"].includes(value),
   },
 });
+const { showForgotToPasswd } = useModalMethods();
 const router = useRouter();
 const authStore = useAuthStore();
 const { getToken, isAuth } = storeToRefs(useAuthStore());

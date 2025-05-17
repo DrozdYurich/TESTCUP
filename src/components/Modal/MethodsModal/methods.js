@@ -1,9 +1,29 @@
 import { useDialog } from "primevue";
 import ProductListModal from "../ProductListModal.vue";
 import ListModal from "../ListModal.vue";
+import ForgotToPasswd from "../ForgotToPasswd.vue";
 
 export default function useModalMethods() {
   const dialog = useDialog();
+  function showForgotToPasswd() {
+    dialog.open(ForgotToPasswd, {
+      props: {
+        header: "Восстановление пароля",
+        style: {
+          width: "40vw",
+          backgroundColor: "white",
+          border: "none",
+          color: "black",
+        },
+        breakpoints: {
+          "960px": "75vw",
+          "640px": "80vw",
+        },
+        modal: true,
+        draggable: false,
+      },
+    });
+  }
   function showDialogProduct() {
     dialog.open(ProductListModal, {
       props: {
@@ -39,5 +59,5 @@ export default function useModalMethods() {
       },
     });
   }
-  return { showDialogProduct, showDialogList };
+  return { showDialogProduct, showDialogList, showForgotToPasswd };
 }
