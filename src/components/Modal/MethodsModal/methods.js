@@ -9,7 +9,7 @@ export default function useModalMethods() {
       props: {
         header: "Список продуктов",
         style: {
-          width: "90vw",
+          width: "30vw",
           backgroundColor: "black",
           border: "none",
           color: "white",

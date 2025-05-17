@@ -1,6 +1,6 @@
 <template>
   <div
-    class="filter p-5 bg-[var(--color)] shadow rounded-2xl w-full mb-2 flex flex-col md:flex-row justify-around gap-2"
+    class="filter p-5 bg-[var(--card-background-color)] shadow-2xl rounded-2xl w-full mb-2 flex flex-col md:flex-row justify-around gap-2"
   >
     <IconField>
       <InputIcon class="pi pi-search" />
@@ -12,7 +12,7 @@
       />
     </IconField>
     <div
-      class="flex gap-1 bg-white p-2 rounded-2xl items-center justify-center"
+      class="flex gap-4 bg-white text-[var(--filter-color)] p-2 rounded-2xl items-center justify-center"
     >
       <div class="flex items-center gap-2">
         <RadioButton
@@ -66,18 +66,4 @@ const emits = defineEmits([
   "reset",
 ]);
 </script>
-<style scoped>
-/* .filter {
-  width: 100%;
-  margin-bottom: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  gap: 0.5rem;
-}
-@media (min-width: 768px) {
-  .filter {
-    flex-direction: row;
-  }
-} */
-</style>
+<style scoped></style>

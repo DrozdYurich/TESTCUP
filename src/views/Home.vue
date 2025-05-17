@@ -36,7 +36,7 @@
         </template>
         <template #content>
           <div class="w-full flex justify-between">
-            <p>{{ n.desription }}</p>
+            <p class="text-[var(--card-color-content)]">{{ n.desription }}</p>
             <Tag
               class="h-1/6"
               :icon="n.status === 'activ' ? 'pi pi-check' : 'pi pi-times'"
@@ -105,6 +105,9 @@ const goToHead = () => {
 </script>
 
 <style scoped>
+/* .p-button-secondary {
+  color: white;
+} */
 .card {
   width: 90vw;
   max-width: 1400px;
