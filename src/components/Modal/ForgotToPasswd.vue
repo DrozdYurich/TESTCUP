@@ -35,7 +35,7 @@
       <Button
         :disabled="loading"
         type="submit"
-        class="bg-black border-0 hover:bg-blue-950"
+        class="bg-blue-700 border-0 hover:bg-blue-950"
         label="Восстановить"
       />
     </Form>

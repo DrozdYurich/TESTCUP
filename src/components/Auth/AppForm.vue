@@ -205,7 +205,7 @@
         <Button
           :disabled="loading"
           type="submit"
-          class="bg-black border-0 hover:bg-blue-950"
+          class="bg-blue-700 border-0 hover:bg-blue-800"
           :label="mode === 'registr' ? 'Зарегистрироваться' : 'Войти'"
         />
       </Form>
