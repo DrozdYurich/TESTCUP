@@ -1,34 +1,19 @@
 <template>
   <div class="container">
     <div class="card">
-      <Accordion value="0">
-        <AccordionPanel
-          v-for="acc in tabs"
-          :value="acc.value"
-          :style="{ background: 'var(--background-color)' }"
-        >
-          <AccordionHeader :style="{ background: 'var(--background-color)' }">{{
-            acc.title
-          }}</AccordionHeader>
-          <AccordionContent :style="{ background: 'var(--background-color)' }">
-            <p class="m-0">
-              {{ acc.content }}
-            </p>
-          </AccordionContent>
-        </AccordionPanel>
-      </Accordion>
+      <TheAccordion
+        v-for="(n, index) in tabs"
+        :key="index"
+        :title="n.title"
+        :content="n.content"
+        :value="n.value"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import {
-  Accordion,
-  AccordionContent,
-  AccordionHeader,
-  AccordionPanel,
-} from "primevue";
-import { value } from "valibot";
+import TheAccordion from "@/components/TheAccordion.vue";
 import { ref } from "vue";
 
 const tabs = ref([
@@ -43,7 +28,7 @@ const tabs = ref([
   width: 90vw;
   margin: auto;
 }
-.p-accordioncontent-content {
+.p-accordion-content {
   background-color: var(--background-color);
 }
 </style>

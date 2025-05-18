@@ -15,6 +15,7 @@
   --card-subtext-color: #90a8d4;
   --card-border-left: #00b4d8;
   --card-color-content: #c1d3fe;
+  --accordion-bg: #0d1b2a;
   --filter-bg-color: #d6d6d6;
   --filter-color: #080808;
   --box-shadow: 0 4px 6px -1px rgba(160, 159, 159, 0.1);
@@ -39,6 +40,7 @@
   --card-border-left: #141414;
   --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --button-bg: #e72e2e;
+  --accordion-bg: #e6f2ff;
 }
 label {
   color: var(--text-color);
