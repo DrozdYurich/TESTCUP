@@ -7,16 +7,41 @@
 </template>
 
 <script setup>
-import { Button, Paginator } from "primevue";
-import comp from "../../../public/compititions";
-import CardInfo from "../CardInfo.vue";
-import usePagination from "../Utility/usePagination";
 import AppHistory from "./history/AppHistory.vue";
-const { goToPage, itemsPerPage, paginatesItems, currentPage } =
-  usePagination(comp);
-function onPageChange(event) {
-  goToPage(event.page + 1);
-}
+import axios from "axios";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { computed, ref } from "vue";
+const { getTokenAccsess } = useAuthStore();
+const token = computed(() => {
+  return getTokenAccsess;
+});
+
+const loading = ref();
+const history = ref();
+const gethistory = async () => {
+  try {
+    console.log(token.value, "token");
+    loading.value = true;
+    const response = await axios.get("http://10.8.0.23:8001/lotteries/", {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response.data);
+    history.value = response.data;
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
+
+onMounted(() => {
+  gethistory();
+});
 </script>
 <style scoped>
 ::v-deep .p-paginator-page-selected {

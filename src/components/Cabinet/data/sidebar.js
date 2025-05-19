@@ -5,7 +5,7 @@ export function getMenuItems({
   removetoken,
   gotoProfilTwo,
   gotoProfilThree,
-  isAdmin = true,
+  isAdmin = false,
 }) {
   const menuItems = [
     {

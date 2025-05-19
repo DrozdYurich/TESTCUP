@@ -18,17 +18,53 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
+import { useUserStore } from "@/stores/useUserStore";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { useRoleStore } from "@/stores/useRoleStore";
+const roleStore = useRoleStore();
 import TheSideBar from "./TheSideBar.vue";
 import TheToolBar from "./TheToolBar.vue";
+import axios from "axios";
 const isMobile = ref(window.innerWidth <= 1100);
-
+const userStore = useUserStore();
+const { getTokenAccsess } = useAuthStore();
 function onResize() {
   isMobile.value = window.innerWidth <= 1100;
   console.log(isMobile.value);
 }
+const token = computed(() => {
+  return getTokenAccsess;
+});
+const id = ref();
+const user = ref();
+const loading = ref();
+const getId = async () => {
+  try {
+    console.log(token.value, "token");
+    loading.value = true;
+    const response = await axios.get("http://10.8.0.23:8000/auth/users/me/", {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+        "Content-Type": "application/json",
+      },
+    });
+    user.value = response.data;
+    console.log(user.value);
+    userStore.setUser(user.value);
+    roleStore.setRole(user.value.is_root);
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
 
-onMounted(() => {
+onMounted(async () => {
+  await getId();
+
   window.addEventListener("resize", onResize);
 });
 

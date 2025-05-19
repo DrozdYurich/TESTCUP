@@ -37,10 +37,11 @@
           <Avatar :image="avatarImg" class="mr-2" shape="circle" />
           <span class="inline-flex flex-col items-start">
             <span class="font-bold text-[var(--text-color)]">
-              {{ user?.name }} {{ user?.firstname }}
+              {{ user?.last_name }} {{ user?.first_name }}
+              {{ user?.father_name }}
             </span>
-            <span class="text-sm text-[var(--card-subtext-color)]">
-              {{ role }}
+            <span class="text-sm text-[var(--card-subtext-color)] mr-1">
+              {{ role ? "Администратор" : "Участник" }}
             </span>
           </span>
         </button>
@@ -82,6 +83,7 @@ const menuItems = getMenuItems({
   gotoPunct,
   gotoProfilTwo,
   removetoken,
+  isAdmin: role,
 });
 </script>
 <style>

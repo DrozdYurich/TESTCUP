@@ -66,7 +66,7 @@ export const useAuthStore = defineStore("auth", () => {
       clearInterval(refreshInterval);
     }
     refreshTokens().then(() => {
-      refreshInterval = setInterval(refreshTokens, 1000);
+      refreshInterval = setInterval(refreshTokens, 3000000);
     });
   }
 
@@ -110,10 +110,13 @@ export const useAuthStore = defineStore("auth", () => {
       if (mode === "login") {
         setAccsessToken(response.data.access);
         setRefreshToken(response.data.refresh);
+      } else {
+        console.log("fff");
+        userStore.setUser(response.data);
+        roleStore.setRole(response.data.is_root);
       }
-      userStore.setUser(response.data);
       console.log(response.data.is_root, "root");
-      roleStore.setRole(response.data.is_root);
+
       startTokenRefresh();
       return true;
     } catch (err) {

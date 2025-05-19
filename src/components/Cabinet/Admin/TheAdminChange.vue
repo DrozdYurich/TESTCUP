@@ -12,7 +12,7 @@
       <label for="edition" class="lottery-label">Начальный призовой фонд</label>
       <InputText
         id="edition"
-        v-model="editableLottery.edition"
+        v-model="editableLottery.base_fund"
         class="lottery-input"
       />
     </div>
@@ -20,7 +20,7 @@
       <label for="price" class="lottery-label">Цена билета (P)</label>
       <InputNumber
         id="price"
-        v-model="editableLottery.price"
+        v-model="editableLottery.ticket_price"
         class="lottery-input"
       />
     </div>
@@ -30,7 +30,7 @@
       >
       <InputNumber
         id="winRate"
-        v-model="editableLottery.winRate"
+        v-model="editableLottery.prize_percent"
         class="lottery-input"
         suffix="%"
       />
@@ -49,6 +49,14 @@
 <script setup>
 import { ref, watch } from "vue";
 import { Button, InputText, InputNumber } from "primevue";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { computed, onMounted, reactive } from "vue";
+const { getTokenAccsess } = useAuthStore();
+const token = computed(() => {
+  return getTokenAccsess;
+});
+import axios from "axios";
+const loading = ref();
 const props = defineProps({
   lottery: {
     type: Object,
@@ -62,8 +70,33 @@ const props = defineProps({
   },
 });
 const editableLottery = ref({ ...props.lottery });
+const getLot = async () => {
+  try {
+    console.log(token.value, "token");
+    loading.value = true;
+    const response = await axios.put(
+      `http://10.8.0.23:8001/lotteries/${props.lottery.id}/`,
+      editableLottery.value,
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(response.data);
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
+
 const saveChanges = () => {
   console.log("Сохраняем данные:", editableLottery.value);
+  getLot();
 };
 </script>
 
