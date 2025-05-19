@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h1 class="text-3xl font-bold mb-3">Лотереи</h1>
+    <h1 class="text-3xl font-bold mb-3 mt-1">Лотереи</h1>
     <div class="container w-full">
       <CardInfo
         data-aos="fade-up"

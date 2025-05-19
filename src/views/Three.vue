@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="text-3xl mb-2">Часто задаваемые вопросы</h1>
+    <h1 class="text-3xl mt-1 mb-2">Часто задаваемые вопросы</h1>
     <div class="card">
       <TheAccordion
         title="Как зарегистрироваться?"
@@ -19,9 +19,15 @@ import { ref } from "vue";
 <style>
 .container {
   width: 90vw;
-  margin: auto;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 .p-accordion-content {
   background-color: var(--background-color);
+}
+@media (max-width: 600px) {
+  .container {
+    width: 90vw;
+  }
 }
 </style>

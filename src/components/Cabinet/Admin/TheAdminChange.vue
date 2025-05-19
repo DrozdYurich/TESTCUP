@@ -1,5 +1,5 @@
 <template>
-  <div class="lottery-card">
+  <div class="lottery-card mb-2.5">
     <div class="lottery-field">
       <label for="title" class="lottery-label">Название</label>
       <InputText

@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h1 class="text-3xl font-bold mb-1">Статистика СТОЛОТО</h1>
+    <h1 class="text-3xl font-bold mb-1 mt-1">Статистика СТОЛОТО</h1>
     <TheStatisticGlobal />
   </div>
 </template>
