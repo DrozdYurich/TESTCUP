@@ -40,13 +40,12 @@ export const useAuthStore = defineStore("auth", () => {
           refresh: refreshtoken.value,
         }
       );
-
-      if (!response.data.access || !response.data.refresh) {
+      console.log(response, "resfers");
+      if (!response.data.access) {
         throw new Error("Invalid token refresh response");
       }
 
       setAccsessToken(response.data.access);
-      setRefreshToken(response.data.refresh);
 
       return true;
     } catch (error) {
@@ -67,7 +66,7 @@ export const useAuthStore = defineStore("auth", () => {
       clearInterval(refreshInterval);
     }
     refreshTokens().then(() => {
-      refreshInterval = setInterval(refreshTokens, 3000000);
+      refreshInterval = setInterval(refreshTokens, 1000);
     });
   }
 
@@ -91,7 +90,7 @@ export const useAuthStore = defineStore("auth", () => {
   const getTokenAccsess = computed(() => accsesstoken.value);
   const getTokenRefresh = computed(() => refreshTokens.value);
   const isAuth = computed(() => !!accsesstoken.value && !!refreshtoken.value);
-  async function login(url, formstate) {
+  async function login(url, formstate, mode) {
     try {
       const response = await axios.post(url, formstate);
       if (!response?.data) {
@@ -106,11 +105,16 @@ export const useAuthStore = defineStore("auth", () => {
       //     throw new Error("Не получен токен авторизации");
       //   }
       // }
+
       console.log(response, "resp");
+      if (mode === "login") {
+        setAccsessToken(response.data.access);
+        setRefreshToken(response.data.refresh);
+      }
       userStore.setUser(response.data);
       console.log(response.data.is_root, "root");
       roleStore.setRole(response.data.is_root);
-
+      startTokenRefresh();
       return true;
     } catch (err) {
       console.error("Auth error:", err);

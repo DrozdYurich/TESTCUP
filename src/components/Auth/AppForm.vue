@@ -216,7 +216,6 @@
         />
       </Form>
     </div>
-    {{ getUser }}
   </div>
 </template>
 
@@ -274,10 +273,8 @@ const initialValues = reactive({
 });
 const schema = computed(() => {
   const baseSchema = {
-    email: yup
-      .string()
-      .required("Укажите email")
-      .email("Некорректный формат email"),
+    email: yup.string().required("Укажите email"),
+    // .email("Некорректный формат email"),
     password: yup
       .string()
       .min(8, "Пароль должен содержать минимум 8 символов")
@@ -313,9 +310,11 @@ const roles = ref([
 const onFormSubmit = async (formData) => {
   try {
     loading.value = true;
+    const response = ref();
+    const emailKey = props.mode === "registr" ? "email" : "username";
     if (formData.valid) {
       const formattedData = {
-        email: formData.values.email,
+        [emailKey]: formData.values.email,
         password: formData.values.password,
         ...(props.mode === "registr" && {
           last_name: formData.values.name,
@@ -326,11 +325,21 @@ const onFormSubmit = async (formData) => {
           birthday: new Date(formData.values.dR).toISOString().split("T")[0],
         }),
       };
+      if (props.mode === "registr") {
+        response.value = await authStore.login(
+          "http://10.8.0.23:8000/auth/users/",
+          formattedData,
+          props.mode
+        );
+      } else {
+        console.log(formattedData);
+        response.value = await authStore.login(
+          "http://10.8.0.23:8000/auth/jwt/create/",
+          formattedData,
+          props.mode
+        );
+      }
 
-      const response = await authStore.login(
-        "http://10.8.0.23:8000/auth/users/",
-        formattedData
-      );
       // if (formattedData.role) {
       //   roleStore.setRole(formattedData.role);
       // } else {
@@ -343,32 +352,47 @@ const onFormSubmit = async (formData) => {
       //   data: Date.now(),
       // });
       await nextTick();
-      if (response) {
-        const token = await axios.post(
-          "http://10.8.0.23:8000/auth/jwt/create/",
-          {
-            username: getUser.value.username,
-            password: initialValues.password,
-          }
-        );
-        console.log(token);
-        authStore.setAccsessToken(token.data.access);
-        authStore.setRefreshToken(token.data.refresh);
-        if (isAuth.value) {
-          router.push("/");
-        } else {
-          console.error("Registration failed");
-          toastStore.showErrorToast(
-            props.mode === "registr"
-              ? "Регистрация не выполнена"
-              : "Вход не выполнен",
-            "Пожалуйста, проверьте введенные данные"
+      if (props.mode === "registr") {
+        if (response) {
+          const token = await axios.post(
+            "http://10.8.0.23:8000/auth/jwt/create/",
+            {
+              username: getUser.value.username,
+              password: initialValues.password,
+            }
           );
+          console.log(token);
+          authStore.setAccsessToken(token.data.access);
+          authStore.setRefreshToken(token.data.refresh);
+          if (isAuth.value) {
+            router.push("/");
+          } else {
+            console.error("Registration failed");
+            toastStore.showErrorToast(
+              props.mode === "registr"
+                ? "Регистрация не выполнена"
+                : "Вход не выполнен",
+              "Пожалуйста, проверьте введенные данные"
+            );
 
-          return;
+            return;
+          }
         }
       }
 
+      if (isAuth.value) {
+        router.push("/");
+      } else {
+        console.error("Registration failed");
+        toastStore.showErrorToast(
+          props.mode === "registr"
+            ? "Регистрация не выполнена"
+            : "Вход не выполнен",
+          "Пожалуйста, проверьте введенные данные"
+        );
+
+        return;
+      }
       console.log(response);
       toastStore.showSuccessToast(
         props.mode === "registr"
