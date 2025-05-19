@@ -2,7 +2,7 @@
   <div class="replenish-container">
     <div class="replenish-card">
       <!-- Заголовок -->
-      <div v-if="loading">
+      <div v-if="loading" class="progressbar-wrapper">
         <ProgressBar
           class="custom-progressbar"
           mode="indeterminate"
@@ -71,6 +71,7 @@ import { ref, computed, reactive } from "vue";
 import * as yup from "yup";
 import { yupResolver } from "@primevue/forms/resolvers/yup";
 import { Form, FormField } from "@primevue/forms";
+import { useToastStore } from "@/stores/useToastStore";
 import {
   Button,
   Divider,
@@ -79,7 +80,12 @@ import {
   Message,
   ProgressBar,
 } from "primevue";
-
+import { inject } from "vue";
+const dialogRef = inject("dialogRef");
+const toastStore = useToastStore();
+function closeDialog() {
+  dialogRef.value.close();
+}
 const loading = ref(false);
 const exchangeRate = ref(0.05);
 
@@ -100,12 +106,14 @@ const schema = yup.object().shape({
 
 const resolver = yupResolver(schema);
 
-function onSubmit() {
+async function onSubmit() {
   console.log("Пополнение на", virtualAmount.value, "virt");
   loading.value = true;
-  setTimeout(() => {
-    loading.value = false;
-  }, 1000);
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  toastStore.showSuccessToast(
+    `Баланс виртуальной валюты пополнен на ${virtualAmount.value} `
+  );
+  closeDialog();
 }
 </script>
 

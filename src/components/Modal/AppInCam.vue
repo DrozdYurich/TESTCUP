@@ -1,10 +1,13 @@
 <template>
   <div class="replenish-container">
     <div class="replenish-card">
-      <!-- Прогрессбар при загрузке -->
-      <!-- <div v-if="loading" class="progressbar-wrapper">
-        <ProgressBar mode="indeterminate" style="height: 5px" />
-      </div> -->
+      <div v-if="loading" class="progressbar-wrapper">
+        <ProgressBar
+          class="custom-progressbar"
+          mode="indeterminate"
+          style="height: 5px"
+        />
+      </div>
 
       <!-- Заголовок -->
       <Divider align="center" type="solid">
@@ -143,9 +146,13 @@ const resolver = ref(yupResolver(schema.value));
 
 const onSubmit = async (formData) => {
   if (formData.valid && !loading.value) {
-    loading.value = true;
+    loading.value = true; // Включаем загрузку
+
     try {
       console.log("Форма валидна. Отправляем данные:", formData.values);
+      // Имитация загрузки
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       toastStore.showSuccessToast(
         "Баланс пополнен",
         `На сумму ${formData.values.amount} P`
@@ -154,16 +161,17 @@ const onSubmit = async (formData) => {
     } catch (e) {
       toastStore.showErrorToast("Ошибка", "Не удалось пополнить баланс");
     } finally {
-      loading.value = false;
+      loading.value = false; // Выключаем загрузку
     }
   }
 };
 </script>
 
-<style scoped>
+<style>
 label {
   background-color: transparent;
 }
+
 .replenish-container {
   max-width: 600px;
   margin: 0 auto;

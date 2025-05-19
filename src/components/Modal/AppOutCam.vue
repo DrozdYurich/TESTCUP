@@ -1,10 +1,13 @@
 <template>
   <div class="replenish-container">
     <div class="replenish-card">
-      <!-- Прогрессбар при загрузке -->
-      <!-- <div v-if="loading" class="progressbar-wrapper">
-        <ProgressBar mode="indeterminate" style="height: 5px" />
-      </div> -->
+      <div v-if="loading" class="progressbar-wrapper">
+        <ProgressBar
+          class="custom-progressbar"
+          mode="indeterminate"
+          style="height: 5px"
+        />
+      </div>
 
       <!-- Заголовок -->
       <Divider align="center" type="solid">
@@ -15,7 +18,11 @@
         </span>
       </Divider>
 
-      <Form @submit="onSubmit" class="flex flex-col gap-4 w-full">
+      <Form
+        @submit="onSubmit"
+        :initial-values="initialValues"
+        class="flex flex-col gap-4 w-full"
+      >
         <FormField v-slot="$field" name="card" class="flex flex-col gap-1">
           <FloatLabel variant="on">
             <Select
@@ -104,6 +111,10 @@ const dialogRef = inject("dialogRef");
 function closeDialog() {
   dialogRef.value.close();
 }
+const initialValues = ref({
+  card: "",
+  amount: 100,
+});
 const { getCarts } = storeToRefs(usePlatezhStore());
 const cards = computed(() => {
   return getCarts.value.map((card) => ({
@@ -137,13 +148,13 @@ const onSubmit = async (formData) => {
     loading.value = true;
     try {
       console.log("Форма валидна. Отправляем данные:", formData.values);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       toastStore.showSuccessToast(
-        "Баланс пополнен",
-        `На сумму ${formData.values.amount} P`
+        `Вы успешно вывели сумму: ${formData.values.amount} P`
       );
       closeDialog();
     } catch (e) {
-      toastStore.showErrorToast("Ошибка", "Не удалось пополнить баланс");
+      toastStore.showErrorToast("Ошибка", "Не удалось вывести деньги");
     } finally {
       loading.value = false;
     }
