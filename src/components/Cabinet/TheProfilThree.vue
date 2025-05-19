@@ -1,5 +1,10 @@
 <template>
-  <div>Profil three</div>
+  <div class="flex flex-col">
+    <h1 class="text-3xl mb-4 font-bold">Администрирование</h1>
+    <TheAdminChange />
+  </div>
 </template>
-<script setup></script>
+<script setup>
+import TheAdminChange from "./Admin/TheAdminChange.vue";
+</script>
 <style></style>

@@ -3,6 +3,10 @@ import ProductListModal from "../ProductListModal.vue";
 import ListModal from "../ListModal.vue";
 import ForgotToPasswd from "../ForgotToPasswd.vue";
 import ChangePassd from "../ChangePassd.vue";
+import AddCartPlatezh from "../AddCartPlatezh.vue";
+import AppOutCam from "../AppOutCam.vue";
+import AppInCam from "../AppInCam.vue";
+import AppInCamVirt from "../AppInCamVirt.vue";
 
 export default function useModalMethods() {
   const dialog = useDialog();
@@ -10,6 +14,82 @@ export default function useModalMethods() {
     dialog.open(ChangePassd, {
       props: {
         header: "Изменение пароля",
+        style: {
+          width: "40vw",
+          backgroundColor: "white",
+          border: "none",
+          color: "black",
+        },
+        breakpoints: {
+          "960px": "75vw",
+          "640px": "80vw",
+        },
+        modal: true,
+        draggable: false,
+      },
+    });
+  }
+  function showInCam() {
+    dialog.open(AppInCam, {
+      props: {
+        header: "Пополнение",
+        style: {
+          width: "40vw",
+          backgroundColor: "white",
+          border: "none",
+          color: "black",
+        },
+        breakpoints: {
+          "960px": "75vw",
+          "640px": "80vw",
+        },
+        modal: true,
+        draggable: false,
+      },
+    });
+  }
+  function showInCamVirt() {
+    dialog.open(AppInCamVirt, {
+      props: {
+        header: "Виртуальное пополнение",
+        style: {
+          width: "40vw",
+          backgroundColor: "white",
+          border: "none",
+          color: "black",
+        },
+        breakpoints: {
+          "960px": "75vw",
+          "640px": "80vw",
+        },
+        modal: true,
+        draggable: false,
+      },
+    });
+  }
+  function showOutCam() {
+    dialog.open(AppOutCam, {
+      props: {
+        header: "Пополнение",
+        style: {
+          width: "40vw",
+          backgroundColor: "white",
+          border: "none",
+          color: "black",
+        },
+        breakpoints: {
+          "960px": "75vw",
+          "640px": "80vw",
+        },
+        modal: true,
+        draggable: false,
+      },
+    });
+  }
+  function showAddPlatezh() {
+    dialog.open(AddCartPlatezh, {
+      props: {
+        header: "Добавьте карту",
         style: {
           width: "40vw",
           backgroundColor: "white",
@@ -84,5 +164,9 @@ export default function useModalMethods() {
     showDialogList,
     showForgotToPasswd,
     showChangePasswd,
+    showAddPlatezh,
+    showInCam,
+    showOutCam,
+    showInCamVirt,
   };
 }

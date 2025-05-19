@@ -38,10 +38,10 @@ export function getMenuItems({
       ],
     },
     {
-      label: "Кошелёк",
+      label: "Личный счёт",
       items: [
         {
-          label: "Карты",
+          label: "Кошелёк",
           icon: "pi pi-credit-card",
           shortcut: "⌘+O",
           command: gotoProfil,
