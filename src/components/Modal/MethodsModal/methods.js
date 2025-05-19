@@ -2,9 +2,29 @@ import { useDialog } from "primevue";
 import ProductListModal from "../ProductListModal.vue";
 import ListModal from "../ListModal.vue";
 import ForgotToPasswd from "../ForgotToPasswd.vue";
+import ChangePassd from "../ChangePassd.vue";
 
 export default function useModalMethods() {
   const dialog = useDialog();
+  function showChangePasswd() {
+    dialog.open(ChangePassd, {
+      props: {
+        header: "Изменение пароля",
+        style: {
+          width: "40vw",
+          backgroundColor: "white",
+          border: "none",
+          color: "black",
+        },
+        breakpoints: {
+          "960px": "75vw",
+          "640px": "80vw",
+        },
+        modal: true,
+        draggable: false,
+      },
+    });
+  }
   function showForgotToPasswd() {
     dialog.open(ForgotToPasswd, {
       props: {
@@ -59,5 +79,10 @@ export default function useModalMethods() {
       },
     });
   }
-  return { showDialogProduct, showDialogList, showForgotToPasswd };
+  return {
+    showDialogProduct,
+    showDialogList,
+    showForgotToPasswd,
+    showChangePasswd,
+  };
 }

@@ -2,7 +2,10 @@
   <div class="cabinet">
     <TheSideBar class="sidebar" v-if="!isMobile" />
 
-    <div class="info">
+    <div
+      class="info mt-5 ml-1.5 rounded"
+      :style="{ background: 'var(--background-color)' }"
+    >
       <RouterView v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <component :is="Component" />

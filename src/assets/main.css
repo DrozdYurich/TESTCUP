@@ -2,45 +2,43 @@
 @import "tailwindcss-primeui";
 
 :root[data-theme="dark"] {
-  --background-color: #0d1b2a;
-  --text-color: #ffffff;
-  --border-color: #00b4d8;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  --checked-color: #003366;
-  --checked-bg: #003366;
-  --card-background-color: #1b263b;
-  --card-border-color: #00b4d8;
-  --card-text-color: #e2eafc;
-  --card-subtext-color: #90a8d4;
-  --card-border-left: #00b4d8;
-  --card-color-content: #c1d3fe;
-  --accordion-bg: #0d1b2a;
-  --filter-bg-color: #d6d6d6;
-  --filter-color: #080808;
-  --box-shadow: 0 4px 6px -1px rgba(160, 159, 159, 0.1);
-  --button-bg: palevioletred;
+  --background-color: #000000; /* Черный фон */
+  --text-color: #ffffff; /* Белый текст */
+  --border-color: #ffd700; /* Золотая граница */
+  --checked-color: #ffd700; /* Золотой */
+  --checked-bg: #ffd700;
+  --card-background-color: #111111; /* Темно-серый */
+  --card-border-color: #ffd700; /* Золотая */
+  --card-text-color: #ffffff; /* Белый */
+  --card-subtext-color: #cccccc; /* Светло-серый */
+  --card-border-left: #ffd700; /* Золотая */
+  --card-color-content: #ffd700; /* Золотой */
+  --accordion-bg: #000000; /* Черный */
+  --filter-bg-color: #ffd700; /* Золотой */
+  --filter-color: #000000; /* Черный */
+  --box-shadow: 0 4px 6px -1px rgba(255, 215, 0, 0.3); /* Золотая тень */
+  --button-bg: #ffd700; /* Золотой */
+  --color-focus-menu: #0a0a0a;
 }
 
 :root[data-theme="light"] {
-  --checked-color: #010c0f;
-  --checked-bg: #0096c7;
-  --filter-bg-color: #4d4d4d;
-  --filter-color: #080808;
-  --background-color: #e6f2ff;
-  --text-color: #003366;
-  --border-color: #0096c7;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  --card-background-color: #cce0ff;
-  --card-color-content: #004080;
-  --card-border-color: #0096c7;
-  --card-text-color: #002244;
-  --card-subtext-color: #5a86b7;
-  --card-border-left: #141414;
+  --checked-color: #ffd700; /* Золотой */
+  --checked-bg: #ffd700;
+  --filter-bg-color: #ffd700; /* Золотой */
+  --filter-color: #000000; /* Черный */
+  --background-color: #ffffff; /* Белый */
+  --text-color: #000000; /* Черный */
+  --border-color: #ffd700; /* Золотой */
+  --card-background-color: #ffffff; /* Белый */
+  --card-color-content: #ffd700; /* Золотой */
+  --card-border-color: #ffd700; /* Золотой */
+  --card-text-color: #000000; /* Черный */
+  --card-subtext-color: #666666; /* Серый */
+  --card-border-left: #ffd700; /* Золотой */
   --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --button-bg: #e72e2e;
-  --accordion-bg: #e6f2ff;
+  --button-bg: #ffd700; /* Золотой */
+  --accordion-bg: #f9f9f9; /* Светлый фон для аккордеона */
+  --color-focus-menu: #ffffff;
 }
 label {
   color: var(--text-color);

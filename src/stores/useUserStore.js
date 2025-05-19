@@ -11,10 +11,17 @@ export const useUserStore = defineStore("user", () => {
     user.value = null;
     localStorage.removeItem("user");
   }
+  function updateUser(updatedFields) {
+    if (user.value && typeof updatedFields === "object") {
+      user.value = { ...user.value, ...updatedFields };
+      localStorage.setItem("user", JSON.stringify(user.value));
+    }
+  }
   const getUser = computed(() => user.value);
   return {
     setUser,
     getUser,
     removeUser,
+    updateUser,
   };
 });

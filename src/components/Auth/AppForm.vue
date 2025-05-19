@@ -1,6 +1,9 @@
 <template>
   <div class="flex items-center justify-center min-h-screen">
-    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+    <div
+      class="bg-[var(--background-color)] rounded-lg shadow-lg p-6 w-full max-w-md"
+      :style="{ borderColor: 'var(--card-border-color)', borderWidth: '1px' }"
+    >
       <div v-if="loading">
         <ProgressBar
           class="custom-progressbar"
@@ -182,21 +185,21 @@
             >{{ $field.error?.message }}</Message
           >
         </FormField>
-        <Message v-if="mode != 'registr'" severity="info" class="text-center">
+        <Message v-if="mode != 'registr'" severity="warn" class="text-center">
           Забыли пароль?
           <Button
             variant="text"
-            class="text-blue-600 p-0 border-0 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:shadow-none"
+            class="text-[var(--text-color)] p-0 border-0 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:shadow-none"
             style="text-decoration: underline; text-underline-offset: 4px"
             @click="showForgotToPasswd"
             >Восстановить пароль</Button
           >
         </Message>
-        <Message severity="info" class="text-center">
+        <Message severity="warn" class="text-center">
           {{ mode === "registr" ? "Уже есть аккаунт?" : "Ещё нет аккаунта?" }}
           <RouterLink
             :to="mode === 'registr' ? { name: 'login' } : { name: 'auth' }"
-            class="text-blue-600 underline hover:text-blue-800"
+            class="text-[var(--text-color)] underline hover:text-blue-800"
             >{{
               mode === "registr" ? "Войти" : "Зарегистрироваться"
             }}</RouterLink
@@ -205,7 +208,7 @@
         <Button
           :disabled="loading"
           type="submit"
-          class="bg-blue-700 border-0 hover:bg-blue-800"
+          class="bg-[var(--button-bg)] border-0 save-btn"
           :label="mode === 'registr' ? 'Зарегистрироваться' : 'Войти'"
         />
       </Form>
@@ -381,5 +384,8 @@ const onFormSubmit = async (formData) => {
 <style>
 .custom-progressbar .p-progressbar-value {
   background-color: black !important; /* нужный цвет */
+}
+.save-btn:hover {
+  filter: brightness(90%);
 }
 </style>

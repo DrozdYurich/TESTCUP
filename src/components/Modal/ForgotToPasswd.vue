@@ -1,5 +1,5 @@
 <template>
-  <div class="text-black">
+  <div class="form-container">
     <div v-if="loading">
       <ProgressBar
         class="custom-progressbar"
@@ -7,7 +7,9 @@
         style="height: 5px"
       />
     </div>
-    <h2>Введите пароль</h2>
+
+    <h2 class="title">Введите email</h2>
+
     <Form
       :initialValues="initialValues"
       :resolver="resolver"
@@ -17,9 +19,9 @@
       <FormField v-slot="$field" name="email" class="flex flex-col gap-1">
         <FloatLabel variant="on">
           <InputText
-            class="w-full"
+            class="input-field"
             type="text"
-            v-model="initialValues.name"
+            v-model="initialValues.email"
             id="email"
           />
           <label for="email">Email</label>
@@ -29,13 +31,15 @@
           severity="error"
           size="small"
           variant="simple"
-          >{{ $field.error?.message }}</Message
         >
+          {{ $field.error?.message }}
+        </Message>
       </FormField>
+
       <Button
         :disabled="loading"
         type="submit"
-        class="bg-blue-700 border-0 hover:bg-blue-950"
+        class="theme-button"
         label="Восстановить"
       />
     </Form>
@@ -97,4 +101,52 @@ const onFormSubmit = async (formData) => {
   }
 };
 </script>
-<style></style>
+<style>
+.form-container {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--card-border-color);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.input-field {
+  background-color: transparent !important;
+  color: var(--text-color) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--card-subtext-color);
+  border-radius: 0;
+}
+
+.p-float-label label {
+  color: var(--card-subtext-color);
+}
+
+.p-float-label input:focus ~ label,
+.p-float-label input:not(:placeholder-shown) ~ label {
+  color: var(--card-border-color);
+}
+
+.custom-progressbar .p-progressbar-value {
+  background-color: var(--card-border-color) !important;
+}
+
+.theme-button {
+  background-color: var(--card-border-color);
+  color: #000;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.theme-button:hover {
+  filter: brightness(90%);
+}
+</style>

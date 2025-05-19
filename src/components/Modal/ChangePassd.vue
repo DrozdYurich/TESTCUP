@@ -9,7 +9,7 @@
         />
       </div>
 
-      <h2 class="form-title">Восстановить пароль</h2>
+      <h2 class="form-title">Сменить пароль</h2>
 
       <Form
         :initialValues="initialValues"
@@ -170,8 +170,8 @@ const onFormSubmit = async (formData) => {
       //   return;
       console.log(formattedData);
     }
-    toastStore.showSuccessToast("Вы успешно восстановили пароль");
-    router.push({ name: "login" });
+    toastStore.showSuccessToast("Вы успешно изменили пароль");
+    router.push({ name: "pd" });
     loading.value = false;
   } catch (error) {
     loading.value = false;

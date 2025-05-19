@@ -66,23 +66,23 @@ const items = ref([
     route: "home",
   },
   {
-    label: "Первый",
-    icon: "pi pi-palette",
+    label: "Лотереи",
+    icon: "pi pi-ticket",
     route: "one",
   },
   {
-    label: "Второй",
-    icon: "pi pi-link",
+    label: "Новости",
+    icon: "pi pi-book",
     route: "two",
   },
   {
-    label: "Третий",
-    icon: "pi pi-home",
+    label: "Вопросы",
+    icon: "pi pi-question-circle",
     route: "three",
   },
   {
     label: auth.value ? "Личный кабинет" : "Войти",
-    icon: auth.value ? "pi pi-home" : "pi pi-sign-in",
+    icon: auth.value ? "pi pi-user" : "pi pi-sign-in",
     route: auth.value ? "cabinet" : "login",
   },
 ]);

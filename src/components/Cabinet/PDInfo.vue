@@ -1,21 +1,12 @@
 <template>
   <div class="w-11/12 p-0.5">
-    <h2>Мои данные</h2>
-    <div>
-      <input class="w-full mt-1" type="text" />
-      <input class="w-full mt-1" type="text" /><input
-        class="w-full mt-1"
-        type="text"
-      /><input class="w-full mt-1" type="text" /><input
-        class="w-full mt-1"
-        type="text"
-      />
+    <h2 class="text-[var(--text-color)] text-3xl">Личная иформация</h2>
+    <div class="info">
+      <AppFio />
     </div>
   </div>
 </template>
-<script setup></script>
-<style scoped>
-input {
-  border: 3px solid red;
-}
-</style>
+<script setup>
+import AppFio from "./PD/AppFio.vue";
+</script>
+<style scoped></style>

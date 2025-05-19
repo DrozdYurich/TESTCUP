@@ -5,13 +5,14 @@ export function getMenuItems({
   removetoken,
   gotoProfilTwo,
   gotoProfilThree,
+  isAdmin = true,
 }) {
-  return [
+  const menuItems = [
     {
       separator: true,
     },
     {
-      label: "Общая информация",
+      label: "Личная информация",
       items: [
         {
           label: "Мои данные",
@@ -21,38 +22,47 @@ export function getMenuItems({
           key: "pd",
         },
         {
-          label: "Еще пункт",
-          icon: "pi pi-search",
+          label: "История участия",
+          icon: "pi pi-history",
           shortcut: "⌘+S",
           command: gotoPunct,
+          key: "data",
+        },
+        {
+          label: "Статистика участия",
+          icon: "pi pi-chart-line",
+          shortcut: "⌘+S",
+          command: gotoProfilTwo,
           key: "data",
         },
       ],
     },
     {
-      label: "Профиль",
+      label: "Кошелёк",
       items: [
         {
-          label: "Пункт профиля",
-          icon: "pi pi-cog",
+          label: "Карты",
+          icon: "pi pi-credit-card",
           shortcut: "⌘+O",
           command: gotoProfil,
           key: "profile1",
         },
-        {
-          label: "Пункт профиля 2",
-          icon: "pi pi-inbox",
-          badge: 3,
-          command: gotoProfilTwo,
-          key: "profile2",
-        },
-        {
-          label: "Пункт профиля 3",
-          icon: "pi pi-inbox",
-          badge: 3,
-          command: gotoProfilThree,
-          key: "profile3",
-        },
+      ],
+    },
+    {
+      label: "Администрирование",
+      items: [
+        ...(isAdmin
+          ? [
+              {
+                label: "Панель администрирования",
+                icon: "pi pi-cog",
+                shortcut: "⌘+A",
+                command: gotoProfilThree,
+                key: "admin",
+              },
+            ]
+          : []),
         {
           label: "Выход",
           icon: "pi pi-sign-out",
@@ -66,4 +76,6 @@ export function getMenuItems({
       separator: true,
     },
   ];
+
+  return menuItems;
 }
