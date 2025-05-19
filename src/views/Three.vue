@@ -1,13 +1,12 @@
 <template>
   <div class="container">
+    <h1 class="text-3xl mb-2">Часто задаваемые вопросы</h1>
     <div class="card">
       <TheAccordion
-        v-for="(n, index) in tabs"
-        :key="index"
-        :title="n.title"
-        :content="n.content"
-        :value="n.value"
-      />
+        title="Как зарегистрироваться?"
+        :expanded="true"
+        :content="'Ответ на вопрос о регистрации'"
+      ></TheAccordion>
     </div>
   </div>
 </template>
@@ -15,12 +14,6 @@
 <script setup>
 import TheAccordion from "@/components/TheAccordion.vue";
 import { ref } from "vue";
-
-const tabs = ref([
-  { title: "Title 1", content: "Content 1", value: "0" },
-  { title: "Title 2", content: "Content 2", value: "1" },
-  { title: "Title 3", content: "Content 3", value: "2" },
-]);
 </script>
 
 <style>

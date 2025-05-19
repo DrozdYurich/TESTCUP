@@ -1,6 +1,5 @@
 <template>
   <div class="lottery-card">
-    <!-- Название -->
     <div class="lottery-field">
       <label for="title" class="lottery-label">Название</label>
       <InputText
@@ -9,8 +8,6 @@
         class="lottery-input"
       />
     </div>
-
-    <!-- Тираж -->
     <div class="lottery-field">
       <label for="edition" class="lottery-label">Начальный призовой фонд</label>
       <InputText

@@ -1,67 +1,7 @@
 <template>
   <div class="card">
-    <h1>Home</h1>
-
-    <AppFilter
-      v-model:searchTitle="searchTitle"
-      v-model:status="status"
-      v-model:searchSubTitle="searchSubtitle"
-      @reset="resetFilter"
-    />
-
-    <div class="container w-full">
-      <CardInfo
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-center"
-        v-for="n in filteredItems"
-        :key="n.id"
-        :title="n.title"
-        :subtitle="n.subtitle"
-        :border-width="'1px'"
-        class="cardinf"
-        style="
-          --card-bg: var(--card-background-color);
-          --card-border: var(--card-border-color);
-          --card-text: var(--card-text-color);
-          --card-subtext: var(--card-subtext-color);
-        "
-      >
-        <template #header>
-          <img
-            alt="user header"
-            src="https://primefaces.org/cdn/primevue/images/usercard.png"
-          />
-        </template>
-        <template #content>
-          <div class="w-full flex justify-between">
-            <p class="text-[var(--card-color-content)]">{{ n.desription }}</p>
-            <Tag
-              class="h-1/6"
-              :icon="n.status === 'activ' ? 'pi pi-check' : 'pi pi-times'"
-              :severity="n.status === 'activ' ? 'success' : 'danger'"
-              :value="n.status"
-            ></Tag>
-          </div>
-        </template>
-        <template #footer>
-          <Button
-            @click="showDialogProduct"
-            style="background-color: var(--button-bg); border: none"
-            >Открыть модальное окно</Button
-          >
-        </template>
-      </CardInfo>
-    </div>
-    <Button
-      v-if="scrollY > 100"
-      class="fixed bottom-3 right-3 z-50"
-      icon="pi pi-arrow-up"
-      severity="secondary"
-      rounded
-      size="large"
-      @click="goToHead"
-    >
-    </Button>
+    <h1 class="text-3xl font-bold mb-1">Статистика СТОЛОТО</h1>
+    <TheStatisticGlobal />
   </div>
 </template>
 
@@ -74,6 +14,7 @@ import items from "../../public/data";
 import { computed, ref } from "vue";
 import useScrollY from "@/components/Utility/useScrollY";
 import { Tag } from "primevue";
+import TheStatisticGlobal from "@/components/TheStatisticGlobal.vue";
 const { showDialogProduct } = useModalMethods();
 const searchTitle = ref("");
 const searchSubtitle = ref("");

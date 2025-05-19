@@ -40,6 +40,10 @@
   --accordion-bg: #f9f9f9; /* Светлый фон для аккордеона */
   --color-focus-menu: #ffffff;
 }
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
 label {
   color: var(--text-color);
 }
