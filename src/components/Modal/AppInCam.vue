@@ -8,10 +8,13 @@
 
       <!-- Заголовок -->
       <Divider align="center" type="solid">
-        <span class="text-xl font-bold text-[var(--text-color)]"
-          >Пополнение баланса</span
+        <span
+          class="text-xl font-bold text-[var(--text-color)] bg-[var(--background-color)]"
         >
+          Пополнение баланса
+        </span>
       </Divider>
+
       <Form
         @submit="onSubmit"
         :initialValues="initialValues"
@@ -158,6 +161,9 @@ const onSubmit = async (formData) => {
 </script>
 
 <style scoped>
+label {
+  background-color: transparent;
+}
 .replenish-container {
   max-width: 600px;
   margin: 0 auto;

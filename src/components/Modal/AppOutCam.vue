@@ -8,10 +8,13 @@
 
       <!-- Заголовок -->
       <Divider align="center" type="solid">
-        <span class="text-xl font-bold text-[var(--text-color)]"
-          >Вывод денег</span
+        <span
+          class="text-xl font-bold text-[var(--text-color)] bg-[var(--background-color)]"
         >
+          Вывод денег
+        </span>
       </Divider>
+
       <Form @submit="onSubmit" class="flex flex-col gap-4 w-full">
         <FormField v-slot="$field" name="card" class="flex flex-col gap-1">
           <FloatLabel variant="on">
@@ -154,7 +157,9 @@ const onSubmit = async (formData) => {
   margin: 0 auto;
   padding: 2rem;
 }
-
+label {
+  background-color: transparent;
+}
 .replenish-card {
   background-color: var(--card-background-color);
   border: 1px solid var(--card-border-color);

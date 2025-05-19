@@ -7,9 +7,10 @@
     >
       <template #start>
         <span class="inline-flex items-center gap-1 px-2 py-2">
-          <span class="text-xl font-semibold text-[var(--text-color)]">
+          <span class="text-2xl font-semibold text-[var(--text-color)]">
             СТО<span class="text-[var(--card-border-color)]">ЛОТО</span>
           </span>
+          <Avatar :image="Img" />
         </span>
       </template>
       <template #submenulabel="{ item }">
@@ -50,6 +51,7 @@
 
 <script setup>
 import avatarImg from "/src/assets/img/avatar.jpeg";
+import Img from "/src/assets/img/bg.webp";
 import { Avatar, Badge, Menu } from "primevue";
 import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/useUserStore";

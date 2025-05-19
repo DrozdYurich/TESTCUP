@@ -29,7 +29,11 @@
               toggleMask
               fluid
             />
-            <label for="passwdold">Введите старый пароль</label>
+            <label
+              for="passwdold"
+              class="text-[var(--text-color)] bg-[var(--background-color)]"
+              >Введите старый пароль</label
+            >
           </FloatLabel>
           <Message
             v-if="$field?.invalid"
@@ -53,7 +57,11 @@
               toggleMask
               fluid
             />
-            <label for="passwdnew">Введите новый пароль</label>
+            <label
+              for="passwdnew"
+              class="text-[var(--text-color)] bg-[var(--background-color)]"
+              >Введите новый пароль</label
+            >
           </FloatLabel>
           <Message
             v-if="$field?.invalid"
@@ -81,7 +89,9 @@
               toggleMask
               fluid
             />
-            <label for="passwdnew1">Повторите новый пароль</label>
+            <label for="passwdnew1" class="text-[var(--text-color)]"
+              >Повторите новый пароль</label
+            >
           </FloatLabel>
           <Message
             v-if="$field?.invalid"
@@ -194,21 +204,25 @@ watch(
   { deep: true }
 );
 </script>
-<style>
+<style scoped>
+label {
+  background-color: transparent;
+}
 .form-card {
   background-color: var(--card-background-color);
   border: 1px solid var(--card-border-color);
-  border-radius: 12px;
-  padding: 2rem;
+  border-radius: 16px;
+  padding: 2.5rem;
   width: 100%;
   max-width: 500px;
   box-shadow: var(--box-shadow);
+  transition: all 0.3s ease;
 }
 
 .form-title {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: bold;
-  color: var(--card-border-color);
+  color: var(--text-color);
   text-align: center;
   margin-bottom: 1.5rem;
 }
@@ -219,15 +233,24 @@ watch(
   border: none !important;
   border-bottom: 1px solid var(--card-subtext-color);
   border-radius: 0;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
 .p-float-label label {
   color: var(--card-subtext-color);
+  font-size: 0.875rem;
 }
 
 .p-float-label input:focus ~ label,
 .p-float-label input:not(:placeholder-shown) ~ label {
   color: var(--card-border-color);
+  font-weight: 500;
+}
+
+.p-float-label input:focus ~ .input-field {
+  border-bottom-color: var(--card-border-color);
 }
 
 .custom-progressbar .p-progressbar-value {
@@ -238,6 +261,12 @@ watch(
   background-color: var(--card-border-color);
   color: #000;
   border: none;
+  padding: 0.75rem 1rem;
+  font-weight: bold;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: all 0.3s ease;
 }
 

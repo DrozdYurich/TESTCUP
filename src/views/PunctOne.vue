@@ -14,7 +14,7 @@
         style="
           --card-bg: var(--card-background-color);
           --card-border: var(--card-border-color);
-          --card-text: var(--card-text-color);
+          --card-text: var(--text-color);
           --card-subtext: var(--card-subtext-color);
         "
       >
@@ -26,7 +26,7 @@
         </template>
         <template #content>
           <div class="w-full flex justify-between">
-            <p class="text-[var(--card-color-content)]">{{ n.desription }}</p>
+            <p class="text-[var(--text-color)]">{{ n.desription }}</p>
             <Tag
               class="h-1/6"
               :icon="n.status === 'activ' ? 'pi pi-check' : 'pi pi-times'"

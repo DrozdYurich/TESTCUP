@@ -5,9 +5,11 @@
         <ProgressBar mode="indeterminate" style="height: 5px" />
       </div>
       <Divider align="center" type="solid">
-        <span class="text-xl font-bold text-[var(--text-color)]"
-          >Добавить карту</span
+        <span
+          class="text-xl font-bold text-[var(--text-color)] bg-[var(--background-color)]"
         >
+          Добавить карту
+        </span>
       </Divider>
       <Form
         :initialValues="initialValues"
@@ -213,7 +215,9 @@ const onSubmit = async (formData) => {
   margin: 0 auto;
   padding: 2rem;
 }
-
+label {
+  background-color: transparent;
+}
 .cards-wrapper {
   background-color: var(--card-background-color);
   border: 1px solid var(--card-border-color);
