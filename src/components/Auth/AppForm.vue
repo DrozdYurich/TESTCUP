@@ -12,10 +12,13 @@
         />
       </div>
       <Divider align="center" type="solid">
-        <span class="text-xl font-bold">
+        <span
+          class="text-xl font-bold text-[var(--text-color)] bg-[var(--background-color)]"
+        >
           {{ mode === "registr" ? "Регистрация" : "Вход" }}
         </span>
       </Divider>
+
       <Form
         :initialValues="initialValues"
         :resolver="resolver"
@@ -213,6 +216,7 @@
         />
       </Form>
     </div>
+    {{ getUser }}
   </div>
 </template>
 
@@ -241,6 +245,7 @@ import { useRouter } from "vue-router";
 import { useRoleStore } from "@/stores/useRoleStore";
 import { useUserStore } from "@/stores/useUserStore";
 import useModalMethods from "../Modal/MethodsModal/methods";
+import axios from "axios";
 const props = defineProps({
   mode: {
     type: String,
@@ -255,6 +260,7 @@ const { getToken, isAuth } = storeToRefs(useAuthStore());
 const toastStore = useToastStore();
 const roleStore = useRoleStore();
 const userStore = useUserStore();
+const { getUser } = storeToRefs(useUserStore());
 const loading = ref(false);
 const initialValues = reactive({
   name: "",
@@ -266,7 +272,6 @@ const initialValues = reactive({
   role: "",
   email: "",
 });
-
 const schema = computed(() => {
   const baseSchema = {
     email: yup
@@ -302,9 +307,8 @@ const schema = computed(() => {
 
 const resolver = computed(() => yupResolver(schema.value));
 const roles = ref([
-  { name: "role1", code: "1" + Date.now() },
-  { name: "role2", code: "2" + Date.now() },
-  { name: "role3", code: "3" + Date.now() },
+  { name: "Админ", code: "1" },
+  { name: "Участник", code: "2" },
 ]);
 const onFormSubmit = async (formData) => {
   try {
@@ -314,43 +318,57 @@ const onFormSubmit = async (formData) => {
         email: formData.values.email,
         password: formData.values.password,
         ...(props.mode === "registr" && {
-          name: formData.values.name,
-          surname: formData.values.surname,
-          patronymic: formData.values.patronymic,
-          nickname: formData.values.nickname,
-          role: formData.values.role.name,
-          dR: new Date(formData.values.dR).toISOString().split("T")[0],
+          last_name: formData.values.name,
+          first_name: formData.values.surname,
+          father_name: formData.values.patronymic,
+          username: formData.values.nickname,
+          is_root: formData.values.role.name === 1 ? true : false,
+          birthday: new Date(formData.values.dR).toISOString().split("T")[0],
         }),
       };
+
       const response = await authStore.login(
-        "http://10.8.0.23:8000/api/auth/register/",
+        "http://10.8.0.23:8000/auth/users/",
         formattedData
       );
-      if (formattedData.role) {
-        roleStore.setRole(formattedData.role);
-      } else {
-        roleStore.setRole(2);
-      }
-      userStore.setUser({
-        name: "evgeni",
-        firstname: "drozdov",
-        id: 4,
-        data: Date.now(),
-      });
+      // if (formattedData.role) {
+      //   roleStore.setRole(formattedData.role);
+      // } else {
+      //   roleStore.setRole(2);
+      // }
+      // userStore.setUser({
+      //   name: "evgeni",
+      //   firstname: "drozdov",
+      //   id: 4,
+      //   data: Date.now(),
+      // });
       await nextTick();
-      if (isAuth.value) {
-        router.push("/");
-      } else {
-        console.error("Registration failed");
-        toastStore.showErrorToast(
-          props.mode === "registr"
-            ? "Регистрация не выполнена"
-            : "Вход не выполнен",
-          "Пожалуйста, проверьте введенные данные"
+      if (response) {
+        const token = await axios.post(
+          "http://10.8.0.23:8000/auth/jwt/create/",
+          {
+            username: getUser.value.username,
+            password: initialValues.password,
+          }
         );
+        console.log(token);
+        authStore.setAccsessToken(token.data.access);
+        authStore.setRefreshToken(token.data.refresh);
+        if (isAuth.value) {
+          router.push("/");
+        } else {
+          console.error("Registration failed");
+          toastStore.showErrorToast(
+            props.mode === "registr"
+              ? "Регистрация не выполнена"
+              : "Вход не выполнен",
+            "Пожалуйста, проверьте введенные данные"
+          );
 
-        return;
+          return;
+        }
       }
+
       console.log(response);
       toastStore.showSuccessToast(
         props.mode === "registr"
@@ -387,5 +405,14 @@ const onFormSubmit = async (formData) => {
 }
 .save-btn:hover {
   filter: brightness(90%);
+}
+label {
+  background-color: transparent;
+}
+.p-inputtext {
+  background: var(--background-color);
+}
+.p-select {
+  background: var(--background-color);
 }
 </style>

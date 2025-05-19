@@ -29,18 +29,26 @@
           <h2 class="balance-title">Ваш игровой баланс</h2>
           <p class="balance-amount">{{ gameBalance }} P</p>
         </div>
-        <Button
-          label="Перевести"
-          icon="pi pi-plus"
-          class="theme-button"
-          @click="showInCamVirt"
-        />
-        <p>25P = 1 Виртуальная валюта</p>
+
+        <div class="transfer-wrapper">
+          <Button
+            label="Перевести"
+            icon="pi pi-arrow-right"
+            class="theme-button"
+            @click="showInCamVirt"
+          />
+          <div class="exchange-rate">
+            <span>20</span>
+            <span class="currency-p">P</span>
+            =
+            <span class="virtual-currency">1</span>
+            <i class="pi pi-gem ml-1"></i>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
-
 <script setup>
 import { ref } from "vue";
 import { Button, Divider } from "primevue";
@@ -136,5 +144,39 @@ const showTransfer = () => {
   .theme-button {
     width: 100%;
   }
+}
+.transfer-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.exchange-rate {
+  font-size: 0.9rem;
+  color: var(--card-subtext-color);
+  background-color: var(--card-background-color);
+  border: 2px solid var(--card-border-color);
+  padding-left: 1rem;
+  border-radius: 8px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.exchange-rate:hover {
+  background-color: #222;
+}
+
+.exchange-rate .currency-p {
+  color: var(--card-border-color); /* Золотой цвет для P */
+  font-weight: bold;
+}
+
+.exchange-rate .virtual-currency {
+  color: var(--card-border-color); /* Золотой для виртуальной валюты */
+  font-weight: bold;
 }
 </style>

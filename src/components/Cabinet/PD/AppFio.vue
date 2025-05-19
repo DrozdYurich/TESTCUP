@@ -73,15 +73,30 @@
           <label
             for="birthdate"
             class="text-left text-sm text-[var(--card-subtext-color)]"
-            >Дата рождения</label
           >
+            Дата рождения
+          </label>
           <DatePicker
             id="birthdate"
             v-model="editableUser.birthdate"
             :showIcon="true"
             dateFormat="dd.mm.yy"
-            class="w-full bg-transparent text-[var(--text-color)]"
-            inputClass="w-full border-b border-gray-500 focus:border-[var(--card-border-color)]"
+            class="w-full datepicker-wrapper"
+            inputClass="w-full bg-transparent border-b border-gray-500 focus:border-[var(--card-border-color)] text-[var(--text-color)] placeholder:text-[var(--card-subtext-color)]"
+            :pt="{
+              input: {
+                style: {
+                  backgroundColor: 'transparent',
+                  borderColor: 'var(--card-border-color)',
+                  color: 'var(--text-color)',
+                },
+              },
+              icon: {
+                style: {
+                  color: 'var(--card-subtext-color)',
+                },
+              },
+            }"
           />
         </div>
 
@@ -152,7 +167,10 @@ const resetPassword = () => {
 };
 </script>
 
-<style scoped>
+<style>
+.p-datepicker-dropdown {
+  background-color: var(--background-color);
+}
 .theme-button {
   display: flex;
   align-items: center;
