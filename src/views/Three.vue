@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="text-3xl mt-1 mb-2">Часто задаваемые вопросы</h1>
+    <h1 class="text-3xl mt-1 mb-2 font-bold">Часто задаваемые вопросы</h1>
     <div class="card">
       <TheAccordion
         title="Как зарегистрироваться?"

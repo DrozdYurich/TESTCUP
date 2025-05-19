@@ -30,7 +30,7 @@
           <p class="balance-amount">{{ gameBalance }} P</p>
         </div>
         <Button
-          label="Пополнить виртуальный счёт"
+          label="Перевести"
           icon="pi pi-plus"
           class="theme-button"
           @click="showInCamVirt"

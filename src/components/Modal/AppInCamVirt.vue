@@ -1,71 +1,40 @@
 <template>
   <div class="replenish-container">
     <div class="replenish-card">
-      <!-- Прогрессбар при загрузке -->
-      <!-- <div v-if="loading" class="progressbar-wrapper">
-          <ProgressBar mode="indeterminate" style="height: 5px" />
-        </div> -->
       <Divider align="center" type="solid">
-        <span class="text-xl font-bold text-[var(--text-color)]"
-          >Пополнение виртуального баланса</span
-        >
+        <span class="text-xl font-bold text-[var(--text-color)]">
+          Пополнение виртуального баланса
+        </span>
       </Divider>
-      <Form @submit="onSubmit" class="flex flex-col gap-4 w-full">
-        <FormField v-slot="$field" name="card" class="flex flex-col gap-1">
-          <FloatLabel variant="on">
-            <Select
-              v-model="selectedCard"
-              :options="cards"
-              optionLabel="label"
-              optionValue="value"
-              id="card"
-              class="w-full input-field"
-            >
-              <!-- Кастомное отображение -->
-              <template #option="slotProps">
-                <div class="flex items-center gap-2">
-                  <span>{{ slotProps.option.bank }}</span>
-                  <span class="text-sm text-[var(--card-subtext-color)]">
-                    •••• {{ getLastFourDigits(slotProps.option.cardNumber) }}
-                  </span>
-                </div>
-              </template>
-            </Select>
-            <label for="card">Выберите карту</label>
-          </FloatLabel>
-          <Message
-            v-if="$field?.invalid"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ $field.error?.message }}
-          </Message>
-        </FormField>
-        <FormField v-slot="$field" name="amount" class="flex flex-col gap-1">
-          <FloatLabel variant="on">
-            <InputNumber
-              id="amount"
-              v-model="amount"
-              mode="currency"
-              currency="RUB"
-              locale="ru"
-              class="w-full input-field"
+      <Form
+        :initialValues="initialValues"
+        :resolver="resolver"
+        @submit="onSubmit"
+        class="flex flex-col gap-4 w-full"
+      >
+        <FormField v-slot="$field" name="virt" class="flex flex-col gap-1">
+          <FloatLabel variant="on"
+            ><InputText
+              class="w-full"
+              type="text"
+              v-model="initialValues.rub"
+              id="rub"
             />
-            <label for="amount">Сумма пополнения</label>
+            <label for="rub">Сумма обмена</label>
           </FloatLabel>
+
           <Message
             v-if="$field?.invalid"
             severity="error"
             size="small"
             variant="simple"
+            >{{ $field.error?.message }}</Message
           >
-            {{ $field.error?.message }}
-          </Message>
         </FormField>
+        {{ virtualAmount }}
         <Button
-          label="Пополнить"
-          icon="pi pi-credit-card"
+          label="Перевести "
+          icon="pi pi-wallet"
           class="theme-button w-full"
           type="submit"
           :disabled="loading"
@@ -76,80 +45,52 @@
 </template>
 
 <script setup>
+import { ref, computed, reactive } from "vue";
 import * as yup from "yup";
 import { yupResolver } from "@primevue/forms/resolvers/yup";
-import { storeToRefs } from "pinia";
-
-import { computed, inject, onMounted, ref } from "vue";
 import { Form, FormField } from "@primevue/forms";
-import { usePlatezhStore } from "@/stores/usePlatezhStore";
-import { useToastStore } from "@/stores/useToastStore";
-const plStore = usePlatezhStore();
-const toastStore = useToastStore();
 import {
   Button,
   Divider,
   FloatLabel,
   InputNumber,
+  InputText,
   Message,
-  ProgressBar,
-  Select,
 } from "primevue";
-const dialogRef = inject("dialogRef");
-function closeDialog() {
-  dialogRef.value.close();
-}
-const { getCarts } = storeToRefs(usePlatezhStore());
-const cards = computed(() => {
-  return getCarts.value.map((card) => ({
-    ...card,
-    label: `${card.bank || "Карта"} •••• ${getLastFourDigits(card.cardNumber)}`,
-    value: card.cardNumber,
-  }));
-});
-function getLastFourDigits(cardNumber) {
-  if (!cardNumber) return "";
-  const cleaned = cardNumber.replace(/\D/g, "");
-  return cleaned.slice(-4);
-}
-const selectedCard = ref(null);
-const amount = ref(100);
+
 const loading = ref(false);
-const schema = ref(
-  yup.object().shape({
-    card: yup.string().required("Выберите карту"),
-    amount: yup
-      .number()
-      .min(10, "Минимальная сумма — 10 P")
-      .required("Введите сумму"),
-  })
-);
+const exchangeRate = ref(0.5);
 
-const resolver = ref(yupResolver(schema.value));
+const initialValues = reactive({
+  rub: 100,
+});
+const virtualAmount = computed(() => {
+  return Math.floor(initialValues.rub * exchangeRate.value);
+});
 
-const onSubmit = async (formData) => {
-  if (formData.valid && !loading.value) {
-    loading.value = true;
-    try {
-      console.log("Форма валидна. Отправляем данные:", formData.values);
-      toastStore.showSuccessToast(
-        "Баланс пополнен",
-        `На сумму ${formData.values.amount} P`
-      );
-      closeDialog();
-    } catch (e) {
-      toastStore.showErrorToast("Ошибка", "Не удалось пополнить баланс");
-    } finally {
-      loading.value = false;
-    }
-  }
-};
+const schema = yup.object().shape({
+  rub: yup
+    .number()
+    .typeError("Введите корректную сумму")
+    .min(10, "Минимальная сумма — 10 ₽")
+    .required("Укажите сумму"),
+});
+
+const resolver = yupResolver(schema);
+
+function onSubmit() {
+  console.log("Пополнение на", formData.value.amountRub, "RUB");
+  loading.value = true;
+  setTimeout(() => {
+    loading.value = false;
+  }, 1000);
+}
 </script>
 
 <style scoped>
 .replenish-container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 2rem;
 }
 
@@ -183,8 +124,7 @@ const onSubmit = async (formData) => {
   color: var(--card-subtext-color);
 }
 
-.p-float-label input:focus ~ label,
-.p-float-label select:focus ~ label {
+.p-float-label input:focus ~ label {
   color: var(--card-border-color);
 }
 
