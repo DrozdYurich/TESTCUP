@@ -121,6 +121,10 @@ import { yupResolver } from "@primevue/forms/resolvers/yup";
 import axios from "axios";
 import { watch } from "vue";
 import { useRouter } from "vue-router";
+const dialogRef = inject("dialogRef");
+function closeDialog() {
+  dialogRef.value.close();
+}
 const toastStore = useToastStore();
 const router = useRouter();
 const initialValues = reactive({
@@ -171,7 +175,8 @@ const onFormSubmit = async (formData) => {
       console.log(formattedData);
     }
     toastStore.showSuccessToast("Вы успешно изменили пароль");
-    router.push({ name: "pd" });
+    // router.push({ name: "pd" });
+    closeDialog();
     loading.value = false;
   } catch (error) {
     loading.value = false;

@@ -51,7 +51,6 @@
             id="firstname"
             v-model="editableUser.patronymic"
             class="w-full bg-transparent border-b border-gray-500 focus:border-[var(--card-border-color)] text-[var(--text-color)]"
-            required
           />
         </div>
         <!-- Username -->

@@ -1,40 +1,8 @@
 <template>
-  <div>
-    <h3 class="text-2xl font-semibold mb-4">Пагинация</h3>
-    <transition name="fade" mode="out-in">
-      <div
-        :key="currentPage"
-        class="cards grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-white rounded-lg shadow-md max-h-[60vh] overflow-y-auto"
-      >
-        <CardInfo
-          v-for="(pag, i) in paginatesItems"
-          :key="pag.id"
-          :title="pag.title"
-          :subtitle="pag.subtitle"
-          :border-width="'1px'"
-          :border-left-width="'10px'"
-          class="cardinf transition-shadow hover:shadow-lg rounded-lg border border-gray-200"
-          style="
-            border-left: 10px solid var(--card-border-left) !important;
-            --card-bg: var(--card-background-color);
-            --card-border: var(--card-border-color);
-            --card-text: var(--card-text-color);
-            --card-subtext: var(--card-subtext-color);
-          "
-        >
-        </CardInfo>
-      </div>
-    </transition>
-    <div class="flex gap-2 mt-6 justify-center items-center">
-      <Paginator
-        :rows="itemsPerPage"
-        :total-records="comp.length"
-        :first="(currentPage - 1) * itemsPerPage"
-        :page-link-size="4"
-        @page="onPageChange"
-      >
-      </Paginator>
-    </div>
+  <div
+    class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
+  >
+    <AppHistory v-for="n in 10" :key="n" class="w-full" />
   </div>
 </template>
 
@@ -43,6 +11,7 @@ import { Button, Paginator } from "primevue";
 import comp from "../../../public/compititions";
 import CardInfo from "../CardInfo.vue";
 import usePagination from "../Utility/usePagination";
+import AppHistory from "./history/AppHistory.vue";
 const { goToPage, itemsPerPage, paginatesItems, currentPage } =
   usePagination(comp);
 function onPageChange(event) {
