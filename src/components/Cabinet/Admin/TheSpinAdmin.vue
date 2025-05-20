@@ -15,8 +15,6 @@
       <div class="level-badge">{{ currentLevel }} уровень</div>
       <h3 class="level-name mt-2">{{ levelData.name }}</h3>
     </div>
-
-    <!-- Информация по текущему уровню -->
     <div
       class="level-info p-4 mb-4 rounded-lg bg-[var(--card-background-color)] border-l-4 border-[var(--card-border-left)]"
     >
@@ -49,19 +47,22 @@
         @click="upgradeVip"
         class="px-6 py-3 font-bold rounded-lg transition-transform hover:scale-105"
       >
-        Купить VIP
+        Купить VIP {{ vipLevel }}
       </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-
+import axios from "axios";
+import { ref, computed, onMounted } from "vue";
+import { useUserStore } from "@/stores/useUserStore";
+import { storeToRefs } from "pinia";
+const { getUser } = storeToRefs(useUserStore());
 // Текущий уровень пользователя
 const currentLevel = ref(2); // Пример: пользователь на уровне 2
-
-// Данные по уровням
+const vipLevel = computed(() => getUser.value);
+const vipData = ref();
 const levels = {
   1: {
     name: "Bronze",
@@ -79,12 +80,29 @@ const levels = {
     requirement: "Доступен только по приглашению",
   },
 };
-
-// Вычисляем текущий уровень и следующий
+const loading = ref();
 const levelData = computed(() => levels[currentLevel.value] || {});
 const nextLevel = computed(() => levels[currentLevel.value + 1] || null);
-
-// Функция покупки VIP
+const getVIP = async () => {
+  try {
+    console.log("g", vipLevel.value);
+    loading.value = true;
+    const response = await axios.get(
+      `http://10.8.0.23:8002/vip/${vipLevel.value}/`
+    );
+    console.log(response.data);
+    vipData.value = response.data;
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
+onMounted(() => {
+  getVIP();
+});
 const upgradeVip = () => {
   if (currentLevel.value < 3) {
     alert("Вы повысили свой VIP-уровень!");
