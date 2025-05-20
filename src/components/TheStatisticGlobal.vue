@@ -3,50 +3,49 @@
     <div class="stats-grid">
       <div class="stat-card primary">
         <div class="stat-header">
-          <span class="text-[var(--text-color)]">Всего игр</span>
+          <span class="text-[var(--text-color)]"
+            >В среднем милионеров в неделю</span
+          >
           <i class="pi pi-ticket stat-icon"></i>
         </div>
         <div class="stat-value">{{ stats.totalGames }}</div>
-        <div class="stat-subtext">Розыгрыши за всё время</div>
       </div>
       <div class="stat-card success">
         <div class="stat-header">
-          <span>Выиграно всего</span>
+          <span>Выиграно более</span>
           <i class="pi pi-dollar stat-icon"></i>
         </div>
         <div class="stat-value">{{ formatMoney(stats.totalWin) }}</div>
-        <div class="stat-subtext">Сумма всех призов</div>
       </div>
       <div class="stat-card info">
         <div class="stat-header">
-          <span>Участники</span>
+          <span>Каждый</span>
           <i class="pi pi-users stat-icon"></i>
         </div>
         <div class="stat-value">{{ stats.totalPlayers }}</div>
-        <div class="stat-subtext">Все пользователи</div>
+        <div class="stat-subtext">выйгрывает</div>
       </div>
 
       <div class="stat-card warning">
         <div class="stat-header">
-          <span>Средний выигрыш</span>
+          <span>Более</span>
           <i class="pi pi-chart-line stat-icon"></i>
         </div>
-        <div class="stat-value">{{ formatMoney(stats.avgWin) }}</div>
-        <div class="stat-subtext">На одного игрока</div>
+        <div class="stat-value">{{ stats.avgWin }}</div>
+        <div class="stat-subtext">миллионера по всей стране</div>
       </div>
 
       <div class="stat-card danger">
         <div class="stat-header">
-          <span>Рекордный выигрыш</span>
+          <span>Выплат выигрышей в сутки</span>
           <i class="pi pi-trophy stat-icon"></i>
         </div>
         <div class="stat-value">{{ formatMoney(stats.maxWin) }}</div>
-        <div class="stat-subtext">Один участник</div>
       </div>
 
       <div class="stat-card secondary">
         <div class="stat-header">
-          <span>Популярная лотерея</span>
+          <span>Новая лотерея</span>
           <i class="pi pi-star-fill stat-icon"></i>
         </div>
         <div class="stat-value">{{ stats.mostPopularLottery.title }}</div>
@@ -63,14 +62,14 @@ import { reactive } from "vue";
 
 // Пример данных (в реальности можно получать из API)
 const stats = reactive({
-  totalGames: 150,
-  totalWin: 4500000,
-  totalPlayers: 89200,
-  avgWin: 50672,
-  maxWin: 1250000,
+  totalGames: 22,
+  totalWin: 200000000000,
+  totalPlayers: 4,
+  avgWin: 10000,
+  maxWin: 500000,
   mostPopularLottery: {
     title: "Золотой ключ",
-    edition: "LOT-2024",
+    edition: "LOT-2025",
   },
 });
 

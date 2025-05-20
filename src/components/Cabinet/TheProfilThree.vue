@@ -1,5 +1,9 @@
 <template>
-  <div class="flex flex-col">
+  <div
+    class="flex flex-col"
+    data-aos="fade-up"
+    data-aos-anchor-placement="top-center"
+  >
     <h1 class="text-3xl mb-4 font-bold">Администрирование</h1>
     <div class="flex gap-3">
       <div v-if="loading">
@@ -10,6 +14,8 @@
         />
       </div>
       <TheAdminChange
+        data-aos="fade-up"
+        data-aos-anchor-placement="top-center"
         v-for="loter in lotteries"
         :key="loter.id"
         :lottery="loter"

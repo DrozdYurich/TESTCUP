@@ -3,6 +3,8 @@
     class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
   >
     <AppHistory
+      data-aos="fade-up"
+      data-aos-anchor-placement="top-center"
       v-for="n in history?.participants"
       :key="n.id"
       class="w-full"

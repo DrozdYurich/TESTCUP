@@ -1,7 +1,11 @@
 <template>
   <div class="w-full px-6 py-8">
     <h1 class="text-4xl p-5 font-bold text-center">Ваша статистика</h1>
-    <div class="statistic">
+    <div
+      class="statistic"
+      data-aos="fade-up"
+      data-aos-anchor-placement="top-center"
+    >
       <TheCountLotery
         class="count"
         title="Участие в лотереях"

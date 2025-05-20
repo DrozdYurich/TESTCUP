@@ -1,8 +1,16 @@
 <template>
   <div class="koshel">
     <h1 class="h1 text-3xl font-bold">Мой кошелёк</h1>
-    <TheBalance class="my" />
-    <TheCartPlatezh class="plat" />
+    <TheBalance
+      class="my"
+      data-aos="fade-up"
+      data-aos-anchor-placement="top-center"
+    />
+    <TheCartPlatezh
+      class="plat"
+      data-aos="fade-up"
+      data-aos-anchor-placement="top-center"
+    />
   </div>
 </template>
 

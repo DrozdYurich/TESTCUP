@@ -1,5 +1,9 @@
 <template>
-  <div class="flex justify-center sidebar h-auto mt-5">
+  <div
+    class="flex justify-center sidebar h-auto mt-5"
+    data-aos="fade-up"
+    data-aos-anchor-placement="top-center"
+  >
     <Menu
       :model="menuItems"
       class="w-full h-4/5 custom-menu"
