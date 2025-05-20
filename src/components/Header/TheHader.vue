@@ -82,6 +82,11 @@ const items = ref([
     route: "one",
   },
   {
+    label: "Мини игры",
+    icon: "pi pi-trophy",
+    route: "games",
+  },
+  {
     label: "Новости",
     icon: "pi pi-book",
     route: "two",

@@ -16,7 +16,8 @@ import TheE404 from "@/components/TheE404.vue";
 import AppForgotPassword from "@/components/Forgor/AppForgotPassword.vue";
 import TheWin from "@/components/Cabinet/Wins/TheWin.vue";
 import AppLotery from "@/views/AppLotery.vue";
-
+import AppGames from "@/views/AppGames.vue";
+import AppStar from "@/views/AppStar.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -60,6 +61,24 @@ const router = createRouter({
       path: "/lottery",
       name: "lottery",
       component: AppLotery,
+      meta: {
+        layout: "Main",
+        auth: false,
+      },
+    },
+    {
+      path: "/games",
+      name: "games",
+      component: AppGames,
+      meta: {
+        layout: "Main",
+        auth: false,
+      },
+    },
+    {
+      path: "/star",
+      name: "star",
+      component: AppStar,
       meta: {
         layout: "Main",
         auth: false,

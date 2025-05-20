@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h1 class="text-3xl font-bold mb-3 mt-1">Лотереи</h1>
+    <h1 class="text-3xl font-bold mb-3 mt-1">Мини игры</h1>
     <div class="container w-full">
       <CardInfo
         data-aos="fade-up"
@@ -60,7 +60,7 @@
         </template>
         <template #footer>
           <Button
-            @click="showDialogProduct"
+            @click="showDialogList"
             style="background-color: var(--button-bg); border: none"
             >Подробнее</Button
           >
@@ -94,7 +94,7 @@ import axios from "axios";
 import { storeToRefs } from "pinia";
 import { useLoteryStore } from "@/stores/useLoteryStore";
 const loteryStore = useLoteryStore();
-const { showDialogProduct } = useModalMethods();
+const { showDialogList } = useModalMethods();
 const searchTitle = ref("");
 const { getTokenAccsess } = storeToRefs(useAuthStore());
 const token = computed(() => {

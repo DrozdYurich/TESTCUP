@@ -151,7 +151,10 @@ export default function useModalMethods() {
       props: {
         header: "Список списков",
         style: {
-          width: "80vw",
+          width: "60vw",
+          backgroundColor: "var(--background-color)",
+          border: "none",
+          color: "var(--text-color)",
         },
         breakpoints: {
           "960px": "75vw",
