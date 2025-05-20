@@ -342,7 +342,7 @@ function gameLoop() {
   animationFrameId = requestAnimationFrame(gameLoop);
 }
 
-function update() {
+async function update() {
   rocket.fuel -= 0.15;
   if (rocket.fuel < 0) rocket.fuel = 0;
 
@@ -384,7 +384,7 @@ function update() {
         bullets.splice(i, 1);
         audioBurst.currentTime = 0;
         audioBurst.play();
-        coins.value += 1;
+        balance.value += 1;
         break;
       }
     }
@@ -401,7 +401,7 @@ function update() {
       audioMoney.pause();
       audioMoney.currentTime = 0;
       audioMoney.play();
-      coins.value += 2;
+      setBalansPlus();
       pickups.splice(i, 1);
     }
   }
@@ -678,6 +678,36 @@ const getBalans = async () => {
         action: "out",
         value_type: "virtual",
         value: CostSpin.value,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    balanceStore.setbalanse({
+      balance: response.data.new_balance,
+      balance_virtual: response.data.new_virtual_balance,
+    });
+    console.log(response.data);
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
+const setBalansPlus = async () => {
+  try {
+    loading.value = true;
+    const response = await axios.patch(
+      "http://10.8.0.23:8000/balance/",
+      {
+        action: "in",
+        value_type: "virtual",
+        value: 1,
       },
       {
         headers: {
