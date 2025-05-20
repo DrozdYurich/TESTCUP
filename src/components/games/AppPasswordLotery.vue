@@ -53,6 +53,7 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import { useToastStore } from "@/stores/useToastStore";
 import { storeToRefs } from "pinia";
 import { useLoteryStore } from "@/stores/useLoteryStore";
+import { useUserStore } from "@/stores/useUserStore";
 const { getTokenAccsess } = storeToRefs(useAuthStore());
 const { getLotery } = storeToRefs(useLoteryStore());
 const toastStore = useToastStore();

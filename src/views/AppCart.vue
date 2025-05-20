@@ -131,6 +131,8 @@ function getRegionNumByTitle(title) {
   const region = regions.find((r) => r.title === title);
   return region ? region.num : 0;
 }
+import { useUserStore } from "@/stores/useUserStore";
+
 const dataCount = ref();
 const resp = ref();
 const loading = ref();
@@ -178,6 +180,7 @@ const getBalans = async () => {
     throw error;
   }
 };
+
 async function sendRegions() {
   if (Coins.value >= inputValue.value) {
     Coins.value -= inputValue.value;
@@ -303,7 +306,8 @@ function regionClickHandler(e) {
   updateRegionStyles();
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await getCart();
   // Делегируем клики на svg
   const svg = document.querySelector(".rf-map svg");
   if (svg) svg.addEventListener("click", regionClickHandler);
