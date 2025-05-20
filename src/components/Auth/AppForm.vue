@@ -157,7 +157,7 @@
               v-model="initialValues.email"
               id="email"
             />
-            <label for="email"> Email</label>
+            <label for="email"> Username</label>
           </FloatLabel>
           <Message
             v-if="$field?.invalid"

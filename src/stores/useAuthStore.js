@@ -40,12 +40,9 @@ export const useAuthStore = defineStore("auth", () => {
         throw new Error("No refresh token available");
       }
 
-      const response = await axios.post(
-        "http://10.8.0.23:8000/auth/jwt/refresh/",
-        {
-          refresh: refreshtoken.value,
-        }
-      );
+      const response = await axios.post("/auth/auth/jwt/refresh/", {
+        refresh: refreshtoken.value,
+      });
       console.log(response, "resfers");
       if (!response.data.access) {
         throw new Error("Invalid token refresh response");
