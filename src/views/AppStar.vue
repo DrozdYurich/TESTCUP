@@ -90,7 +90,7 @@ let CostUpgrade;
 const lastShotTime = ref(Date.now());
 const reloadDuration = 1000; // 1 секунда
 
-const MaxDaySpins = ref(2);
+const MaxDaySpins = ref(3);
 const CostSpin = ref(10);
 const CoefSpin = ref(1);
 
@@ -241,7 +241,7 @@ const gameButtonText = computed(() => {
 // Изменение стоимости в заваисимости от уровня рокеты
 
 function AddCostSpin() {
-  CostSpin.value += Math.floor(CostSpin.value * CoefSpin.value);
+  CostSpin.value += Math.floor(CostSpin.value * (CoefSpin.value + 1));
 }
 
 function AddCostStatus(param) {
