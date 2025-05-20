@@ -19,10 +19,7 @@
         "
       >
         <template #header>
-          <img
-            alt="user header"
-            src="https://primefaces.org/cdn/primevue/images/usercard.png"
-          />
+          <img alt="user header" src="../assets/img/i.png" />
         </template>
         <template #content>
           <div class="w-full flex justify-between">

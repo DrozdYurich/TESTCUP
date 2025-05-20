@@ -29,7 +29,7 @@
       </template>
       <template #end>
         <div class="flex gap-2 items-center">
-          <span class="balance-tag"> 1500 P </span>
+          <span class="balance-tag" @click="goTokoshel"> {{ balance }} P </span>
           <ToggleSwitch
             id="theme-switch"
             v-model="isDark"
@@ -56,12 +56,20 @@ import { computed, onMounted, ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/useAuthStore";
 import useTheme from "../Utility/useTheme";
+import { useBalansStore } from "@/stores/usebalanceStore";
+import { useRouter } from "vue-router";
+const { getBalanse } = storeToRefs(useBalansStore());
+const router = useRouter();
 const menubarRef = ref();
 const { isAuth } = storeToRefs(useAuthStore());
 const { isDark } = useTheme();
 const auth = computed(() => {
   return isAuth.value;
 });
+const balance = computed(() => getBalanse.value.balance);
+const goTokoshel = () => {
+  router.push({ name: "profilone" });
+};
 const items = ref([
   {
     label: "Главная",
