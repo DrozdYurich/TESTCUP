@@ -22,8 +22,12 @@ export default function useGoCaninet() {
   const gotoProfilThree = () => {
     router.push({ name: "profilthree" });
   };
+  const goToWins = () => {
+    router.push({ name: "wins" });
+  };
   return {
     gotoProfilThree,
+    goToWins,
     gotoProfilTwo,
     removetoken,
     goToPD,

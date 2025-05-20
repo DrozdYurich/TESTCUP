@@ -3,6 +3,7 @@ export function getMenuItems({
   gotoProfil,
   gotoPunct,
   removetoken,
+  goToWins,
   gotoProfilTwo,
   gotoProfilThree,
   isAdmin = false,
@@ -45,6 +46,18 @@ export function getMenuItems({
           icon: "pi pi-credit-card",
           shortcut: "⌘+O",
           command: gotoProfil,
+          key: "profile1",
+        },
+      ],
+    },
+    {
+      label: "Достижения",
+      items: [
+        {
+          label: "Мои награды",
+          icon: "pi pi-trophy",
+          shortcut: "⌘+O",
+          command: goToWins,
           key: "profile1",
         },
       ],

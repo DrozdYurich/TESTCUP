@@ -106,6 +106,7 @@
             icon="pi pi-save"
             type="submit"
             class="theme-button save-btn"
+            @click="saveChanges"
           />
           <Button
             label="Изменить  пароль"
@@ -129,7 +130,10 @@ import InputText from "primevue/inputtext";
 import Button from "primevue/button";
 import { Avatar, DatePicker } from "primevue";
 import useModalMethods from "@/components/Modal/MethodsModal/methods";
+import axios from "axios";
+import { useAuthStore } from "@/stores/useAuthStore";
 const userStore = useUserStore();
+const { getTokenAccsess } = storeToRefs(useAuthStore());
 const { showChangePasswd } = useModalMethods();
 const { getUser } = storeToRefs(userStore);
 const user = computed(() => getUser.value);
@@ -141,8 +145,30 @@ const editableUser = ref({
   email: "",
   birthdate: null,
 });
-
+const token = computed(() => {
+  return getTokenAccsess.value;
+});
 const loading = ref();
+
+const saveChanges = async () => {
+  console.log("Сохраняем данные:", editableUser.value);
+  userStore.updateUser(editableUser.value);
+  const response = await axios.patch(
+    "http://10.8.0.23:8000/auth/users/me/",
+    editableUser.value,
+    {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  console.log(response);
+};
+
+const resetPassword = () => {
+  console.log("Запрос восстановления пароля");
+};
 
 onMounted(() => {
   if (user.value) {
@@ -155,17 +181,6 @@ onMounted(() => {
     };
   }
 });
-
-const saveChanges = () => {
-  console.log("Сохраняем данные:", editableUser.value);
-  userStore.updateUser(editableUser.value); // Пример метода в сторе
-};
-
-// Восстановление пароля
-const resetPassword = () => {
-  console.log("Запрос восстановления пароля");
-  // Здесь можно открыть модальное окно или отправить запрос
-};
 </script>
 
 <style>

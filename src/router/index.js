@@ -14,6 +14,7 @@ import TheProfilTwo from "@/components/Cabinet/TheProfilTwo.vue";
 import TheProfilThree from "@/components/Cabinet/TheProfilThree.vue";
 import TheE404 from "@/components/TheE404.vue";
 import AppForgotPassword from "@/components/Forgor/AppForgotPassword.vue";
+import TheWin from "@/components/Cabinet/Wins/TheWin.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,6 +66,11 @@ const router = createRouter({
           path: "/cabinet/profiltwo",
           name: "profiltwo",
           component: TheProfilTwo,
+        },
+        {
+          path: "/cabinet/wins",
+          name: "wins",
+          component: TheWin,
         },
         {
           path: "/cabinet/profilthree",

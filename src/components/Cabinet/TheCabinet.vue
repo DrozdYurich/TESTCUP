@@ -3,7 +3,7 @@
     class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
   >
     <AppHistory
-      v-for="n in history.participants"
+      v-for="n in history?.participants"
       :key="n.id"
       class="w-full"
       :title="n.lottery_title"
@@ -38,6 +38,8 @@ const gethistory = async () => {
     });
     console.log(response.data);
     history.value = response.data;
+    localStorage.setItem("part", JSON.stringify(history.value.participants));
+    localStorage.setItem("stat", JSON.stringify(history.value.stats));
     loading.value = false;
     return response.data;
   } catch (error) {

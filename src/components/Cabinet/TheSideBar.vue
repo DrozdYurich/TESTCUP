@@ -69,6 +69,7 @@ const {
   removetoken,
   gotoProfilTwo,
   gotoProfilThree,
+  goToWins,
 } = useGoCaninet();
 const user = computed(() => {
   return getUser.value;
@@ -83,6 +84,7 @@ const menuItems = getMenuItems({
   gotoPunct,
   gotoProfilTwo,
   removetoken,
+  goToWins,
   isAdmin: role,
 });
 </script>
