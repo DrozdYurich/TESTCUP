@@ -27,7 +27,7 @@
       <div class="balance-section">
         <div class="balance-text">
           <h2 class="balance-title">Ваш игровой баланс</h2>
-          <p class="balance-amount">{{ gameBalance }} P</p>
+          <p class="balance-amount">{{ Math.floor(gameBalance) }} Лот Коин</p>
         </div>
 
         <div class="transfer-wrapper">
@@ -50,17 +50,22 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { Button, Divider } from "primevue";
 import useModalMethods from "../Modal/MethodsModal/methods";
-
+import axios from "axios";
+import { useBalansStore } from "@/stores/usebalanceStore";
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "@/stores/useAuthStore";
+const balanceStore = useBalansStore();
+const { getBalanse } = storeToRefs(useBalansStore());
 const { showInCam, showOutCam, showInCamVirt } = useModalMethods();
-const balance = ref(1500);
-const gameBalance = ref(500);
-
-const showTransfer = () => {
-  // Логика перевода средств
-};
+const balance = computed(() => {
+  return getBalanse.value.balance;
+});
+const gameBalance = computed(() => {
+  return getBalanse.value.balance_virtual;
+});
 </script>
 
 <style scoped>

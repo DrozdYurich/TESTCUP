@@ -48,7 +48,7 @@
             {{ $field.error?.message }}
           </Message>
           <div class="conversion-preview mt-2">
-            <span class="text-[var(--text-color)]">Вы получите:</span>
+            <span class="text-[var(--border-color)]">Вы получите:</span>
             <strong class="ml-1">{{ virtualAmount }} виртуальной валюты</strong>
           </div>
         </FormField>
@@ -81,8 +81,13 @@ import {
   ProgressBar,
 } from "primevue";
 import { inject } from "vue";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { storeToRefs } from "pinia";
+import axios from "axios";
+import { useBalansStore } from "@/stores/usebalanceStore";
 const dialogRef = inject("dialogRef");
 const toastStore = useToastStore();
+const balanceStore = useBalansStore();
 function closeDialog() {
   dialogRef.value.close();
 }
@@ -95,7 +100,34 @@ const initialValues = reactive({
 const virtualAmount = computed(() => {
   return Math.floor(initialValues.rub * exchangeRate.value);
 });
-
+const { getTokenAccsess } = storeToRefs(useAuthStore());
+const token = computed(() => getTokenAccsess.value);
+const getBalans = async () => {
+  try {
+    loading.value = true;
+    const response = await axios.patch(
+      "http://10.8.0.23:8000/balance/",
+      { action: "convert", value_type: "real", value: virtualAmount.value },
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    balanceStore.setbalanse({
+      balance: response.data.new_balance,
+      balance_virtual: response.data.new_virtual_balance,
+    });
+    console.log(response.data);
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
 const schema = yup.object().shape({
   rub: yup
     .number()
@@ -109,7 +141,8 @@ const resolver = yupResolver(schema);
 async function onSubmit() {
   console.log("Пополнение на", virtualAmount.value, "virt");
   loading.value = true;
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
+  await getBalans();
   toastStore.showSuccessToast(
     `Баланс виртуальной валюты пополнен на ${virtualAmount.value} `
   );

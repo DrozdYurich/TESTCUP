@@ -56,7 +56,7 @@
         </FormField>
         <FormField v-slot="$field" name="amount" class="flex flex-col gap-1">
           <FloatLabel variant="on">
-            <InputNumber
+            <InputText
               id="amount"
               v-model="amount"
               mode="currency"
@@ -96,6 +96,7 @@ import { computed, inject, onMounted, ref } from "vue";
 import { Form, FormField } from "@primevue/forms";
 import { usePlatezhStore } from "@/stores/usePlatezhStore";
 import { useToastStore } from "@/stores/useToastStore";
+const balanceStore = useBalansStore();
 const plStore = usePlatezhStore();
 const toastStore = useToastStore();
 import {
@@ -103,14 +104,50 @@ import {
   Divider,
   FloatLabel,
   InputNumber,
+  InputText,
   Message,
   ProgressBar,
   Select,
 } from "primevue";
+import axios from "axios";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { useBalansStore } from "@/stores/usebalanceStore";
 const dialogRef = inject("dialogRef");
+const selectedCard = ref(null);
+const amount = ref(100);
+const loading = ref(false);
 function closeDialog() {
   dialogRef.value.close();
 }
+
+const { getTokenAccsess } = storeToRefs(useAuthStore());
+const token = computed(() => getTokenAccsess.value);
+const getBalansOut = async () => {
+  try {
+    loading.value = true;
+    const response = await axios.patch(
+      "http://10.8.0.23:8000/balance/",
+      { action: "out", value_type: "real", value: amount.value },
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    balanceStore.setbalanse({
+      balance: response.data.new_balance,
+      balance_virtual: response.data.new_virtual_balance,
+    });
+    console.log(response.data);
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
 const initialValues = ref({
   card: "",
   amount: 100,
@@ -128,9 +165,7 @@ function getLastFourDigits(cardNumber) {
   const cleaned = cardNumber.replace(/\D/g, "");
   return cleaned.slice(-4);
 }
-const selectedCard = ref(null);
-const amount = ref(100);
-const loading = ref(false);
+
 const schema = ref(
   yup.object().shape({
     card: yup.string().required("Выберите карту"),
@@ -142,13 +177,13 @@ const schema = ref(
 );
 
 const resolver = ref(yupResolver(schema.value));
-
 const onSubmit = async (formData) => {
   if (formData.valid && !loading.value) {
     loading.value = true;
     try {
       console.log("Форма валидна. Отправляем данные:", formData.values);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
+      await getBalansOut();
       toastStore.showSuccessToast(
         `Вы успешно вывели сумму: ${formData.values.amount} P`
       );

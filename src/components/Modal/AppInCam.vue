@@ -57,7 +57,7 @@
         </FormField>
         <FormField v-slot="$field" name="amount" class="flex flex-col gap-1">
           <FloatLabel variant="on">
-            <InputNumber
+            <InputText
               id="amount"
               v-model="amount"
               mode="currency"
@@ -92,22 +92,26 @@
 import * as yup from "yup";
 import { yupResolver } from "@primevue/forms/resolvers/yup";
 import { storeToRefs } from "pinia";
-
+import { useBalansStore } from "@/stores/usebalanceStore";
 import { computed, inject, onMounted, reactive, ref } from "vue";
 import { Form, FormField } from "@primevue/forms";
 import { usePlatezhStore } from "@/stores/usePlatezhStore";
 import { useToastStore } from "@/stores/useToastStore";
-
+const balanceStore = useBalansStore();
+const token = computed(() => getTokenAccsess.value);
 const toastStore = useToastStore();
 import {
   Button,
   Divider,
   FloatLabel,
   InputNumber,
+  InputText,
   Message,
   ProgressBar,
   Select,
 } from "primevue";
+import axios from "axios";
+import { useAuthStore } from "@/stores/useAuthStore";
 const initialValues = reactive({
   card: null,
   amount: 100,
@@ -132,6 +136,7 @@ function getLastFourDigits(cardNumber) {
 const selectedCard = ref(null);
 const amount = ref(100);
 const loading = ref(false);
+
 const schema = ref(
   yup.object().shape({
     card: yup.string().required("Выберите карту"),
@@ -143,7 +148,34 @@ const schema = ref(
 );
 
 const resolver = ref(yupResolver(schema.value));
+const { getTokenAccsess } = storeToRefs(useAuthStore());
 
+const getBalans = async () => {
+  try {
+    loading.value = true;
+    const response = await axios.patch(
+      "http://10.8.0.23:8000/balance/",
+      { action: "in", value_type: "real", value: amount.value },
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    balanceStore.setbalanse({
+      balance: response.data.new_balance,
+      balance_virtual: response.data.new_virtual_balance,
+    });
+    console.log(response.data);
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
 const onSubmit = async (formData) => {
   if (formData.valid && !loading.value) {
     loading.value = true; // Включаем загрузку
@@ -151,12 +183,13 @@ const onSubmit = async (formData) => {
     try {
       console.log("Форма валидна. Отправляем данные:", formData.values);
       // Имитация загрузки
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
+      const resp = await getBalans();
       toastStore.showSuccessToast(
         "Баланс пополнен",
         `На сумму ${formData.values.amount} P`
       );
+
       closeDialog();
     } catch (e) {
       toastStore.showErrorToast("Ошибка", "Не удалось пополнить баланс");

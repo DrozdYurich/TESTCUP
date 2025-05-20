@@ -22,6 +22,8 @@ import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useUserStore } from "@/stores/useUserStore";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useRoleStore } from "@/stores/useRoleStore";
+import { useBalansStore } from "@/stores/usebalanceStore";
+const balanseStore = useBalansStore();
 const roleStore = useRoleStore();
 import TheSideBar from "./TheSideBar.vue";
 import TheToolBar from "./TheToolBar.vue";
@@ -52,6 +54,10 @@ const getId = async () => {
     user.value = response.data;
     console.log(user.value);
     userStore.setUser(user.value);
+    balanseStore.setbalanse({
+      balance: user.value.balance,
+      balance_virtual: user.value.balance_virtual,
+    });
     roleStore.setRole(user.value.is_root);
     loading.value = false;
     return response.data;
