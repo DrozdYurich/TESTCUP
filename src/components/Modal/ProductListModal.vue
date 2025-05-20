@@ -20,13 +20,22 @@
   </div>
 </template>
 <script setup>
-import { defineProps } from "vue";
+import { computed, defineProps } from "vue";
 import { inject } from "vue";
+import { useAuthStore } from "@/stores/useAuthStore";
 import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+const { getTokenAccsess } = storeToRefs(useAuthStore());
+const isAuth = computed(() => getTokenAccsess.value);
 const router = useRouter();
 const dialogRef = inject("dialogRef");
 function goToGame() {
-  dialogRef.value.close();
-  router.push({ name: "lottery" });
+  if (isAuth) {
+    dialogRef.value.close();
+    router.push({ name: "lottery" });
+  } else {
+    dialogRef.value.close();
+    router.push({ name: "login" });
+  }
 }
 </script>

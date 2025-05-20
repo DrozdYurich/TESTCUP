@@ -13,13 +13,15 @@
           style="height: 5px"
         />
       </div>
-      <TheAdminChange
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-center"
-        v-for="loter in lotteries"
-        :key="loter.id"
-        :lottery="loter"
-      />
+      <div class="adm">
+        <TheAdminChange
+          data-aos="fade-up"
+          data-aos-anchor-placement="top-center"
+          v-for="loter in lotteries"
+          :key="loter.id"
+          :lottery="loter"
+        />
+      </div>
       <div
         class="slide card bg-[var(--card-background-color)] border-l-4 border-[var(--card-border-left)] shadow-md rounded-xl p-6 transition-all duration-300 hover:shadow-lg w-full sm:w-72"
       >
@@ -47,7 +49,7 @@
               name="slider"
               v-model="initialValues.slider"
               :min="1"
-              :max="60"
+              :max="30"
               class="w-full accent-[var(--card-color-content)]"
             />
 
@@ -172,6 +174,10 @@ onMounted(() => {
 </script>
 
 <style>
+.adm {
+  flex: 0.7;
+}
+
 .p-slider-range {
   background: var(--border-color);
 }
