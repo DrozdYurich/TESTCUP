@@ -2,7 +2,15 @@
   <div
     class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
   >
-    <AppHistory v-for="n in 10" :key="n" class="w-full" />
+    <AppHistory
+      v-for="n in history"
+      :key="n.id"
+      class="w-full"
+      :title="n.lottery_title"
+      :status="n.status"
+      :prize="n.prize_amount"
+      :number="n.ticket_number"
+    />
   </div>
 </template>
 
@@ -10,7 +18,7 @@
 import AppHistory from "./history/AppHistory.vue";
 import axios from "axios";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 const { getTokenAccsess } = useAuthStore();
 const token = computed(() => {
   return getTokenAccsess;
@@ -22,7 +30,7 @@ const gethistory = async () => {
   try {
     console.log(token.value, "token");
     loading.value = true;
-    const response = await axios.get("http://10.8.0.23:8001/lotteries/", {
+    const response = await axios.get("http://10.8.0.23:8001/participants/", {
       headers: {
         Authorization: `Bearer ${token.value}`,
         "Content-Type": "application/json",
