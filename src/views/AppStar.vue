@@ -160,38 +160,27 @@ const keysPressed = reactive({
 // Звуки
 
 const audioPiu = new Audio();
-const AudioPiuUrl = new URL(
-  "/home/drozd/Общедоступные/front/TESTCUP/src/assets/img/Piu.mp3",
-  import.meta.url
-).href;
+const AudioPiuUrl = new URL("@/assets/img/Piu.mp3", import.meta.url).href;
 audioPiu.src = AudioPiuUrl;
 
 const audioAlert = new Audio();
-const AudioAlertUrl = new URL(
-  "/home/drozd/Общедоступные/front/TESTCUP/src/assets/img/Alert.mp3",
-  import.meta.url
-).href;
+const AudioAlertUrl = new URL("@/assets/img/Alert.mp3", import.meta.url).href;
 audioAlert.src = AudioAlertUrl;
 
 const audioBurst = new Audio();
-const AudioBurstUrl = new URL(
-  "/home/drozd/Общедоступные/front/TESTCUP/src/assets/img/Burst.mp3",
-  import.meta.url
-).href;
+const AudioBurstUrl = new URL("@/assets/img/Burst.mp3", import.meta.url).href;
 audioBurst.src = AudioBurstUrl;
 
 const audioBurstRocket = new Audio();
 const AudioBurstRocketUrl = new URL(
-  "/home/drozd/Общедоступные/front/TESTCUP/src/assets/img/BurstRocket.mp3",
+  "@/assets/img/BurstRocket.mp3",
   import.meta.url
 ).href;
 audioBurstRocket.src = AudioBurstRocketUrl;
 
 const audioFuelLost = new Audio();
-const AudioFuelLostUrl = new URL(
-  "/home/drozd/Общедоступные/front/TESTCUP/src/assets/img/FuelLost.mp3",
-  import.meta.url
-).href;
+const AudioFuelLostUrl = new URL("@/assets/img/FuelLost.mp3", import.meta.url)
+  .href;
 audioFuelLost.src = AudioFuelLostUrl;
 
 const audioFlyingRocket = new Audio();
@@ -202,25 +191,16 @@ const AudioFlyingRocketUrl = new URL(
 audioFlyingRocket.src = AudioFlyingRocketUrl;
 
 const audioMoney = new Audio();
-const AudioMoneyUrl = new URL(
-  "/home/drozd/Общедоступные/front/TESTCUP/src/assets/img/Money.mp3",
-  import.meta.url
-).href;
+const AudioMoneyUrl = new URL("@/assets/img/Money.mp3", import.meta.url).href;
 audioMoney.src = AudioMoneyUrl;
 
 // SVG изображения
 const rocketImg = new Image();
-const rocketUrl = new URL(
-  "/home/drozd/Общедоступные/front/TESTCUP/src/assets/img/Rocket.png",
-  import.meta.url
-).href;
+const rocketUrl = new URL("@/assets/img/Rocket.png", import.meta.url).href;
 rocketImg.src = rocketUrl;
 
 const meteorImg = new Image();
-const meteorUrl = new URL(
-  "/home/drozd/Общедоступные/front/TESTCUP/src/assets/img/Meteorit.png",
-  import.meta.url
-).href;
+const meteorUrl = new URL("@/assets/img/Meteorit.png", import.meta.url).href;
 meteorImg.src = meteorUrl;
 
 const coinImg = new Image();
