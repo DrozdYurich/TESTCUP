@@ -1,36 +1,39 @@
 <template>
   <div
-    class="flex flex-col"
+    class="flex flex-col md:flex-row"
     data-aos="fade-up"
     data-aos-anchor-placement="top-center"
   >
-    <h1 class="text-3xl mb-4 font-bold">Администрирование</h1>
-    <div class="flex gap-3">
-      <div v-if="loading">
-        <ProgressBar
-          class="custom-progressbar"
-          mode="indeterminate"
-          style="height: 5px"
-        />
-      </div>
-      <div class="adm">
-        <TheAdminChange
-          data-aos="fade-up"
-          data-aos-anchor-placement="top-center"
-          v-for="loter in lotteries"
-          :key="loter.id"
-          :lottery="loter"
-        />
-      </div>
+    <div class="flex flex-1 gap-3 overflow-hidden">
+      <!-- Левая часть с возможностью скролла -->
       <div
-        class="slide card bg-[var(--card-background-color)] border-l-4 border-[var(--card-border-left)] shadow-md rounded-xl p-6 transition-all duration-300 hover:shadow-lg w-full sm:w-72"
+        class="adm flex-1 overflow-y-auto max-h-[calc(100vh-120px)]"
+        data-aos="fade-up"
+        data-aos-anchor-placement="top-center"
       >
-        <div v-if="loadingT">
+        <div v-if="loading" class="progressbar-wrapper">
           <ProgressBar
             class="custom-progressbar"
             mode="indeterminate"
             style="height: 5px"
           />
+        </div>
+        <h1 class="text-3xl mb-4 font-bold">Администрирование</h1>
+        <div>
+          <TheAdminChange
+            v-for="loter in lotteries"
+            :key="loter.id"
+            :lottery="loter"
+          />
+        </div>
+      </div>
+
+      <!-- Правая часть — фиксированная сверху -->
+      <div
+        class="slide card bg-[var(--card-background-color)] border-l-4 border-[var(--card-border-left)] shadow-md rounded-xl p-6 transition-all duration-300 hover:shadow-lg w-full sm:w-72 sticky top-6 self-start"
+      >
+        <div v-if="loadingT">
+          <ProgressBar mode="indeterminate" style="height: 5px" />
         </div>
         <h2 class="text-lg font-semibold mb-4 text-[var(--card-text-color)]">
           Интервал лотереи
@@ -183,5 +186,16 @@ onMounted(() => {
 }
 .slide {
   flex: 0.25;
+}
+.adm {
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.slide.card {
+  /* Фиксируем верхнее положение */
+  position: sticky;
+  top: 1.5rem; /* Можно регулировать отступ сверху */
+  align-self: flex-start;
 }
 </style>
