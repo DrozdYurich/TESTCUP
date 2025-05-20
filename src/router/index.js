@@ -18,6 +18,8 @@ import TheWin from "@/components/Cabinet/Wins/TheWin.vue";
 import AppLotery from "@/views/AppLotery.vue";
 import AppGames from "@/views/AppGames.vue";
 import AppStar from "@/views/AppStar.vue";
+import AppBoch from "@/views/AppBoch.vue";
+import AppCart from "@/views/AppCart.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -61,6 +63,24 @@ const router = createRouter({
       path: "/lottery",
       name: "lottery",
       component: AppLotery,
+      meta: {
+        layout: "Main",
+        auth: false,
+      },
+    },
+    {
+      path: "/boch",
+      name: "boch",
+      component: AppBoch,
+      meta: {
+        layout: "Main",
+        auth: false,
+      },
+    },
+    {
+      path: "/cart",
+      name: "cart",
+      component: AppCart,
       meta: {
         layout: "Main",
         auth: false,

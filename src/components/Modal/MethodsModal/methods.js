@@ -7,6 +7,8 @@ import AddCartPlatezh from "../AddCartPlatezh.vue";
 import AppOutCam from "../AppOutCam.vue";
 import AppInCam from "../AppInCam.vue";
 import AppInCamVirt from "../AppInCamVirt.vue";
+import AppBochG from "../AppBochG.vue";
+import AppCartG from "../AppCartG.vue";
 
 export default function useModalMethods() {
   const dialog = useDialog();
@@ -124,6 +126,50 @@ export default function useModalMethods() {
       },
     });
   }
+  function showBuch() {
+    dialog.open(AppBochG, {
+      props: {
+        header: "Описаниe лотереи",
+        style: {
+          width: "40vw",
+          backgroundColor: "var(--background-color)",
+          border: "none",
+          color: "var(--text-color)",
+        },
+        breakpoints: {
+          "960px": "75vw",
+          "640px": "80vw",
+        },
+        modal: true,
+        draggable: false,
+      },
+      data: {
+        products: { id: 1, descr: "Продукт 1", name: "Взломай пароль" },
+      },
+    });
+  }
+  function showCart() {
+    dialog.open(AppCartG, {
+      props: {
+        header: "Описание игры ",
+        style: {
+          width: "40vw",
+          backgroundColor: "var(--background-color)",
+          border: "none",
+          color: "var(--text-color)",
+        },
+        breakpoints: {
+          "960px": "75vw",
+          "640px": "80vw",
+        },
+        modal: true,
+        draggable: false,
+      },
+      data: {
+        products: { id: 1, descr: "Продукт 1", name: "Взломай пароль" },
+      },
+    });
+  }
   function showDialogProduct() {
     dialog.open(ProductListModal, {
       props: {
@@ -168,11 +214,13 @@ export default function useModalMethods() {
   return {
     showDialogProduct,
     showDialogList,
+    showBuch,
     showForgotToPasswd,
     showChangePasswd,
     showAddPlatezh,
     showInCam,
     showOutCam,
     showInCamVirt,
+    showCart,
   };
 }

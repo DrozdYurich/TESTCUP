@@ -57,7 +57,8 @@
         @click="upgradeVip"
         class="px-6 py-3 font-bold rounded-lg transition-transform hover:scale-105"
       >
-        Купить VIP
+        Купить VIP за
+        {{ data == 1 ? 1500 : data == 2 ? 5000 : data == 3 ? 15000 : 100000 }} P
       </button>
     </div>
   </div>
@@ -72,7 +73,9 @@ import { useToastStore } from "@/stores/useToastStore";
 import { storeToRefs } from "pinia";
 import { useVipStore } from "@/stores/useVipStore";
 import { ProgressBar } from "primevue";
+import { useBalansStore } from "@/stores/usebalanceStore";
 const { getvip, getvip1 } = storeToRefs(useVipStore());
+const balanceStore = useBalansStore();
 const toastStore = useToastStore();
 const { getUser } = storeToRefs(useUserStore());
 // Текущий уровень пользователя
@@ -100,6 +103,7 @@ const levels = {
 };
 const loading = ref();
 const data = ref();
+const price = ref();
 const levelData = computed(() => levels[currentLevel.value] || {});
 const nextLevel = computed(() => levels[currentLevel.value + 1] || null);
 const getCup = async () => {
@@ -116,6 +120,7 @@ const getCup = async () => {
       }
     );
     data.value = response.data.vip_level;
+    price.value = response.data.price;
     toastStore.showSuccessToast("Вы успешно повысили уровень");
     console.log(response.data);
     console.log(data.value, "data");
@@ -129,9 +134,47 @@ const getCup = async () => {
     throw error;
   }
 };
+const getBalans = async () => {
+  try {
+    loading.value = true;
+    const response = await axios.patch(
+      "http://10.8.0.23:8000/balance/",
+      {
+        action: "out",
+        value_type: "virtual",
+        value:
+          data.value == 1
+            ? 1500
+            : data.value == 2
+            ? 5000
+            : data.value == 3
+            ? 15000
+            : 100000,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    balanceStore.setbalanse({
+      balance: response.data.new_balance,
+      balance_virtual: response.data.new_virtual_balance,
+    });
+    console.log(response.data);
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
 const user = computed(() => getUser.value);
 const upgradeVip = async () => {
   await getCup();
+  await getBalans();
 };
 const level = computed(() => {
   if (data.value.vip_level == 0) {

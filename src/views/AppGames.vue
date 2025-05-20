@@ -2,7 +2,7 @@
   <div class="card">
     <h1 class="text-3xl font-bold mb-3 mt-1">Мини игры</h1>
 
-    <div class="container w-full wrap-normal">
+    <div class="container w-full wrap-normal flex justify-around gap-3">
       <div class="game-card">
         <img
           src="@/assets/img/star.jpg"
@@ -11,6 +11,24 @@
         />
         <h3 class="game-title">Star track</h3>
         <Button severity="warn" @click="showDialogList"> Подробнее </Button>
+      </div>
+      <div class="game-card">
+        <img
+          src="@/assets/img/star.jpg"
+          alt="Название игры"
+          class="game-image"
+        />
+        <h3 class="game-title">Бочонки</h3>
+        <Button severity="warn" @click="showBuch"> Подробнее </Button>
+      </div>
+      <div class="game-card">
+        <img
+          src="@/assets/img/star.jpg"
+          alt="Название игры"
+          class="game-image"
+        />
+        <h3 class="game-title">Карта</h3>
+        <Button severity="warn" @click="showCart"> Подробнее </Button>
       </div>
     </div>
     <Button
@@ -40,7 +58,7 @@ import axios from "axios";
 import { storeToRefs } from "pinia";
 import { useLoteryStore } from "@/stores/useLoteryStore";
 const loteryStore = useLoteryStore();
-const { showDialogList } = useModalMethods();
+const { showDialogList, showCart, showBuch } = useModalMethods();
 const searchTitle = ref("");
 const { getTokenAccsess } = storeToRefs(useAuthStore());
 const token = computed(() => {
