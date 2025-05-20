@@ -254,8 +254,9 @@ function upgrade(param) {
   if (coins.value >= CostUpgrade[param]) {
     coins.value -= CostUpgrade[param];
     rocketStats[param] += 1;
+    AddCostStatus(param);
+    plusBalans(CostUpgrade[param]);
   }
-  AddCostStatus(param);
 }
 
 // Применить прокачку к параметрам ракеты
@@ -660,6 +661,36 @@ const getCart = async () => {
     rocketStats.ammo = response.data.ammo_upgrade_coef;
     rocketStats.fuel = response.data.oil_upgrade_coef;
 
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
+const plusBalans = async (as) => {
+  try {
+    loading.value = true;
+    const response = await axios.patch(
+      "http://10.8.0.23:8000/balance/",
+      {
+        action: "out",
+        value_type: "virtual",
+        value: as,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    balanceStore.setbalanse({
+      balance: response.data.new_balance,
+      balance_virtual: response.data.new_virtual_balance,
+    });
+    console.log(response.data);
     loading.value = false;
     return response.data;
   } catch (error) {
