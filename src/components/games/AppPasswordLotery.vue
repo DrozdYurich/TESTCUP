@@ -34,9 +34,13 @@
       </div>
     </div>
     <div class="flex items-center justify-center gap-3">
-      <Button severity="warn" @click="rublBy">Купить за рубли</Button>
-      <Button severity="warn" @click="coinBy">Купить за ЛотКоин</Button>
-      <Button severity="warn" @click="">Очистить</Button>
+      <Button severity="warn" :disabled="!CheckSixPoint" @click="rublBy"
+        >Купить за рубли</Button
+      >
+      <Button severity="warn" :disabled="!CheckSixPoint" @click="coinBy"
+        >Купить за ЛотКоин</Button
+      >
+      <Button severity="warn" @click="Reset">Сбросить</Button>
     </div>
   </div>
 </template>
@@ -219,12 +223,25 @@ const getCoinBy = async () => {
     throw error;
   }
 };
-function rublBy() {
+function Reset() {
   selectedPoints.value = [];
+  paths.clear();
+  showResult.value = false;
+}
+
+const CheckSixPoint = computed(() => {
+  if (selectedPoints.value.length < 6) {
+    return false;
+  } else {
+    return true;
+  }
+});
+function rublBy() {
+  Reset();
   getrublBy();
 }
 function coinBy() {
-  selectedPoints.value = [];
+  Reset();
   getCoinBy();
 }
 </script>
