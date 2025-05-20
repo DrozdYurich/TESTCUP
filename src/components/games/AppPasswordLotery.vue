@@ -166,6 +166,7 @@ const loading = ref();
 const getrublBy = async () => {
   try {
     console.log(lotery.value[0].id, "token");
+    console.log(selectedPoints.value, "tick");
     loading.value = true;
     const response = await axios.post(
       "http://10.8.0.23:8001/participants/",
@@ -237,12 +238,12 @@ const CheckSixPoint = computed(() => {
   }
 });
 function rublBy() {
-  Reset();
   getrublBy();
+  Reset();
 }
 function coinBy() {
-  Reset();
   getCoinBy();
+  Reset();
 }
 </script>
 

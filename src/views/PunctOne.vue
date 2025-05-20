@@ -7,6 +7,7 @@
         data-aos-anchor-placement="top-center"
         v-for="n in loter"
         :key="n.id"
+        :finish="n.is_finished"
         :title="n.title"
         :subtitle="n.subtitle"
         :border-width="'1px'"

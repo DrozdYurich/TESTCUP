@@ -1,5 +1,5 @@
 <template>
-  <Card class="app-card" :style="cardStyle">
+  <Card v-if="!finish" class="app-card" :style="cardStyle">
     <!-- Заголовок -->
     <template #header>
       <slot name="header" />
@@ -35,7 +35,7 @@ import { computed } from "vue";
 const props = defineProps({
   title: String,
   subtitle: String,
-
+  finish: { type: Boolean, default: false },
   borderLeftWidth: { type: String, default: "0px" },
   borderWidth: {
     type: String,

@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import img from "/home/drozd/Общедоступные/front/TESTCUP/src/assets/img/star.jpg";
+import img from "@/assets/img/star.jpg";
 import Button from "primevue/button";
 import useModalMethods from "@/components/Modal/MethodsModal/methods";
 import CardInfo from "@/components/CardInfo.vue";
