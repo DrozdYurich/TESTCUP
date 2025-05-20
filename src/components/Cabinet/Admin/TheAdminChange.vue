@@ -51,6 +51,8 @@ import { ref, watch } from "vue";
 import { Button, InputText, InputNumber } from "primevue";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { computed, onMounted, reactive } from "vue";
+import { useToastStore } from "@/stores/useToastStore";
+const toastStore = useToastStore();
 const { getTokenAccsess } = useAuthStore();
 const token = computed(() => {
   return getTokenAccsess;
@@ -84,11 +86,13 @@ const getLot = async () => {
         },
       }
     );
+    toastStore.showSuccessToast("Вы успешно изменили данные лотереи");
     console.log(response.data);
     loading.value = false;
     return response.data;
   } catch (error) {
     loading.value = false;
+    toastStore.showErrorToast("Произошла системная ошибка");
     console.error("Error fetching regions:", error);
     throw error;
   }
@@ -108,6 +112,7 @@ const saveChanges = () => {
   box-shadow: var(--box-shadow);
   padding: 1.5rem;
   transition: all 0.3s ease;
+  flex: 0.7;
 }
 
 .lottery-card:hover {

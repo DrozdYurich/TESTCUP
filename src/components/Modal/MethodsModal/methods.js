@@ -127,12 +127,12 @@ export default function useModalMethods() {
   function showDialogProduct() {
     dialog.open(ProductListModal, {
       props: {
-        header: "Список продуктов",
+        header: "Описаниe лотереи",
         style: {
-          width: "30vw",
-          backgroundColor: "black",
+          width: "40vw",
+          backgroundColor: "var(--background-color)",
           border: "none",
-          color: "white",
+          color: "var(--text-color)",
         },
         breakpoints: {
           "960px": "75vw",
@@ -140,6 +140,9 @@ export default function useModalMethods() {
         },
         modal: true,
         draggable: false,
+      },
+      data: {
+        products: { id: 1, descr: "Продукт 1", name: "Взломай пароль" },
       },
     });
   }

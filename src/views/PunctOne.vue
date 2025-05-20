@@ -61,7 +61,7 @@
           <Button
             @click="showDialogProduct"
             style="background-color: var(--button-bg); border: none"
-            >Открыть модальное окно</Button
+            >Подробнее</Button
           >
         </template>
       </CardInfo>
@@ -91,6 +91,8 @@ import { Tag } from "primevue";
 import { useAuthStore } from "@/stores/useAuthStore";
 import axios from "axios";
 import { storeToRefs } from "pinia";
+import { useLoteryStore } from "@/stores/useLoteryStore";
+const loteryStore = useLoteryStore();
 const { showDialogProduct } = useModalMethods();
 const searchTitle = ref("");
 const { getTokenAccsess } = storeToRefs(useAuthStore());
@@ -152,6 +154,7 @@ const getLoters = async () => {
     });
     console.log(response.data);
     loter.value = response.data;
+    loteryStore.setLotery(loter.value);
     loading.value = false;
     return response.data;
   } catch (error) {

@@ -15,6 +15,7 @@ import TheProfilThree from "@/components/Cabinet/TheProfilThree.vue";
 import TheE404 from "@/components/TheE404.vue";
 import AppForgotPassword from "@/components/Forgor/AppForgotPassword.vue";
 import TheWin from "@/components/Cabinet/Wins/TheWin.vue";
+import AppLotery from "@/views/AppLotery.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,15 @@ const router = createRouter({
       path: "/three",
       name: "three",
       component: Three,
+      meta: {
+        layout: "Main",
+        auth: false,
+      },
+    },
+    {
+      path: "/lottery",
+      name: "lottery",
+      component: AppLotery,
       meta: {
         layout: "Main",
         auth: false,
