@@ -45,41 +45,6 @@ import { useUserStore } from "@/stores/useUserStore";
 import axios from "axios";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
-const { getTokenAccsess } = storeToRefs(useAuthStore());
-const { getLotery } = storeToRefs(useLoteryStore());
-const toastStore = useToastStore();
-const token = computed(() => {
-  return getTokenAccsess.value;
-});
-const { getUser } = storeToRefs(useUserStore());
-const id = computed(() => {
-  return getUser.value.id;
-});
-const getCart = async () => {
-  try {
-    console.log("fdfdf");
-    loading.value = true;
-    const response = await axios.patch(
-      `http://10.8.0.23:8003/game_accounts/${id.value}/`,
-      {
-        headers: {
-          Authorization: `Bearer ${token.value}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(response.data);
-    loading.value = false;
-    return response.data;
-  } catch (error) {
-    loading.value = false;
-    console.error("Error fetching regions:", error);
-    throw error;
-  }
-};
-onMounted(async () => {
-  await getCart();
-});
 </script>
 <style scoped>
 .descr {

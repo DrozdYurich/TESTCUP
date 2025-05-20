@@ -12,7 +12,7 @@
         <div v-if="gameOver || !hasPlayed" class="overlay">
           <div class="upgrade-base">
             <h2>Прокачка ракеты</h2>
-            <p>Монетки: {{ coins }}</p>
+            <p>Монетки: {{ balance }}</p>
             <div class="upgrades">
               <button
                 @click="upgrade('lives')"
@@ -72,6 +72,13 @@
 </template>
 
 <script setup>
+import { useAuthStore } from "@/stores/useAuthStore";
+import { useBalansStore } from "@/stores/usebalanceStore";
+import { useLoteryStore } from "@/stores/useLoteryStore";
+import { useToastStore } from "@/stores/useToastStore";
+import { useUserStore } from "@/stores/useUserStore";
+import axios from "axios";
+import { storeToRefs } from "pinia";
 import { ref, reactive, computed, onMounted, onBeforeUnmount } from "vue";
 
 const gameCanvas = ref(null);
@@ -613,6 +620,52 @@ onBeforeUnmount(() => {
   cancelAnimationFrame(animationFrameId);
   window.removeEventListener("keydown", handleKeyDown);
   window.removeEventListener("keyup", handleKeyUp);
+});
+const { getBalanse } = storeToRefs(useBalansStore());
+const { getTokenAccsess } = storeToRefs(useAuthStore());
+const { getLotery } = storeToRefs(useLoteryStore());
+const toastStore = useToastStore();
+const token = computed(() => {
+  return getTokenAccsess.value;
+});
+const balance = computed(() => getBalanse.value.balance_virtual);
+const { getUser } = storeToRefs(useUserStore());
+const id = computed(() => {
+  return getUser.value.id;
+});
+const loading = ref();
+
+const getCart = async () => {
+  try {
+    console.log("fdfdf");
+    loading.value = true;
+    const response = await axios.patch(
+      `http://10.8.0.23:8003/game_accounts/${id.value}/`,
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(response.data);
+    MaxDaySpins.value = response.data.spins_least;
+    CoefSpin.value = response.data.spin_coef;
+    CostSpin.value = response.data.spin_cost;
+    rocketStats.lives = response.data.life_upgrade_coef;
+    rocketStats.ammo = response.data.ammo_upgrade_coef;
+    rocketStats.fuel = response.data.oil_upgrade_coef;
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
+onMounted(async () => {
+  console.log("ddd");
+  await getCart();
 });
 </script>
 
