@@ -240,7 +240,6 @@ function AddCostStatus(param) {
     CostUpgrade[param] * 2 * (rocketStats[param] + 1)
   );
 }
-F;
 // Прокачка
 function upgrade(param) {
   if (coins.value >= CostUpgrade[param]) {

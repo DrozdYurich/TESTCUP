@@ -29,7 +29,9 @@
       </template>
       <template #end>
         <div class="flex gap-2 items-center">
-          <span class="balance-tag" @click="goTokoshel"> {{ balance }} P </span>
+          <span class="balance-tag" @click="goTokoshel">
+            {{ balance ? balance : 0 }} P
+          </span>
           <ToggleSwitch
             id="theme-switch"
             v-model="isDark"
@@ -66,7 +68,7 @@ const { isDark } = useTheme();
 const auth = computed(() => {
   return isAuth.value;
 });
-const balance = computed(() => getBalanse.value.balance);
+const balance = computed(() => getBalanse.value?.balance);
 const goTokoshel = () => {
   router.push({ name: "profilone" });
 };

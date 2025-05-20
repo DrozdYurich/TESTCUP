@@ -1,82 +1,27 @@
 <template>
   <div class="card">
     <h1 class="text-3xl font-bold mb-3 mt-1">Мини игры</h1>
-    <div class="container w-full">
-      <CardInfo
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-center"
-        v-for="n in loter"
-        :key="n.id"
-        :title="n.title"
-        :subtitle="n.subtitle"
-        :border-width="'1px'"
-        class="cardinf"
-        style="
-          --card-bg: var(--card-background-color);
-          --card-border: var(--card-border-color);
-          --card-text: var(--text-color);
-          --card-subtext: var(--card-subtext-color);
-        "
-      >
-        <template #header>
-          <img
-            alt="user header"
-            :src="img"
-            style="border-radius: 10px; height: 45vh"
-          />
-        </template>
-        <template #content>
-          <div class="w-full flex justify-between">
-            <p class="text-[var(--text-color)]">
-              Конец розыгрыша:{{ formatDate(n.end_date) }}
-            </p>
-            <Tag
-              class="h-1/6"
-              :icon="!n.is_finished ? 'pi pi-check' : 'pi pi-times'"
-              :severity="!n.is_finished ? 'success' : 'danger'"
-              :value="!n.is_finished ? 'Идет' : 'Завершено'"
-            ></Tag>
-          </div>
-          <div class="w-full flex justify-between">
-            <p class="text-[var(--text-color)]">Призовой фонд:</p>
-            <Tag
-              class="h-1/6"
-              severity="contrast"
-              :value="n.prize_fund + 'P'"
-            ></Tag>
-          </div>
-          <div class="w-full flex justify-between mt-1.5">
-            <p class="text-[var(--text-color)]">Цена билета:</p>
-            <Tag
-              class="h-1/6"
-              severity="info"
-              :value="n.ticket_price + 'P'"
-            ></Tag>
-          </div>
-          <div class="w-full flex justify-between mt-1.5">
-            <p class="text-[var(--text-color)]">Продано билетов:</p>
-            <Tag class="h-1/6" severity="warn" va :value="n.tickets_sold"></Tag>
-          </div>
-        </template>
-        <template #footer>
-          <Button
-            @click="showDialogList"
-            style="background-color: var(--button-bg); border: none"
-            >Подробнее</Button
-          >
-        </template>
-      </CardInfo>
+
+    <div class="container w-full wrap-normal">
+      <div class="game-card">
+        <img
+          src="@/assets/img/star.jpg"
+          alt="Название игры"
+          class="game-image"
+        />
+        <h3 class="game-title">Star track</h3>
+        <Button severity="warn" @click="showDialogList"> Подробнее </Button>
+      </div>
     </div>
     <Button
-      v-if="scrollY > 100"
-      class="fixed bottom-3 right-3 z-50"
+      v-show="scrollY > 100"
       icon="pi pi-arrow-up"
       severity="secondary"
       rounded
       size="large"
+      class="fixed bottom-4 right-4 z-50 shadow-lg transition-opacity duration-300 hover:bg-gray-800"
       @click="goToHead"
-    >
-    </Button>
+    />
   </div>
 </template>
 
@@ -166,30 +111,60 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.card {
-  width: 90vw;
-  max-width: 1400px;
-  margin: 0 auto;
+.game-card {
+  font-family: var(--font-family);
+  background-color: var(--card-background-color);
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  padding: 2rem;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: var(--text-color);
+  border-left: 4px solid var(--card-border-left); /* Золотая полоска слева */
 }
 
-.container {
-  margin: 0 auto;
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 100%;
+.game-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(255, 215, 0, 0.2);
 }
 
-.cardinf {
-  flex: 1 1 25%;
-  min-width: 300px;
-  max-width: 400px;
-  box-sizing: border-box;
+.game-image {
+  width: 100%;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  object-fit: cover;
+  height: 240px;
+  transition: transform 0.3s ease;
+  border: 2px solid var(--card-border-color); /* Золотая рамка */
 }
-@media (max-width: 600px) {
-  .card {
-    width: 90vw;
-  }
+
+.game-card:hover .game-image {
+  transform: scale(1.02);
+}
+
+.game-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: var(--card-text-color);
+  line-height: 1.4;
+}
+.p-button {
+  background-color: var(--button-bg); /* Золото */
+  color: #000; /* Чёрный текст */
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.p-button:hover {
+  background-color: #e6c200; /* Темнее золото при наведении */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
 </style>

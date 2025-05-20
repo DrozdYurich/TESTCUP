@@ -145,15 +145,14 @@ const loter = ref();
 const goToHead = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
+// headers: {
+//         Authorization: `Bearer ${token.value}`,
+//         "Content-Type": "application/json",
+//       },
 const getLoters = async () => {
   try {
     loading.value = true;
-    const response = await axios.get("http://10.8.0.23:8001/lotteries/", {
-      headers: {
-        Authorization: `Bearer ${token.value}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await axios.get("http://10.8.0.23:8001/lotteries/");
     console.log(response.data);
     loter.value = response.data;
     loteryStore.setLotery(loter.value);

@@ -23,11 +23,14 @@ import { useUserStore } from "@/stores/useUserStore";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useRoleStore } from "@/stores/useRoleStore";
 import { useBalansStore } from "@/stores/usebalanceStore";
+import { useVipStore } from "@/stores/useVipStore";
+const vipStore = useVipStore();
 const balanseStore = useBalansStore();
 const roleStore = useRoleStore();
 import TheSideBar from "./TheSideBar.vue";
 import TheToolBar from "./TheToolBar.vue";
 import axios from "axios";
+import { storeToRefs } from "pinia";
 const isMobile = ref(window.innerWidth <= 1100);
 const userStore = useUserStore();
 const { getTokenAccsess } = useAuthStore();
@@ -38,27 +41,24 @@ function onResize() {
 const token = computed(() => {
   return getTokenAccsess;
 });
-const id = ref();
-const user = ref();
+const { getUser } = storeToRefs(useUserStore());
+const vipLevel = computed(() => getUser.value);
 const loading = ref();
-const getId = async () => {
+const getVIP = async () => {
   try {
-    console.log(token.value, "token");
+    console.log("g", vipLevel.value);
     loading.value = true;
-    const response = await axios.get("http://10.8.0.23:8000/auth/users/me/", {
-      headers: {
-        Authorization: `Bearer ${token.value}`,
-        "Content-Type": "application/json",
-      },
-    });
-    user.value = response.data;
-    console.log(user.value);
-    userStore.setUser(user.value);
-    balanseStore.setbalanse({
-      balance: user.value.balance,
-      balance_virtual: user.value.balance_virtual,
-    });
-    roleStore.setRole(user.value.is_root);
+    const response = await axios.get(
+      `http://10.8.0.23:8002/vip/${vipLevel.value.vip_level}/`
+    );
+    vipStore.setvip(response.data);
+    if (vipLevel.value.vip_level != 3) {
+      const response = await axios.get(
+        `http://10.8.0.23:8002/vip/${vipLevel.value.vip_level + 1}/`
+      );
+      vipStore.setvip1(response.data);
+      console.log(response.data);
+    }
     loading.value = false;
     return response.data;
   } catch (error) {
@@ -67,10 +67,8 @@ const getId = async () => {
     throw error;
   }
 };
-
 onMounted(async () => {
-  await getId();
-
+  await getVIP();
   window.addEventListener("resize", onResize);
 });
 

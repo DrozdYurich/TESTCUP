@@ -7,7 +7,10 @@ export const usePlatezhStore = defineStore("carts", () => {
     carts.value.push(newCart);
     updateLocalStorage();
   }
-
+  function removeCart() {
+    carts.value = null;
+    localStorage.removeItem("carts");
+  }
   function updateLocalStorage() {
     localStorage.setItem("carts", JSON.stringify(carts.value));
   }
@@ -16,6 +19,7 @@ export const usePlatezhStore = defineStore("carts", () => {
   const getCarts = computed(() => carts.value);
 
   return {
+    removeCart,
     carts,
     addCart,
     getCarts,

@@ -3,10 +3,16 @@ import { defineStore } from "pinia";
 import { useUserStore } from "./useUserStore";
 import { useRoleStore } from "./useRoleStore";
 import axios from "axios";
+import { useBalansStore } from "./usebalanceStore";
+import { useLoteryStore } from "./useLoteryStore";
+import { usePlatezhStore } from "./usePlatezhStore";
 export const useAuthStore = defineStore("auth", () => {
   const accsesstoken = ref(localStorage.getItem("jwtTokenAccsess"));
   const refreshtoken = ref(localStorage.getItem("jwtTokenRefresh"));
   const userStore = useUserStore();
+  const balansStore = useBalansStore();
+  const loterysStore = useLoteryStore();
+  const cartStore = usePlatezhStore();
   const roleStore = useRoleStore();
   function setAccsessToken(newToken) {
     accsesstoken.value = newToken;
@@ -85,6 +91,9 @@ export const useAuthStore = defineStore("auth", () => {
     removeToken();
     userStore.removeUser();
     roleStore.removeRole();
+    balansStore.removeBalans();
+    loterysStore.removeLotery();
+    cartStore.removeCart();
     stopTokenRefresh();
   }
   const getTokenAccsess = computed(() => accsesstoken.value);
