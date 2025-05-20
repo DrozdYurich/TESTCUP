@@ -134,17 +134,12 @@ function formatDate(dateString) {
 
   return `${formattedDate}, ${formattedTime}`;
 }
-const resetFilter = () => {
-  searchSubtitle.value = "";
-  searchTitle.value = "";
-  status.value = "";
-};
 const loading = ref();
 const loter = ref();
 const goToHead = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
-const getLoters = async () => {
+const getGames = async () => {
   try {
     loading.value = true;
     const response = await axios.get("http://10.8.0.23:8001/lotteries/", {
@@ -165,7 +160,7 @@ const getLoters = async () => {
   }
 };
 onMounted(() => {
-  getLoters();
+  getGames();
 });
 </script>
 

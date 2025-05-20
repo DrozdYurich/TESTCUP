@@ -1,11 +1,14 @@
 <template>
   <div class="container">
     <h1 class="text-3xl mt-1 mb-2 font-bold">Часто задаваемые вопросы</h1>
-    <div class="card">
+    <div class="card flex flex-col gap-8">
       <TheAccordion
-        title="Как зарегистрироваться?"
-        :expanded="true"
-        :content="'Ответ на вопрос о регистрации'"
+        data-aos="fade-up"
+        data-aos-anchor-placement="top-center"
+        v-for="f in faq"
+        :title="f.question"
+        :expanded="false"
+        :content="f.answer"
       ></TheAccordion>
     </div>
   </div>
@@ -13,7 +16,27 @@
 
 <script setup>
 import TheAccordion from "@/components/TheAccordion.vue";
-import { ref } from "vue";
+import axios from "axios";
+import { onMounted, ref } from "vue";
+const loading = ref();
+const faq = ref();
+const getFaq = async () => {
+  try {
+    loading.value = true;
+    const response = await axios.get("http://10.8.0.23:8002/faq/");
+    console.log(response.data);
+    faq.value = response.data;
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
+onMounted(() => {
+  getFaq();
+});
 </script>
 
 <style>

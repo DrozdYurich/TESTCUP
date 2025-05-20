@@ -1,15 +1,16 @@
 <template>
-  <div class="news-card w-4/5 mb-3">
+  <div class="news-card mt-3" @click="goToDetails">
+    <!-- Иконка -->
     <div class="news-image-wrapper">
-      <img :src="item.image" :alt="item.title" class="news-image" />
+      <i class="pi pi-bolt news-icon"></i>
     </div>
-    <div class="news-content">
-      <div class="news-category">{{ item.category }}</div>
-      <h3 class="news-title">{{ item.title }}</h3>
-      <p class="news-summary">{{ item.summary }}</p>
 
+    <!-- Контент -->
+    <div class="news-content">
+      <div class="news-category">{{ item.content }}</div>
+      <h3 class="news-title">{{ item.title }}</h3>
       <div class="news-footer">
-        <span class="news-date">{{ formatDate(item.date) }}</span>
+        <span class="news-date">Дата: {{ formatDate(item.created_at) }}</span>
       </div>
     </div>
   </div>
@@ -47,43 +48,53 @@ function goToDetails() {
 <style scoped>
 .news-card {
   background-color: var(--card-background-color);
-  border: 1px solid var(--card-border-color);
-  border-radius: 12px;
+  border-left: 6px solid var(--card-border-left); /* Золотая полоса слева */
+  border-radius: 1rem;
   overflow: hidden;
   box-shadow: var(--box-shadow);
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .news-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.2);
 }
 
 .news-image-wrapper {
-  height: 200px;
-  overflow: hidden;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-color);
+  padding: 1rem;
+  transition: all 0.3s ease;
 }
 
-.news-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.news-icon {
+  font-size: 5rem;
+  color: var(--card-color-content); /* Золотой цвет из переменных */
   transition: transform 0.3s ease;
 }
 
-.news-image:hover {
-  transform: scale(1.05);
+.news-card:hover .news-icon {
+  transform: scale(1.1) rotate(5deg);
 }
 
 .news-content {
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .news-category {
   font-size: 0.75rem;
-  color: var(--card-subtext-color);
   text-transform: uppercase;
+  color: var(--card-subtext-color);
   margin-bottom: 0.5rem;
 }
 
@@ -97,23 +108,12 @@ function goToDetails() {
 .news-summary {
   font-size: 0.95rem;
   color: var(--card-subtext-color);
+  flex-grow: 1;
   margin-bottom: 1rem;
 }
 
 .news-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-size: 0.85rem;
   color: var(--card-subtext-color);
-}
-
-.news-icon {
-  color: var(--card-border-color);
-  transition: transform 0.3s ease;
-}
-
-.news-card:hover .news-icon {
-  transform: translateX(4px);
 }
 </style>

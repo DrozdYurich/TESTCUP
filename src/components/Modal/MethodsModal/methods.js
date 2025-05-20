@@ -149,7 +149,7 @@ export default function useModalMethods() {
   function showDialogList() {
     dialog.open(ListModal, {
       props: {
-        header: "Список списков",
+        header: "Описание Мини Игры",
         style: {
           width: "60vw",
           backgroundColor: "var(--background-color)",
