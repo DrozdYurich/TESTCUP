@@ -139,7 +139,9 @@ const rocket = reactive({
   ammo: baseRocket.ammo,
 });
 
-const coins = ref(10);
+const coins = computed(() => {
+  return balance.value;
+});
 const gameRunning = ref(false);
 const gameOver = ref(false);
 const hasPlayed = ref(false);
@@ -264,11 +266,12 @@ function applyRocketStats() {
 }
 
 // Одна кнопка: старт или продолжить
-function handleGameButton() {
+async function handleGameButton() {
   audioBurstRocket.pause();
   audioFuelLost.pause();
   if (MaxDaySpins.value > 0) {
     MaxDaySpins.value--;
+    console.log(MaxDaySpins.value, "vao");
     if (gameRunning.value) return;
     rocket.x = 620;
     rocket.y = 500;
@@ -293,6 +296,7 @@ function handleGameButton() {
     hasPlayed.value = true;
     gameLoop();
     gameCanvas.value.focus();
+    await getBalans();
   } else {
     alert("Монетки закончились, пополните баланс");
   }
@@ -655,6 +659,38 @@ const getCart = async () => {
     rocketStats.lives = response.data.life_upgrade_coef;
     rocketStats.ammo = response.data.ammo_upgrade_coef;
     rocketStats.fuel = response.data.oil_upgrade_coef;
+
+    loading.value = false;
+    return response.data;
+  } catch (error) {
+    loading.value = false;
+    console.error("Error fetching regions:", error);
+    throw error;
+  }
+};
+const balanceStore = useBalansStore();
+const getBalans = async () => {
+  try {
+    loading.value = true;
+    const response = await axios.patch(
+      "http://10.8.0.23:8000/balance/",
+      {
+        action: "out",
+        value_type: "virtual",
+        value: CostSpin.value,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    balanceStore.setbalanse({
+      balance: response.data.new_balance,
+      balance_virtual: response.data.new_virtual_balance,
+    });
+    console.log(response.data);
     loading.value = false;
     return response.data;
   } catch (error) {
