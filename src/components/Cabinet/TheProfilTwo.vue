@@ -17,7 +17,7 @@
       />
       <TheCountLotery
         class="win"
-        title="Вы выйграли"
+        title="Вы выиграли"
         value="32"
         severity="warning"
       />

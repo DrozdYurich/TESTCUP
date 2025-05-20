@@ -188,11 +188,15 @@
             >{{ $field.error?.message }}</Message
           >
         </FormField>
-        <Message v-if="mode != 'registr'" severity="warn" class="text-center">
+        <Message
+          v-if="mode != 'registr'"
+          severity="warn"
+          class="text-center text-[var(var(--border-color))]"
+        >
           Забыли пароль?
           <Button
             variant="text"
-            class="text-[var(--text-color)] p-0 border-0 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:shadow-none"
+            class="text-[var(--border-color)] p-0 border-0 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:shadow-none"
             style="text-decoration: underline; text-underline-offset: 4px"
             @click="showForgotToPasswd"
             >Восстановить пароль</Button
@@ -202,7 +206,7 @@
           {{ mode === "registr" ? "Уже есть аккаунт?" : "Ещё нет аккаунта?" }}
           <RouterLink
             :to="mode === 'registr' ? { name: 'login' } : { name: 'auth' }"
-            class="text-[var(--text-color)] underline hover:text-blue-800"
+            class="text-[var(--border-color)] underline"
             >{{
               mode === "registr" ? "Войти" : "Зарегистрироваться"
             }}</RouterLink

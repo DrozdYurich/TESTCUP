@@ -3,7 +3,7 @@
     class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
   >
     <AppHistory
-      v-for="n in history"
+      v-for="n in history.participants"
       :key="n.id"
       class="w-full"
       :title="n.lottery_title"

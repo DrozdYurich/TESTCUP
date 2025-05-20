@@ -62,7 +62,7 @@
           >
           <InputText
             id="username"
-            v-model="editableUser.nickname"
+            v-model="editableUser.username"
             class="w-full bg-transparent border-b border-gray-500 focus:border-[var(--card-border-color)] text-[var(--text-color)]"
             required
           />
@@ -99,7 +99,6 @@
             }"
           />
         </div>
-
         <!-- Кнопки -->
         <div class="flex justify-between mt-4 gap-24">
           <Button
@@ -134,23 +133,25 @@ const userStore = useUserStore();
 const { showChangePasswd } = useModalMethods();
 const { getUser } = storeToRefs(userStore);
 const user = computed(() => getUser.value);
-
 const editableUser = ref({
   name: "",
   firstname: "",
   patronymic: "",
-  nickname: "",
+  username: "",
   email: "",
   birthdate: null,
 });
+
+const loading = ref();
+
 onMounted(() => {
   if (user.value) {
     editableUser.value = {
-      name: user.value.name || "",
-      firstname: user.value.firstname || "",
-      patronymic: user.value.patronymic || "",
-      username: user.value.nickname || "",
-      birthdate: user.value.birthdate ? new Date(user.value.birthdate) : null,
+      name: user.value.first_name || "",
+      firstname: user.value.last_name || "",
+      patronymic: user.value.father_name || "",
+      username: user.value.username || "",
+      birthdate: user.value.birthday ? new Date(user.value.birthday) : null,
     };
   }
 });
