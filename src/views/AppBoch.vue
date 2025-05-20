@@ -142,8 +142,7 @@ import barrel8 from "@/assets/img/Barrels/barrel8.png";
 import barrel9 from "@/assets/img/Barrels/barrel9.png";
 import barrel10 from "@/assets/img/Barrels/barrel10.png";
 
-const rowCoefficients = [2.75, 2.5, 2.25, 2.0, 1.75, 1.5, 1.25, 1.0, 0.75, 0.5]; // Пример коэффициентов
-// Если нужно, поменяйте значения под вашу механику
+const rowCoefficients = [1000, 500, 150, 75, 30, 15, 8, 4, 1.9, 1.1];
 
 const maxLevels = 10;
 const cellsPerLevel = 5;
@@ -253,9 +252,7 @@ function onCorrectAnimationEnd() {
     index: selectedCell.value.index,
   });
 
-  winnings.value =
-    betAmount.value / 4 +
-    ((maxLevels - currentLevel.value) * betAmount.value) / 4;
+  winnings.value = betAmount.value * rowCoefficients[currentLevel.value];
 
   if (currentLevel.value === 0) {
     message.value = `Поздравляем! Вы выиграли ${winnings.value} рублей!`;
