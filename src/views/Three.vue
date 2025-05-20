@@ -23,7 +23,7 @@ const faq = ref();
 const getFaq = async () => {
   try {
     loading.value = true;
-    const response = await axios.get("http://10.8.0.23:8002/faq/");
+    const response = await axios.get("/info/faq/");
     console.log(response.data);
     faq.value = response.data;
     loading.value = false;

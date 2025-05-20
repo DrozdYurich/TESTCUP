@@ -140,7 +140,7 @@ const getBalans = async () => {
   try {
     loading.value = true;
     const response = await axios.patch(
-      "http://10.8.0.23:8000/balance/",
+      "/auth/balance/",
       {
         action:
           resp.value == 0
@@ -203,10 +203,7 @@ async function sendRegions() {
       animatePlane();
       console.log(Data);
 
-      const response = await axios.post(
-        "http://10.8.0.23:8003/compare/",
-        Data.value
-      );
+      const response = await axios.post("/rock/compare/", Data.value);
       dataCount.value = response.data.generated_numbers;
       resp.value = response.data.result;
       await getBalans();

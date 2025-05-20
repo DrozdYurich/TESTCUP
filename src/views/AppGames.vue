@@ -106,7 +106,7 @@ const goToHead = () => {
 const getGames = async () => {
   try {
     loading.value = true;
-    const response = await axios.get("http://10.8.0.23:8001/lotteries/", {
+    const response = await axios.get("/lott/lotteries/", {
       headers: {
         Authorization: `Bearer ${token.value}`,
         "Content-Type": "application/json",

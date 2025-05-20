@@ -170,7 +170,7 @@ const getrublBy = async () => {
     console.log(selectedPoints.value, "tick");
     loading.value = true;
     const response = await axios.post(
-      "http://10.8.0.23:8001/participants/",
+      "/lott/participants/",
       {
         lottery_id: lotery.value[0].id,
         ticket: selectedPoints.value.join(""),
@@ -200,7 +200,7 @@ const getCoinBy = async () => {
     console.log(lotery.value[0].id, "token");
     loading.value = true;
     const response = await axios.post(
-      "http://10.8.0.23:8001/participants/",
+      "/lott/participants/",
       {
         lottery_id: lotery.value[0].id,
         ticket: selectedPoints.value.join(""),

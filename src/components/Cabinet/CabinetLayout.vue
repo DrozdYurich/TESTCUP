@@ -48,13 +48,11 @@ const getVIP = async () => {
   try {
     console.log("g", vipLevel.value);
     loading.value = true;
-    const response = await axios.get(
-      `http://10.8.0.23:8002/vip/${vipLevel.value.vip_level}/`
-    );
+    const response = await axios.get(`/info/vip/${vipLevel.value.vip_level}/`);
     vipStore.setvip(response.data);
     if (vipLevel.value.vip_level != 3) {
       const response = await axios.get(
-        `http://10.8.0.23:8002/vip/${vipLevel.value.vip_level + 1}/`
+        `/info/vip/${vipLevel.value.vip_level + 1}/`
       );
       vipStore.setvip1(response.data);
       console.log(response.data);

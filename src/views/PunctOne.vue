@@ -152,7 +152,7 @@ const goToHead = () => {
 const getLoters = async () => {
   try {
     loading.value = true;
-    const response = await axios.get("http://10.8.0.23:8001/lotteries/");
+    const response = await axios.get("/lott/lotteries/");
     console.log(response.data);
     loter.value = response.data;
     loteryStore.setLotery(loter.value);

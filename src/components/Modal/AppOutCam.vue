@@ -126,7 +126,7 @@ const getBalansOut = async () => {
   try {
     loading.value = true;
     const response = await axios.patch(
-      "http://10.8.0.23:8000/balance/",
+      "/auth/balance/",
       { action: "out", value_type: "real", value: amount.value },
       {
         headers: {

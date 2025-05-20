@@ -123,7 +123,7 @@ const getLoter = async () => {
   try {
     console.log(token.value, "token");
     loading.value = true;
-    const response = await axios.get("http://10.8.0.23:8001/lotteries/");
+    const response = await axios.get("/lott/lotteries/");
     console.log(response.data);
     lotteries.value = response.data;
     loading.value = false;
@@ -138,7 +138,7 @@ const getLag = async () => {
   try {
     console.log(token.value, "token");
     loading.value = true;
-    const response = await axios.get("http://10.8.0.23:8001/time-lag/");
+    const response = await axios.get("/lott/time-lag/");
     console.log(response.data);
     initialValues.value.slider = response.data.time_lag;
     loading.value = false;
@@ -154,7 +154,7 @@ const onFormSubmit = async (formData) => {
     loadingT.value = true;
 
     if (formData.valid) {
-      const response = await axios.patch("http://10.8.0.23:8001/time-lag/", {
+      const response = await axios.patch("/lott/time-lag/", {
         time_lag: initialValues.value.slider,
       });
       loadingT.value = false;

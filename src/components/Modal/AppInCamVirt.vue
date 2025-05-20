@@ -106,7 +106,7 @@ const getBalans = async () => {
   try {
     loading.value = true;
     const response = await axios.patch(
-      "http://10.8.0.23:8000/balance/",
+      "/auth/balance/",
       { action: "convert", value_type: "real", value: virtualAmount.value },
       {
         headers: {

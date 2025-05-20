@@ -110,7 +110,7 @@ const getCup = async () => {
   try {
     loading.value = true;
     const response = await axios.patch(
-      `http://10.8.0.23:8000/auth/users/me/`,
+      `/auth/auth/users/me/`,
       { vip_level: vip1.value.id },
       {
         headers: {
@@ -138,7 +138,7 @@ const getBalans = async () => {
   try {
     loading.value = true;
     const response = await axios.patch(
-      "http://10.8.0.23:8000/balance/",
+      "/lott/balance/",
       {
         action: "out",
         value_type: "virtual",

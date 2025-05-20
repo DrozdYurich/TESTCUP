@@ -644,15 +644,12 @@ const getCart = async () => {
   try {
     console.log("fdfdf");
     loading.value = true;
-    const response = await axios.patch(
-      `http://10.8.0.23:8003/game_accounts/${id.value}/`,
-      {
-        headers: {
-          Authorization: `Bearer ${token.value}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await axios.patch(`/rock/game_accounts/${id.value}/`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+        "Content-Type": "application/json",
+      },
+    });
     console.log(response.data);
     MaxDaySpins.value = response.data.spins_least;
     CoefSpin.value = response.data.spin_coef;
@@ -673,7 +670,7 @@ const plusBalans = async (as) => {
   try {
     loading.value = true;
     const response = await axios.patch(
-      "http://10.8.0.23:8000/balance/",
+      "/auth/balance/",
       {
         action: "out",
         value_type: "virtual",
@@ -704,7 +701,7 @@ const getBalans = async () => {
   try {
     loading.value = true;
     const response = await axios.patch(
-      "http://10.8.0.23:8000/balance/",
+      "/auth/balance/",
       {
         action: "out",
         value_type: "virtual",
@@ -734,7 +731,7 @@ const setBalansPlus = async () => {
   try {
     loading.value = true;
     const response = await axios.patch(
-      "http://10.8.0.23:8000/balance/",
+      "/auth/balance/",
       {
         action: "in",
         value_type: "virtual",

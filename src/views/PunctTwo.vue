@@ -21,7 +21,7 @@ const news = ref();
 const getFaq = async () => {
   try {
     loading.value = true;
-    const response = await axios.get("http://10.8.0.23:8002/news/");
+    const response = await axios.get("/info/news/");
     console.log(response.data);
     news.value = response.data;
     loading.value = false;

@@ -18,10 +18,7 @@ const user = computed(() => {
 const getWins = async () => {
   try {
     loading.value = true;
-    const response = await axios.get(
-      "http://10.8.0.23:8002/user-achivments/",
-      user.value.id
-    );
+    const response = await axios.get("/info/user-achivments/", user.value.id);
     wins.value = response.data;
     console.log(wins.value);
     loading.value = false;

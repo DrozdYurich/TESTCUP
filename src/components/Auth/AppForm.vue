@@ -331,14 +331,14 @@ const onFormSubmit = async (formData) => {
       };
       if (props.mode === "registr") {
         response.value = await authStore.login(
-          "http://10.8.0.23:8000/auth/users/",
+          "/auth/auth/users/",
           formattedData,
           props.mode
         );
       } else {
         console.log(formattedData);
         response.value = await authStore.login(
-          "http://10.8.0.23:8000/auth/jwt/create/",
+          "/auth/auth/jwt/create/",
           formattedData,
           props.mode
         );
@@ -358,13 +358,10 @@ const onFormSubmit = async (formData) => {
       await nextTick();
       if (props.mode === "registr") {
         if (response) {
-          const token = await axios.post(
-            "http://10.8.0.23:8000/auth/jwt/create/",
-            {
-              username: getUser.value.username,
-              password: initialValues.password,
-            }
-          );
+          const token = await axios.post("/auth/auth/jwt/create/", {
+            username: getUser.value.username,
+            password: initialValues.password,
+          });
           console.log(token);
           authStore.setAccsessToken(token.data.access);
           authStore.setRefreshToken(token.data.refresh);

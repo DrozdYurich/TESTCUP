@@ -77,7 +77,7 @@ const getLot = async () => {
     console.log(token.value, "token");
     loading.value = true;
     const response = await axios.put(
-      `http://10.8.0.23:8001/lotteries/${props.lottery.id}/`,
+      `/lott/lotteries/${props.lottery.id}/`,
       editableLottery.value,
       {
         headers: {

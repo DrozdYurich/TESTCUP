@@ -32,7 +32,7 @@ const gethistory = async () => {
   try {
     console.log(token.value, "token");
     loading.value = true;
-    const response = await axios.get("http://10.8.0.23:8001/participants/", {
+    const response = await axios.get("/lott/participants/", {
       headers: {
         Authorization: `Bearer ${token.value}`,
         "Content-Type": "application/json",

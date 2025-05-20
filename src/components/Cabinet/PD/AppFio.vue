@@ -154,7 +154,7 @@ const saveChanges = async () => {
   console.log("Сохраняем данные:", editableUser.value);
   userStore.updateUser(editableUser.value);
   const response = await axios.patch(
-    "http://10.8.0.23:8000/auth/users/me/",
+    "/auth/auth/users/me/",
     editableUser.value,
     {
       headers: {
